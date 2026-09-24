@@ -129,6 +129,46 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #ccff00;
     }
+
+    /* FORMAT IX responsive polish */
+    html { scroll-padding-top: 84px; }
+    body { min-width: 0; }
+    img, svg, canvas { max-width: 100%; }
+    button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+
+    @media (max-width: 1023px) {
+      #portfolio .portfolio-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      #courses .course-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width: 767px) {
+      header { height: 68px !important; }
+      .hero-section { padding-top: 28px !important; padding-bottom: 42px !important; }
+      .hero-title { font-size: clamp(2.15rem,11vw,3.5rem); line-height: .98; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions > * { width:100%; text-align:center; }
+      .section-pad { padding-top:64px !important; padding-bottom:64px !important; }
+      #portfolio .portfolio-grid,#courses .course-grid { grid-template-columns:1fr; }
+      #portfolio .portfolio-preview { height:210px !important; }
+      #contacts .contact-shell { padding:24px !important; border-radius:22px; }
+      #contacts .contact-form { padding:20px !important; }
+      #interactiveCaseModal { padding:8px !important; }
+      #interactiveCaseModal > div { max-height:96vh; border-radius:18px; }
+      #interactiveCaseBody { padding:16px !important; }
+      #interactiveCaseModal .case-url { max-width:42vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+      .mini-site-grid { grid-template-columns:1fr !important; }
+      input,select,textarea { font-size:16px !important; }
+      .footer-links { flex-wrap:wrap; justify-content:center; }
+    }
+    @media (max-width:420px) {
+      .hero-title { font-size:2.05rem; }
+      .hero-badge { width:100%; line-height:1.35; }
+      .ticker-wrap { animation-duration:20s; }
+      .toast-mobile { left:12px !important; right:12px !important; bottom:12px !important; text-align:center; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; scroll-behavior:auto!important; }
+    }
+
   </style>
 </head>
 <body class="antialiased selection:bg-brandLime selection:text-black">
@@ -199,16 +239,16 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 pb-16">
+  <section class="hero-section relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 pb-16">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
       
       <div class="lg:col-span-8 space-y-6">
-        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-brandLime/40 text-xs font-mono text-brandLime">
+        <div class="hero-badge inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-brandLime/40 text-xs font-mono text-brandLime">
           <span class="w-2 h-2 rounded-full bg-brandLime animate-pulse"></span>
           <span>ПРАКТИЧНИЙ ДИЗАЙН • FIGMA, PHOTOSHOP ТА ILLUSTRATOR</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-heading tracking-tight leading-[1.05] text-white">
+        <h1 class="hero-title text-4xl sm:text-6xl lg:text-7xl font-extrabold font-heading tracking-tight leading-[1.05] text-white">
           НАВЧИСЬ СТВОРЮВАТИ <br>
           <span class="text-brandLime">РЕАЛЬНИЙ ДИЗАЙН,</span><br>
           А НЕ ПУСТІ КАРТИНКИ.
@@ -219,7 +259,7 @@
         </p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-wrap items-center gap-4 pt-2">
+        <div class="hero-actions flex flex-wrap items-center gap-4 pt-2">
           <a href="#courses" class="px-8 py-4 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_#ccff00] transition-all transform hover:-translate-y-0.5">
             ⚡ Переглянути пакети та ціни
           </a>
@@ -287,7 +327,7 @@
   </div>
 
   <!-- SECTION: 4 COURSES WITH "i" BUTTON AND HONEST PRICING -->
-  <section id="courses" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
+  <section id="courses" class="section-pad relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
       <div>
@@ -301,7 +341,7 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="course-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
       <!-- PACKAGE 1: Individual Mentoring -->
       <div class="p-6 rounded-3xl bg-brandSurface border-2 border-brandLime flex flex-col justify-between lime-glow relative group">
@@ -484,7 +524,7 @@
   </section>
 
   <!-- SECTION: PORTFOLIO AS INTERACTIVE "MINI-SITES" -->
-  <section id="portfolio" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
+  <section id="portfolio" class="section-pad relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
       <div>
         <div class="text-xs font-mono text-brandLime uppercase tracking-widest">// ІНТЕРАКТИВНІ КЕЙСИ-ПРОТОТИПИ</div>
@@ -497,10 +537,10 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       
       <!-- Interactive Case 1: KAIRO COFFEE -->
-      <div class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
+      <div class="portfolio-card rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <!-- Visual Header -->
           <div class="h-60 bg-gradient-to-br from-neutral-900 via-stone-900 to-black p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
@@ -534,7 +574,7 @@
       </div>
 
       <!-- Interactive Case 2: AURA PACKAGING -->
-      <div class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
+      <div class="portfolio-card rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <!-- Visual Header -->
           <div class="h-60 bg-gradient-to-br from-[#0e1711] via-neutral-900 to-black p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
@@ -568,7 +608,7 @@
       </div>
 
       <!-- Interactive Case 3: FIGMA DESIGN SYSTEM -->
-      <div class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
+      <div class="portfolio-card rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <!-- Visual Header -->
           <div class="h-60 bg-gradient-to-br from-neutral-800 via-neutral-950 to-black p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
@@ -599,6 +639,38 @@
             <span>↗</span>
           </button>
         </div>
+      </div>
+
+
+      <!-- CASE 04: NOIR FASHION -->
+      <div class="portfolio-card rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="portfolio-preview h-60 bg-[#101010] p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
+            <div class="flex justify-between items-center z-10">
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-white text-black">FASHION / EDITORIAL</span>
+              <span class="text-xs font-mono text-neutral-500">04</span>
+            </div>
+            <div class="z-10"><span class="text-5xl font-heading font-black text-white tracking-[-.08em]">NOIR</span><p class="text-xs text-neutral-500 mt-1">studio collection 26</p></div>
+            <div class="absolute right-[-20px] top-8 w-48 h-48 border border-white/20 rotate-12"></div>
+          </div>
+          <div class="p-6 space-y-3"><h4 class="font-heading font-bold text-white text-base group-hover:text-brandLime">NOIR — fashion studio</h4><p class="text-xs text-neutral-400 leading-relaxed">Темний editorial-сайт з lookbook, великими типографічними блоками та навігацією по колекції.</p></div>
+        </div>
+        <div class="p-6 pt-0"><button onclick="openInteractiveCase('fashion')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase flex items-center justify-center gap-2">Відкрити сайт ↗</button></div>
+      </div>
+
+      <!-- CASE 05: ATLAS ARCHITECTURE -->
+      <div class="portfolio-card rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="portfolio-preview h-60 bg-[#d8d5cd] p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
+            <div class="flex justify-between items-center z-10 text-[#222]">
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-black text-white">ARCHITECTURE / STUDIO</span><span class="text-xs font-mono">05</span>
+            </div>
+            <div class="z-10 text-[#202020]"><span class="text-4xl font-heading font-black">ATLAS</span><p class="text-xs mt-1">architecture / interiors</p></div>
+            <div class="absolute right-5 bottom-[-20px] w-44 h-32 border-l-[26px] border-t-[26px] border-[#85827a]"></div>
+          </div>
+          <div class="p-6 space-y-3"><h4 class="font-heading font-bold text-white text-base group-hover:text-brandLime">ATLAS — architecture studio</h4><p class="text-xs text-neutral-400 leading-relaxed">Мінімалістичний сайт архітектурного бюро з проєктами, фільтрами та сторінкою кейсу.</p></div>
+        </div>
+        <div class="p-6 pt-0"><button onclick="openInteractiveCase('architecture')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase flex items-center justify-center gap-2">Відкрити сайт ↗</button></div>
       </div>
 
     </div>
@@ -921,14 +993,14 @@
     <div class="bg-brandDark border border-brandLime/60 rounded-2xl sm:rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl lime-glow">
       
       <!-- OS/Browser Topbar -->
-      <div class="h-12 bg-brandSurface border-b border-brandBorder px-4 flex items-center justify-between shrink-0">
+      <div class="case-topbar h-12 bg-brandSurface border-b border-brandBorder px-4 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer" onclick="closeInteractiveCase()"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
           <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
         </div>
 
-        <div class="px-4 py-1 rounded-lg bg-black/60 border border-white/10 text-[11px] font-mono text-neutral-400 flex items-center gap-2">
+        <div class="case-url px-4 py-1 rounded-lg bg-black/60 border border-white/10 text-[11px] font-mono text-neutral-400 flex items-center gap-2">
           <span class="text-brandLime font-bold">🔒 https://</span>
           <span id="caseBrowserUrl" class="text-white">kairo-coffee.format-ix.local</span>
         </div>
@@ -947,7 +1019,7 @@
   </div>
 
   <!-- Toast Notification -->
-  <div id="toastMessage" class="fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs shadow-2xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3">
+  <div id="toastMessage" class="toast-mobile fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs shadow-2xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3">
     Повідомлення
   </div>
 
@@ -1245,6 +1317,44 @@
             </div>
           </div>
         `;
+
+      } else if (type === 'fashion') {
+        urlBar.innerText = 'noir-studio.collection';
+        body.innerHTML = `
+          <div class="max-w-5xl mx-auto space-y-6">
+            <div class="rounded-3xl bg-[#0e0e0e] text-white overflow-hidden">
+              <nav class="p-6 flex justify-between items-center border-b border-white/10"><b class="text-xl">NOIR/26</b><span class="hidden sm:block text-xs text-neutral-500">LOOKBOOK / SHOP / STUDIO</span><button class="text-xs border border-white/20 rounded-full px-4 py-2">MENU</button></nav>
+              <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="min-h-[480px] bg-[#191919] p-8 sm:p-12 flex flex-col justify-between">
+                  <span class="text-[10px] font-mono text-neutral-500">COLLECTION 06 / 26</span>
+                  <div><h1 class="text-6xl sm:text-8xl font-heading font-black tracking-[-.08em]">FORM<br>FOLLOWS<br>FEELING.</h1><button class="mt-8 px-5 py-3 bg-white text-black text-xs font-bold">VIEW LOOKBOOK →</button></div>
+                </div>
+                <div class="min-h-[480px] grid grid-cols-2 gap-1 bg-black">
+                  <div class="bg-[#343434] flex items-end p-5 text-xs">LOOK 01</div><div class="bg-[#202020] flex items-end p-5 text-xs">LOOK 02</div>
+                  <div class="bg-[#262626] flex items-end p-5 text-xs">LOOK 03</div><div class="bg-[#3c3c3c] flex items-end p-5 text-xs">LOOK 04</div>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-brandSurface border border-white/10 text-xs text-neutral-400">Студентський кейс: art direction, editorial typography, lookbook та mobile-first композиція.</div>
+          </div>`;
+      } else if (type === 'architecture') {
+        urlBar.innerText = 'atlas-architecture.studio';
+        body.innerHTML = `
+          <div class="max-w-5xl mx-auto space-y-6">
+            <div class="rounded-3xl bg-[#ddd9cf] text-[#1f1f1d] overflow-hidden">
+              <nav class="p-6 flex justify-between items-center border-b border-black/10"><b class="text-xl">ATLAS/</b><span class="hidden sm:block text-xs">PROJECTS / STUDIO / CONTACT</span><span class="text-xs">LVIV — 2026</span></nav>
+              <div class="p-6 sm:p-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-end"><div><span class="text-[10px] font-mono">ARCHITECTURE + INTERIORS</span><h1 class="text-5xl sm:text-7xl font-heading font-black tracking-[-.06em] mt-3">Spaces<br>with<br>purpose.</h1></div><p class="text-sm max-w-sm">ATLAS creates restrained residential and hospitality spaces where material, light and proportion do the talking.</p></div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-12"><div class="h-44 bg-[#b2aea5] p-4 flex items-end text-xs">HOUSE 01</div><div class="h-44 bg-[#8d8a82] p-4 flex items-end text-xs">LOFT 02</div><div class="h-44 bg-[#c3beb3] p-4 flex items-end text-xs">HOTEL 03</div></div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button onclick="showToast('Фільтр: Residential')" class="p-4 rounded-xl bg-brandSurface border border-white/10 text-xs text-white">RESIDENTIAL</button>
+              <button onclick="showToast('Фільтр: Hospitality')" class="p-4 rounded-xl bg-brandSurface border border-white/10 text-xs text-white">HOSPITALITY</button>
+              <button onclick="showToast('Фільтр: Interior')" class="p-4 rounded-xl bg-brandSurface border border-white/10 text-xs text-white">INTERIOR</button>
+              <button onclick="showToast('Фільтр: All projects')" class="p-4 rounded-xl bg-brandSurface border border-white/10 text-xs text-white">ALL PROJECTS</button>
+            </div>
+          </div>`;
       } else if (type === 'ui') {
         urlBar.innerText = 'vortex-ui.figma-components.live';
         body.innerHTML = `
@@ -1298,12 +1408,14 @@
       }
 
       modal.classList.remove('opacity-0', 'pointer-events-none');
+      document.body.classList.add('overflow-hidden');
       setupCursorInteractions();
     }
 
     function closeInteractiveCase() {
       const modal = document.getElementById('interactiveCaseModal');
       modal.classList.add('opacity-0', 'pointer-events-none');
+      document.body.classList.remove('overflow-hidden');
     }
 
     /* Helper functions for mini-sites */
