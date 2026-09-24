@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FORMAT IX — Школа Графічного Дизайну</title>
+  <title>FORMAT IX — Авторське навчання графічного дизайну</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +11,7 @@
   <!-- Fonts: Space Grotesk & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -20,14 +20,19 @@
         extend: {
           colors: {
             brandLime: '#ccff00',
-            brandDark: '#080808',
-            brandSurface: '#111114',
-            brandCard: '#16161a',
+            brandDark: '#08080a',
+            brandSurface: '#121216',
+            brandCard: '#17171d',
             brandBorder: 'rgba(255, 255, 255, 0.08)'
           },
           fontFamily: {
             heading: ['"Space Grotesk"', 'sans-serif'],
-            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          screens: {
+            'laptop': '1280px',
+            'desktop': '1536px'
           }
         }
       }
@@ -36,74 +41,90 @@
 
   <style>
     body {
-      background-color: #080808;
-      color: #ededed;
+      background-color: #08080a;
+      color: #eaeaea;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
     }
 
-    /* Custom Designer Cursor (desktop only) */
+    /* Precision Designer Cursor */
     @media (pointer: fine) {
-      body, a, button, select, input {
+      body, a, button, select, input, textarea {
         cursor: none !important;
       }
-      #cursor-dot, #cursor-ring {
+      #designer-cursor {
         display: block;
       }
     }
     @media (pointer: coarse) {
-      #cursor-dot, #cursor-ring {
+      #designer-cursor {
         display: none !important;
       }
     }
 
-    #cursor-dot {
+    #designer-cursor {
       position: fixed;
       top: 0;
       left: 0;
-      width: 8px;
-      height: 8px;
-      background-color: #ccff00;
-      border-radius: 50%;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 99999;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 12px #ccff00;
-      transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
+      transition: opacity 0.2s ease;
     }
 
-    #cursor-ring {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 36px;
-      height: 36px;
-      border: 1.5px solid rgba(204, 255, 0, 0.6);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
+    .cursor-cross-h, .cursor-cross-v {
+      position: absolute;
+      background-color: rgba(204, 255, 0, 0.45);
+      transition: all 0.2s ease-out;
+    }
+    .cursor-cross-h {
+      width: 22px;
+      height: 1px;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      transition: width 0.25s ease-out, height 0.25s ease-out, border-color 0.25s ease-out, background-color 0.25s ease-out;
+    }
+    .cursor-cross-v {
+      width: 1px;
+      height: 22px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-point {
+      width: 5px;
+      height: 5px;
+      background: #ccff00;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ccff00;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
     }
 
-    #cursor-ring.cursor-hover {
-      width: 60px;
-      height: 60px;
-      border-color: #ccff00;
-      background-color: rgba(204, 255, 0, 0.12);
-      backdrop-filter: invert(15%);
+    #designer-cursor.hovering .cursor-point {
+      transform: translate(-50%, -50%) scale(2.8);
+      background-color: #ffffff;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
+    }
+    #designer-cursor.hovering .cursor-cross-h {
+      width: 38px;
+      background-color: rgba(204, 255, 0, 0.9);
+    }
+    #designer-cursor.hovering .cursor-cross-v {
+      height: 38px;
+      background-color: rgba(204, 255, 0, 0.9);
     }
 
     .lime-glow {
-      box-shadow: 0 0 35px -5px rgba(204, 255, 0, 0.35);
-    }
-    .text-lime-glow {
-      text-shadow: 0 0 15px rgba(204, 255, 0, 0.45);
+      box-shadow: 0 0 40px -10px rgba(204, 255, 0, 0.25);
     }
     .glass-nav {
-      background: rgba(8, 8, 8, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(8, 8, 10, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
     @keyframes ticker {
@@ -113,20 +134,20 @@
     .ticker-wrap {
       display: flex;
       width: max-content;
-      animation: ticker 25s linear infinite;
+      animation: ticker 28s linear infinite;
     }
     .ticker-wrap:hover {
       animation-play-state: paused;
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 7px;
     }
     ::-webkit-scrollbar-track {
-      background: #080808;
+      background: #08080a;
     }
     ::-webkit-scrollbar-thumb {
-      background: #2a2a30;
+      background: #25252c;
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
@@ -136,58 +157,51 @@
 </head>
 <body class="antialiased selection:bg-brandLime selection:text-black">
 
-  <!-- Interactive Custom Cursor Elements -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
+  <!-- Designer Crosshair Cursor Element -->
+  <div id="designer-cursor">
+    <div class="cursor-cross-h"></div>
+    <div class="cursor-cross-v"></div>
+    <div class="cursor-point"></div>
+  </div>
 
-  <!-- Interactive Ambient Canvas Background -->
+  <!-- Interactive Subtle Ambient Canvas -->
   <canvas id="ambientCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
 
   <!-- Sticky Main Navigation -->
   <header class="sticky top-0 z-40 w-full glass-nav border-b border-brandBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-1 group">
-        <span class="font-heading font-black text-2xl sm:text-3xl tracking-tight text-white transition-colors group-hover:text-neutral-200">
+      <a href="#" class="flex items-center gap-1.5 group">
+        <span class="font-heading font-extrabold text-2xl sm:text-3xl tracking-tight text-white group-hover:text-neutral-200 transition-colors">
           format
         </span>
-        <span class="font-heading font-black text-2xl sm:text-3xl text-brandLime text-lime-glow transform group-hover:scale-110 transition-transform">
+        <span class="font-heading font-extrabold text-2xl sm:text-3xl text-brandLime transition-transform group-hover:scale-105">
           ix
         </span>
         <span class="hidden md:inline-block ml-3 px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-white/5 border border-white/10 text-neutral-400">
-          DESIGN SCHOOL
+          DESIGN MENTORSHIP
         </span>
       </a>
 
       <!-- Desktop Navigation Links -->
       <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-neutral-300">
-        <a href="#about" class="hover:text-brandLime transition-colors" data-i18n="nav_about">Про нас</a>
-        <a href="#matcher" class="hover:text-brandLime transition-colors" data-i18n="nav_matcher">Тест курсу</a>
-        <a href="#courses" class="hover:text-brandLime transition-colors" data-i18n="nav_courses">Курси та Ціни</a>
-        <a href="#reviews" class="hover:text-brandLime transition-colors" data-i18n="nav_reviews">Відгуки</a>
-        <a href="#contacts" class="hover:text-brandLime transition-colors" data-i18n="nav_contacts">Контакти</a>
+        <a href="#about" class="hover:text-brandLime transition-colors">Про підхід</a>
+        <a href="#courses" class="hover:text-brandLime transition-colors">Формати & Ціни</a>
+        <a href="#portfolio" class="hover:text-brandLime transition-colors">Кейси & Роботи</a>
+        <a href="#reviews" class="hover:text-brandLime transition-colors">Відгуки</a>
+        <a href="#contacts" class="hover:text-brandLime transition-colors">Запис на курс</a>
       </nav>
 
-      <!-- Action Area: Language Switcher + Direct Call + Mobile Hamburger -->
-      <div class="flex items-center gap-3 sm:gap-4">
-        
-        <!-- Language Switcher Dropdown -->
-        <div class="relative">
-          <select id="langSwitcher" onchange="changeLanguage(this.value)" class="appearance-none bg-brandSurface text-white text-xs font-semibold px-3 py-2 pr-7 rounded-xl border border-white/15 focus:border-brandLime focus:outline-none hover:border-white/30 transition-colors">
-            <option value="uk" selected>🇺🇦 UA</option>
-            <option value="en">🇬🇧 EN</option>
-            <option value="de">🇩🇪 DE</option>
-            <option value="fr">🇫🇷 FR</option>
-            <option value="ja">🇯🇵 日本語</option>
-          </select>
-          <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center text-neutral-400">
-            <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
-          </div>
+      <!-- Action Area: Software tags + Phone -->
+      <div class="flex items-center gap-4">
+        <div class="hidden xl:flex items-center gap-2 text-[11px] font-mono text-neutral-400">
+          <span class="px-2 py-1 rounded bg-white/5 border border-white/10">Figma</span>
+          <span class="px-2 py-1 rounded bg-white/5 border border-white/10">Illustrator</span>
+          <span class="px-2 py-1 rounded bg-white/5 border border-white/10">Photoshop</span>
         </div>
 
-        <!-- Phone Button -->
-        <a href="tel:+380676665823" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brandLime text-black font-heading font-bold text-xs uppercase tracking-wide hover:bg-white hover:shadow-[0_0_20px_#ccff00] transition-all">
+        <a href="tel:+380676665823" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brandLime text-black font-heading font-bold text-xs uppercase tracking-wide hover:bg-white hover:shadow-[0_0_20px_#ccff00] transition-all">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.02l-2.23 2.09z"/></svg>
           <span>+380 (67) 666-58-23</span>
         </a>
@@ -203,12 +217,12 @@
     </div>
 
     <!-- Mobile Dropdown Navigation -->
-    <div id="mobileMenu" class="hidden lg:hidden bg-brandDark/95 border-b border-brandBorder px-6 py-6 space-y-4">
-      <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime" data-i18n="nav_about">Про нас</a>
-      <a href="#matcher" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime" data-i18n="nav_matcher">Тест курсу</a>
-      <a href="#courses" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime" data-i18n="nav_courses">Курси та Ціни</a>
-      <a href="#reviews" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime" data-i18n="nav_reviews">Відгуки</a>
-      <a href="#contacts" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime" data-i18n="nav_contacts">Контакти</a>
+    <div id="mobileMenu" class="hidden lg:hidden bg-brandDark/98 border-b border-brandBorder px-6 py-6 space-y-4">
+      <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Про підхід</a>
+      <a href="#courses" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Формати & Ціни</a>
+      <a href="#portfolio" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Кейси & Роботи</a>
+      <a href="#reviews" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Відгуки</a>
+      <a href="#contacts" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Запис на курс</a>
       <div class="pt-4 border-t border-brandBorder">
         <a href="tel:+380676665823" class="w-full py-3 rounded-xl bg-brandLime text-black font-heading font-bold text-xs uppercase flex items-center justify-center gap-2">
           📞 +380 (67) 666-58-23
@@ -218,43 +232,44 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
       
       <div class="lg:col-span-8 space-y-6">
         <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-brandLime/40 text-xs font-mono text-brandLime">
           <span class="w-2 h-2 rounded-full bg-brandLime animate-pulse"></span>
-          <span data-i18n="hero_badge">НАБІР ВІДКРИТО • СТАРТ НАСТУПНОГО ПОТОКУ</span>
+          <span>ПРАКТИЧНЕ НАВЧАННЯ • СУТО FIGMA, ILLUSTRATOR & PHOTOSHOP</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black font-heading tracking-tight leading-[1.05] text-white">
-          <span data-i18n="hero_title_1">СТВОРЮЙ ДИЗАЙН,</span><br>
-          <span class="text-brandLime text-lime-glow" data-i18n="hero_title_2">ЯКИЙ КУПУЄ СВІТ.</span>
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-heading tracking-tight leading-[1.06] text-white">
+          НАВЧИСЬ СТВОРЮВАТИ <br>
+          <span class="text-brandLime">РЕАЛЬНИЙ ДИЗАЙН,</span><br>
+          А НЕ ШАБЛОНИ.
         </h1>
 
-        <p class="text-neutral-300 text-base sm:text-lg max-w-2xl leading-relaxed" data-i18n="hero_desc">
-          Школа графічного дизайну <strong>format ix</strong> — це практичні навички від топових практиків. Працюємо по всій Україні онлайн та виводимо студентів на міжнародний рівень (Dribbble, Behance, контракти в ЄС та США).
+        <p class="text-neutral-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+          Індивідуальні та групові заняття графічного дизайну від практикуючого дизайнера. Тільки три фундаментальні інструменти індустрії — <strong>Figma, Adobe Illustrator та Adobe Photoshop</strong>. Без абстрактної теорії: будуємо міцну базу, швейцарські сітки, брендбуки та реальні кейси для працевлаштування або фрілансу.
         </p>
 
         <!-- CTA Buttons -->
         <div class="flex flex-wrap items-center gap-4 pt-2">
-          <a href="#matcher" class="px-7 py-3.5 rounded-2xl bg-brandLime text-black font-heading font-black text-sm uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_#ccff00] transition-all transform hover:-translate-y-0.5" data-i18n="hero_cta_quiz">
-            🎯 Підібрати курс за 1 хвилину
+          <a href="#courses" class="px-8 py-4 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_#ccff00] transition-all transform hover:-translate-y-0.5">
+            ⚡ Обрати формат навчання
           </a>
-          <a href="#courses" class="px-7 py-3.5 rounded-2xl bg-brandSurface border border-white/15 text-white font-heading font-bold text-sm uppercase tracking-wider hover:border-brandLime transition-all" data-i18n="hero_cta_prices">
-            Дивитись пакети та ціни
-          </a>
+          <button onclick="enrollFreeIntro()" class="px-8 py-4 rounded-2xl bg-brandSurface border border-white/15 text-white font-heading font-bold text-xs uppercase tracking-wider hover:border-brandLime transition-all">
+            🎁 1-ше заняття безкоштовно
+          </button>
         </div>
 
-        <!-- Phone & Quick Info Highlight -->
+        <!-- Phone & Quick Info -->
         <div class="pt-6 border-t border-brandBorder flex flex-wrap items-center gap-6 text-xs text-neutral-400">
           <div class="flex items-center gap-2">
             <span class="text-brandLime font-bold">●</span>
-            <span data-i18n="hero_geo">Працюємо по всій Україні & Worldwide Online</span>
+            <span>Формат: Онлайн (Google Meet / Discord) з персональним розбором</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-brandLime font-bold">●</span>
-            <span>Тел: <a href="tel:+380676665823" class="text-white hover:text-brandLime font-mono font-bold underline ml-1">+380 (67) 666-58-23</a></span>
+            <span>Прямий контакт: <a href="tel:+380676665823" class="text-white hover:text-brandLime font-mono font-bold underline ml-1">+380 (67) 666-58-23</a></span>
           </div>
         </div>
       </div>
@@ -263,346 +278,250 @@
       <div class="lg:col-span-4">
         <div class="p-8 rounded-3xl bg-brandSurface border border-white/10 space-y-6 lime-glow">
           <div class="flex items-center justify-between border-b border-brandBorder pb-4">
-            <span class="text-xs font-mono text-neutral-400 uppercase tracking-wider" data-i18n="stat_badge">FORMAT IX МЕТРИКИ</span>
+            <span class="text-xs font-mono text-neutral-400 uppercase tracking-wider">ПРОГРАМА НАВЧАННЯ</span>
             <span class="w-2.5 h-2.5 rounded-full bg-brandLime"></span>
           </div>
 
           <div class="space-y-4">
-            <div>
-              <div class="text-3xl sm:text-4xl font-black font-heading text-white">1 420+</div>
-              <div class="text-xs text-neutral-400 mt-1" data-i18n="stat_1">Випускників з успішними кейсами</div>
+            <div class="p-4 rounded-2xl bg-black/50 border border-white/5">
+              <div class="text-xs font-mono text-brandLime uppercase font-bold">Індивідуальний менторинг</div>
+              <div class="text-2xl font-heading font-extrabold text-white mt-1">1-ше Безкоштовно</div>
+              <div class="text-xs text-neutral-400 mt-0.5">Далі лише 300 ₴ за 1.5 години практики</div>
             </div>
-            <div>
-              <div class="text-3xl sm:text-4xl font-black font-heading text-brandLime">94%</div>
-              <div class="text-xs text-neutral-400 mt-1" data-i18n="stat_2">Знаходять перших клієнтів ще під час курсу</div>
+
+            <div class="p-4 rounded-2xl bg-black/50 border border-white/5">
+              <div class="text-xs font-mono text-neutral-400 uppercase">Групові програми</div>
+              <div class="text-xl font-heading font-extrabold text-white mt-1">2 або 4 місяці</div>
+              <div class="text-xs text-neutral-400 mt-0.5">2 рази на тиждень по 1.5 год з повним супроводом</div>
             </div>
-            <div>
-              <div class="text-3xl sm:text-4xl font-black font-heading text-white">18</div>
-              <div class="text-xs text-neutral-400 mt-1" data-i18n="stat_3">Нагород Behance & Awwwards у кураторів</div>
+
+            <div class="flex items-center justify-between text-xs font-mono text-neutral-400 pt-2 border-t border-brandBorder">
+              <span>Софт:</span>
+              <span class="text-white font-bold">Figma • Ai • Ps</span>
             </div>
           </div>
 
-          <button onclick="requestQuickConsult()" class="w-full py-3 rounded-xl bg-white/5 border border-white/10 hover:border-brandLime text-white text-xs font-heading font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
-            <svg class="w-3.5 h-3.5 text-brandLime fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.02l-2.23 2.09z"/></svg>
-            <span data-i18n="btn_quick_consult">Швидка консультація</span>
-          </button>
+          <a href="#contacts" class="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-brandLime text-white text-xs font-heading font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+            Записатися на ввідний урок →
+          </a>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Infinite Running Ticker -->
-  <div class="w-full bg-brandLime text-black py-3 overflow-hidden font-heading font-black text-sm uppercase tracking-wider">
+  <!-- Running Ticker -->
+  <div class="w-full bg-brandLime text-black py-3.5 overflow-hidden font-heading font-black text-xs sm:text-sm uppercase tracking-wider">
     <div class="ticker-wrap flex gap-8 whitespace-nowrap">
-      <span>✦ ШВЕЙЦАРСЬКА ТИПОГРАФІКА</span>
-      <span>★ БРЕНДИНГ ТА АЙДЕНТИКА</span>
-      <span>✦ 3D MOTION & BLENDER</span>
-      <span>★ ГЕНЕРАТИВНИЙ AI ДИЗАЙН</span>
-      <span>✦ ПРАЦЮЄМО ПО ВСІЙ УКРАЇНІ</span>
-      <span>★ ТЕЛ: +380 (67) 666-58-23</span>
-      <span>✦ КЕЙСИ ДЛЯ BEHANCE ТА DRIBBBLE</span>
+      <span>✦ ADOBE PHOTOSHOP</span>
+      <span>★ ADOBE ILLUSTRATOR</span>
+      <span>✦ FIGMA UI & AUTO-LAYOUTS</span>
       <span>★ ШВЕЙЦАРСЬКА ТИПОГРАФІКА</span>
-      <span>✦ БРЕНДИНГ ТА АЙДЕНТИКА</span>
+      <span>✦ 1-ШЕ ЗАНЯТТЯ БЕЗКОШТОВНО</span>
+      <span>★ ТЕЛ: +380 (67) 666-58-23</span>
+      <span>✦ РОЗРОБКА БРЕНДБУКІВ ТА ЛОГОТИПІВ</span>
+      <span>★ ПІДГОТОВКА ДО ДРУКУ ТА DIGITAL</span>
     </div>
   </div>
 
-  <!-- SECTION: 3-QUESTION INTERACTIVE COURSE MATCHER (QUIZ) -->
-  <section id="matcher" class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-24">
-    <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandLime/10 border border-brandLime/30 text-xs font-mono text-brandLime">
-        <span class="w-2 h-2 rounded-full bg-brandLime"></span>
-        <span data-i18n="quiz_badge">РОЗУМНИЙ ПІДБІР КУРСУ</span>
-      </div>
-      <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white" data-i18n="quiz_title">
-        ЯКИЙ КУРС <span class="text-brandLime">САМЕ ДЛЯ ТЕБЕ?</span>
-      </h2>
-      <p class="text-neutral-400 text-sm" data-i18n="quiz_subtitle">
-        Дай відповідь лише на 3 запитання — алгоритм проаналізує твій рівень та цілі й видасть ідеальний пакет навчання.
-      </p>
-    </div>
-
-    <!-- Quiz Card -->
-    <div class="bg-brandSurface border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-      
-      <!-- Progress Bar -->
-      <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden mb-8">
-        <div id="quizProgress" class="bg-brandLime h-full transition-all duration-300" style="width: 33.3%;"></div>
-      </div>
-
-      <!-- Question 1 -->
-      <div id="quizStep1" class="quiz-step space-y-6">
-        <div class="text-xs font-mono text-brandLime uppercase" data-i18n="q1_num">КРОК 1 З 3 • ДОСВІД</div>
-        <h3 class="text-xl sm:text-2xl font-bold font-heading text-white" data-i18n="q1_title">Який твій поточний рівень у графічному дизайні?</h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <button type="button" onclick="selectQuizAnswer(1, 'beginner')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">🌱</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q1_opt1_title">Повний новачок</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q1_opt1_desc">Ніколи не відкривав Photoshop/Figma або знаю базові кнопки</div>
-          </button>
-
-          <button type="button" onclick="selectQuizAnswer(1, 'mid')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">⚡</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q1_opt2_title">Є базовий досвід</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q1_opt2_desc">Впевнено працюю у Figma, роблю банери, хочу системний брендинг</div>
-          </button>
-
-          <button type="button" onclick="selectQuizAnswer(1, 'pro')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">🚀</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q1_opt3_title">Працюючий дизайнер</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q1_opt3_desc">Маю замовлення, але хочу 3D, моушн або рівень Арт-директора з чеком $2k+</div>
-          </button>
-        </div>
-      </div>
-
-      <!-- Question 2 -->
-      <div id="quizStep2" class="quiz-step hidden space-y-6">
-        <div class="text-xs font-mono text-brandLime uppercase" data-i18n="q2_num">КРОК 2 З 3 • ГОЛОВНА МЕТА</div>
-        <h3 class="text-xl sm:text-2xl font-bold font-heading text-white" data-i18n="q2_title">Яка твоя головна мета найближчим часом?</h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <button type="button" onclick="selectQuizAnswer(2, 'freelance')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">💼</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q2_opt1_title">Перші фріланс-клієнти</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q2_opt1_desc">Швидко навчитись основам та закрити перші платні замовлення</div>
-          </button>
-
-          <button type="button" onclick="selectQuizAnswer(2, 'identity')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">🎯</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q2_opt2_title">Повноцінний бренд-бук</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q2_opt2_desc">Створювати логотипи, фірмові стилі та сильні кейси на Behance</div>
-          </button>
-
-          <button type="button" onclick="selectQuizAnswer(2, '3d_lead')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">🔥</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q2_opt3_title">3D, Motion або AI Арт-дирекшн</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q2_opt3_desc">Виділитися на ринку складними візуалами та керувати концепціями</div>
-          </button>
-        </div>
-      </div>
-
-      <!-- Question 3 -->
-      <div id="quizStep3" class="quiz-step hidden space-y-6">
-        <div class="text-xs font-mono text-brandLime uppercase" data-i18n="q3_num">КРОК 3 З 3 • ЧАС</div>
-        <h3 class="text-xl sm:text-2xl font-bold font-heading text-white" data-i18n="q3_title">Скільки годин на тиждень готовий виділяти?</h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <button type="button" onclick="selectQuizAnswer(3, 'light')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">⏱️</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q3_opt1_title">4 – 6 годин на тиждень</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q3_opt1_desc">Поєднуючи з основною роботою чи навчанням у спокійному темпі</div>
-          </button>
-
-          <button type="button" onclick="selectQuizAnswer(3, 'standard')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">⚡</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q3_opt2_title">8 – 12 годин на тиждень</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q3_opt2_desc">Оптимальний темп: уроки, практичні ДЗ та щотижневі фідбеки</div>
-          </button>
-
-          <button type="button" onclick="selectQuizAnswer(3, 'intensive')" class="p-5 rounded-2xl bg-brandCard border border-white/10 hover:border-brandLime hover:scale-[1.02] text-left transition-all group">
-            <div class="text-2xl mb-2">💥</div>
-            <div class="font-bold text-white group-hover:text-brandLime" data-i18n="q3_opt3_title">15+ годин (Full Immersion)</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="q3_opt3_desc">Максимальне занурення заради швидкого квантового стрибка</div>
-          </button>
-        </div>
-      </div>
-
-      <!-- Quiz Result Container -->
-      <div id="quizResult" class="hidden space-y-6 pt-4 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandLime/20 text-brandLime font-mono text-xs">
-          ✓ АНАЛІЗ ЗАВЕРШЕНО
-        </div>
-        <h3 class="text-2xl sm:text-3xl font-black font-heading text-white">
-          <span data-i18n="res_prefix">ТВІЙ ІДЕАЛЬНИЙ КУРС:</span> <span id="matchedCourseTitle" class="text-brandLime">PRO BRANDING & IDENTITY</span>
-        </h3>
-        <p id="matchedCourseDesc" class="text-neutral-300 text-sm max-w-xl mx-auto leading-relaxed">
-          Цей пакет найкраще підходить під твій досвід та цілі. Ти отримаєш системне портфоліо та навчишся створювати дорогі дизайн-системи.
-        </p>
-
-        <div class="flex flex-wrap justify-center items-center gap-4 pt-4">
-          <button id="matchedCourseBtn" onclick="scrollToPackage()" class="px-8 py-3.5 rounded-xl bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_20px_#ccff00]" data-i18n="res_btn_enroll">
-            Переглянути цей пакет та записатись
-          </button>
-          <button onclick="resetQuiz()" class="px-5 py-3.5 rounded-xl bg-brandCard border border-white/10 text-neutral-400 hover:text-white text-xs font-mono transition-all" data-i18n="res_btn_again">
-            ↺ Пройти знову
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION: 4 DISTINCT COURSE PACKAGES WITH INFO POPOVER "i" -->
-  <section id="courses" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-24 border-t border-brandBorder">
+  <!-- SECTION: 4 COURSES & PACKAGES -->
+  <section id="courses" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
       <div>
-        <div class="text-xs font-mono text-brandLime uppercase tracking-widest" data-i18n="packages_badge">// НАВЧАЛЬНІ ПРОГРАМИ 2026-2027</div>
-        <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white mt-1" data-i18n="packages_title">
-          4 ПАКЕТИ КУРСІВ <span class="text-brandLime">FORMAT IX</span>
+        <div class="text-xs font-mono text-brandLime uppercase tracking-widest">// НАВЧАЛЬНІ ПАКЕТИ ТА ТАРИФИ</div>
+        <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white mt-1">
+          ФОРМАТИ НАВЧАННЯ <span class="text-brandLime">FORMAT IX</span>
         </h2>
       </div>
-      <p class="text-neutral-400 text-xs sm:text-sm max-w-md" data-i18n="packages_hint">
-        Натисніть на значок <strong class="text-brandLime border border-brandLime px-1.5 py-0.5 rounded text-xs">i</strong> на будь-якій картці, щоб побачити повну програму, модулі та інструменти.
+      <p class="text-neutral-400 text-xs sm:text-sm max-w-md">
+        Натискайте на будь-яку картку або кнопку, щоб одразу забронювати місце чи відкрити детальну структуру курсу.
       </p>
     </div>
 
     <!-- 4 Packages Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-      <!-- PACKAGE 1: START BASIC -->
-      <div id="pkg-card-start" class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group relative">
+      <!-- PACKAGE 1: 1-on-1 Mentoring -->
+      <div class="p-7 rounded-3xl bg-brandSurface border-2 border-brandLime flex flex-col justify-between lime-glow relative group">
+        <div class="absolute -top-3 left-6 px-3 py-0.5 rounded-full bg-brandLime text-black font-heading font-black text-[10px] uppercase tracking-wider">
+          ★ МАКСИМАЛЬНИЙ РЕЗУЛЬТАТ
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-4 mt-2">
+            <span class="text-[11px] font-mono text-brandLime font-bold">ПАКЕТ // 01</span>
+            <span class="px-2 py-0.5 rounded bg-brandLime/10 text-brandLime text-[10px] font-mono">1-on-1</span>
+          </div>
+
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
+            Індивідуальний менторинг
+          </h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-5 leading-relaxed">
+            Персональні заняття під ваш індивідуальний запит, поточні навички та бажану швидкість навчання.
+          </p>
+
+          <div class="space-y-2.5 py-4 border-y border-brandBorder text-xs text-neutral-300">
+            <div class="flex items-center gap-2">
+              <span class="text-brandLime font-bold">✓</span> <span><strong>1-ше ввідне заняття — 0 ₴ (Free)</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-brandLime font-bold">✓</span> <span>Далі: <strong>300 ₴ за 1.5 години</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-brandLime font-bold">✓</span> <span>Розбір ваших реальних проєктів</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-brandLime font-bold">✓</span> <span>Figma, Illustrator або Photoshop</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-brandLime font-bold">✓</span> <span>Гнучкий графік уроків</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-6">
+          <div class="text-[11px] font-mono text-neutral-400 mb-1">ВАРТІСТЬ:</div>
+          <div class="text-3xl font-heading font-extrabold text-brandLime mb-4">
+            0 ₴ <span class="text-sm font-normal text-neutral-400">/ далі 300 ₴</span>
+          </div>
+          <button onclick="enrollInPackage('Індивідуальний менторинг (1-ше безкоштовно, далі 300 ₴ / 1.5 год)')" class="w-full py-3.5 rounded-xl bg-brandLime hover:bg-white text-black font-heading font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_#ccff00]">
+            Записатися на ввідний урок
+          </button>
+        </div>
+      </div>
+
+      <!-- PACKAGE 2: Group 4 Months -->
+      <div class="p-7 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <div class="flex justify-between items-center mb-4">
-            <span class="text-[11px] font-mono text-neutral-400">ПАКЕТ // 01</span>
-            <button onclick="openCourseInfo('start')" title="Детальна інформація про курс" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">
-              i
-            </button>
+            <span class="text-[11px] font-mono text-neutral-400">ПАКЕТ // 02</span>
+            <span class="px-2 py-0.5 rounded bg-white/5 text-neutral-300 text-[10px] font-mono">Група 4-6 осіб</span>
           </div>
 
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors" data-i18n="pkg1_title">START BASIC</h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed" data-i18n="pkg1_desc">Фундамент графічного дизайну, композиція, колір та швейцарські сітки для старту з нуля.</p>
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
+            Груповий курс (4 місяці)
+          </h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-5 leading-relaxed">
+            Повний фундаментальний цикл. Від першої лінії та швейцарської сітки до комерційного брендбуку й портфоліо.
+          </p>
 
-          <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
+          <div class="space-y-2.5 py-4 border-y border-brandBorder text-xs text-neutral-300">
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg1_feat1">Тривалість: 6 тижнів</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Тривалість: <strong>4 місяці</strong></span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg1_feat2">Figma & Adobe Illustrator</span>
+              <span class="text-brandLime font-bold">✓</span> <span><strong>2 рази на тиждень по 1.5 години</strong></span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg1_feat3">3 готові роботи в портфоліо</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Photoshop + Illustrator + Figma</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg1_feat4">Щотижневий фідбек куратора</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-6">
-          <div class="text-xs font-mono text-neutral-400 mb-1" data-i18n="pkg_price_lbl">ВАРТІСТЬ:</div>
-          <div class="text-3xl font-heading font-black text-white mb-4">11 900 ₴</div>
-          <button onclick="enrollInPackage('START BASIC', '11 900 ₴')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all" data-i18n="btn_choose">
-            Обрати START
-          </button>
-        </div>
-      </div>
-
-      <!-- PACKAGE 2: PRO BRANDING & IDENTITY (Featured) -->
-      <div id="pkg-card-pro" class="p-6 rounded-3xl bg-brandSurface border-2 border-brandLime transition-all flex flex-col justify-between group relative lime-glow">
-        <div class="absolute -top-3 left-6 px-3 py-0.5 rounded-full bg-brandLime text-black font-heading font-black text-[10px] uppercase tracking-wider">
-          ★ ТОП ВИБІР
-        </div>
-
-        <div>
-          <div class="flex justify-between items-center mb-4 mt-1">
-            <span class="text-[11px] font-mono text-brandLime font-bold">ПАКЕТ // 02</span>
-            <button onclick="openCourseInfo('pro')" title="Детальна інформація про курс" class="w-8 h-8 rounded-full bg-brandLime text-black font-heading font-black text-sm flex items-center justify-center transition-all hover:bg-white shadow-[0_0_10px_#ccff00]">
-              i
-            </button>
-          </div>
-
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors" data-i18n="pkg2_title">PRO BRANDING & IDENTITY</h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed" data-i18n="pkg2_desc">Повний цикл створення фірмового стилю, логотипів, пакування та оформлення сильних кейсів для Behance.</p>
-
-          <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg2_feat1">Тривалість: 10 тижнів</span>
+              <span class="text-brandLime font-bold">✓</span> <span>3 комплексні кейси в портфоліо</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg2_feat2">Illustrator, Photoshop, InDesign</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg2_feat3">2 повних комерційних брендбуки</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg2_feat4">Модуль по роботі з клієнтами та цінами</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Домашні завдання з детальним фідбеком</span>
             </div>
           </div>
         </div>
 
         <div class="pt-6">
-          <div class="text-xs font-mono text-brandLime mb-1 font-bold" data-i18n="pkg_price_lbl">ВАРТІСТЬ:</div>
-          <div class="text-3xl font-heading font-black text-brandLime mb-4">22 500 ₴</div>
-          <button onclick="enrollInPackage('PRO BRANDING & IDENTITY', '22 500 ₴')" class="w-full py-3 rounded-xl bg-brandLime hover:bg-white text-black font-heading font-black text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_#ccff00]" data-i18n="btn_choose">
-            Обрати PRO BRANDING
+          <div class="text-[11px] font-mono text-neutral-400 mb-1">ФОРМАТ ЗАНЯТЬ:</div>
+          <div class="text-2xl font-heading font-extrabold text-white mb-4">
+            32 заняття <span class="text-xs font-normal text-neutral-400">(48 годин)</span>
+          </div>
+          <button onclick="enrollInPackage('Груповий курс (4 місяці, 2 рази в тиждень по 1.5 год)')" class="w-full py-3.5 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">
+            Обрати цей курс
           </button>
         </div>
       </div>
 
-      <!-- PACKAGE 3: 3D & MOTION -->
-      <div id="pkg-card-motion" class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group relative">
+      <!-- PACKAGE 3: Group 2 Months -->
+      <div class="p-7 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <div class="flex justify-between items-center mb-4">
             <span class="text-[11px] font-mono text-neutral-400">ПАКЕТ // 03</span>
-            <button onclick="openCourseInfo('motion')" title="Детальна інформація про курс" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">
-              i
-            </button>
+            <span class="px-2 py-0.5 rounded bg-white/5 text-neutral-300 text-[10px] font-mono">Інтенсив</span>
           </div>
 
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors" data-i18n="pkg3_title">3D & MOTION GRAPHICS</h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed" data-i18n="pkg3_desc">Просторовий 3D дизайн, кінетична анімація шрифтів та візуальні спецефекти для підвищення чеку.</p>
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
+            Груповий курс (2 місяці)
+          </h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-5 leading-relaxed">
+            Швидкий старт для тих, кому потрібно оперативно опанувати софт, навчитися верстати рекламні макети та логотипи.
+          </p>
 
-          <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
+          <div class="space-y-2.5 py-4 border-y border-brandBorder text-xs text-neutral-300">
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg3_feat1">Тривалість: 8 тижнів</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Тривалість: <strong>2 місяці</strong></span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg3_feat2">Blender 3D + After Effects</span>
+              <span class="text-brandLime font-bold">✓</span> <span><strong>2 рази на тиждень по 1.5 години</strong></span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg3_feat3">Шоуріл (Showreel) 2026</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Базові навички в Ai, Ps та Figma</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg3_feat4">Рендер матеріалів та неонового світла</span>
+              <span class="text-brandLime font-bold">✓</span> <span>1 готовий бренд-кейс на виході</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-brandLime font-bold">✓</span> <span>Записи всіх проведених уроків</span>
             </div>
           </div>
         </div>
 
         <div class="pt-6">
-          <div class="text-xs font-mono text-neutral-400 mb-1" data-i18n="pkg_price_lbl">ВАРТІСТЬ:</div>
-          <div class="text-3xl font-heading font-black text-white mb-4">26 900 ₴</div>
-          <button onclick="enrollInPackage('3D & MOTION GRAPHICS', '26 900 ₴')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all" data-i18n="btn_choose">
-            Обрати 3D & MOTION
+          <div class="text-[11px] font-mono text-neutral-400 mb-1">ФОРМАТ ЗАНЯТЬ:</div>
+          <div class="text-2xl font-heading font-extrabold text-white mb-4">
+            16 занять <span class="text-xs font-normal text-neutral-400">(24 години)</span>
+          </div>
+          <button onclick="enrollInPackage('Груповий курс (2 місяці інтенсив)')" class="w-full py-3.5 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">
+            Обрати 2 місяці
           </button>
         </div>
       </div>
 
-      <!-- PACKAGE 4: ART DIRECTION & AI -->
-      <div id="pkg-card-art" class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group relative">
+      <!-- PACKAGE 4: Consultation / Art Direction -->
+      <div class="p-7 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <div class="flex justify-between items-center mb-4">
             <span class="text-[11px] font-mono text-neutral-400">ПАКЕТ // 04</span>
-            <button onclick="openCourseInfo('art')" title="Детальна інформація про курс" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">
-              i
-            </button>
+            <span class="px-2 py-0.5 rounded bg-white/5 text-neutral-300 text-[10px] font-mono">B2B / Проєкти</span>
           </div>
 
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors" data-i18n="pkg4_title">ART DIRECTION & AI</h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed" data-i18n="pkg4_desc">Входження в лігу топ-креаторів: генеративний ШІ, керування дизайн-командами та глобальні проекти.</p>
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
+            Консультація проєкту
+          </h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-5 leading-relaxed">
+            Експертна допомога під конкретне комерційне замовлення: аудит айдентики, допомога зі здачею клієнту, додрукарська підготовка.
+          </p>
 
-          <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
+          <div class="space-y-2.5 py-4 border-y border-brandBorder text-xs text-neutral-300">
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg4_feat1">Тривалість: 12 тижнів</span>
+              <span class="text-brandLime font-bold">✓</span> <span><strong>Ціна договірна</strong> (під масштаб задачі)</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg4_feat2">Midjourney, Stable Diffusion, RunWay</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Повний аудит файлів (.ai, .psd, .fig)</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg4_feat3">Індивідуальні сесії з арт-директором</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Виправлення композиції та шрифтів</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-brandLime">✓</span> <span data-i18n="pkg4_feat4">Вихід на замовлення від $2,500+</span>
+              <span class="text-brandLime font-bold">✓</span> <span>Підготовка до друку (CMYK, вильоти)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-brandLime font-bold">✓</span> <span>Супровід захисту перед клієнтом</span>
             </div>
           </div>
         </div>
 
         <div class="pt-6">
-          <div class="text-xs font-mono text-neutral-400 mb-1" data-i18n="pkg_price_lbl">ВАРТІСТЬ:</div>
-          <div class="text-3xl font-heading font-black text-white mb-4">39 000 ₴</div>
-          <button onclick="enrollInPackage('ART DIRECTION & AI', '39 000 ₴')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all" data-i18n="btn_choose">
-            Обрати ART DIRECTION
+          <div class="text-[11px] font-mono text-neutral-400 mb-1">УМОВИ:</div>
+          <div class="text-2xl font-heading font-extrabold text-white mb-4">
+            Договірна <span class="text-xs font-normal text-neutral-400">(під проєкт)</span>
+          </div>
+          <button onclick="enrollInPackage('Консультація проєкту (Договірна)')" class="w-full py-3.5 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">
+            Обговорити проєкт
           </button>
         </div>
       </div>
@@ -610,81 +529,183 @@
     </div>
   </section>
 
-  <!-- SECTION: ABOUT US & NATIONWIDE COVERAGE -->
-  <section id="about" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-24 border-t border-brandBorder">
+  <!-- SECTION: PORTFOLIO / REAL PROJECTS -->
+  <section id="portfolio" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
+      <div>
+        <div class="text-xs font-mono text-brandLime uppercase tracking-widest">// ПРАКТИЧНІ КЕЙСИ</div>
+        <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white mt-1">
+          ПОРТФОЛІО ТА <span class="text-brandLime">СТАНДАРТ РОБІТ</span>
+        </h2>
+      </div>
+      <p class="text-neutral-400 text-xs sm:text-sm max-w-md">
+        Роботи та дизайн-системи, створені виключно в Figma, Adobe Illustrator та Adobe Photoshop без зайвого софту.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Project 1 -->
+      <div class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all group flex flex-col justify-between">
+        <div>
+          <div class="h-60 bg-gradient-to-br from-neutral-800 via-neutral-900 to-black p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
+            <div class="absolute -right-8 -bottom-8 w-44 h-44 bg-brandLime/10 rounded-full blur-2xl group-hover:bg-brandLime/25 transition-all"></div>
+            <div class="flex justify-between items-center z-10">
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-black/60 border border-white/10 text-brandLime">BRAND IDENTITY</span>
+              <span class="text-xs font-mono text-neutral-400">Illustrator • Figma</span>
+            </div>
+            <div class="z-10">
+              <span class="text-4xl font-heading font-black text-white/90">KAIRO.</span>
+              <p class="text-xs text-neutral-400 mt-1">Specialty Coffee & Roastery Visual Identity</p>
+            </div>
+          </div>
+          <div class="p-6 space-y-2">
+            <h4 class="font-heading font-bold text-white text-base group-hover:text-brandLime transition-colors">
+              Комплексний ребрендинг міської кав'ярні
+            </h4>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Розробка геометрії знаку в Illustrator, шрифтової системи, дизайну стаканчиків, упаковки кавових зерен та гайдлайну у Figma.
+            </p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-2 flex items-center justify-between text-xs font-mono border-t border-brandBorder/50 text-neutral-400">
+          <span>Результат студента</span>
+          <span class="text-brandLime font-bold">Чек: $550</span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all group flex flex-col justify-between">
+        <div>
+          <div class="h-60 bg-gradient-to-br from-[#101912] via-neutral-900 to-black p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
+            <div class="absolute -right-8 -bottom-8 w-44 h-44 bg-brandLime/10 rounded-full blur-2xl group-hover:bg-brandLime/25 transition-all"></div>
+            <div class="flex justify-between items-center z-10">
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-black/60 border border-white/10 text-brandLime">PACKAGING & PRINT</span>
+              <span class="text-xs font-mono text-neutral-400">Photoshop • Illustrator</span>
+            </div>
+            <div class="z-10">
+              <span class="text-3xl font-heading font-black text-white/90 tracking-wider">AURA BOTANICS</span>
+              <p class="text-xs text-neutral-400 mt-1">Organic Skincare Premium Line</p>
+            </div>
+          </div>
+          <div class="p-6 space-y-2">
+            <h4 class="font-heading font-bold text-white text-base group-hover:text-brandLime transition-colors">
+              Серія упаковок органічної косметики
+            </h4>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Створення складних векторальних штампів, розгортки коробок під друк у CMYK та фотореалістичний мокап флаконів у Photoshop.
+            </p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-2 flex items-center justify-between text-xs font-mono border-t border-brandBorder/50 text-neutral-400">
+          <span>Додрукарська підготовка</span>
+          <span class="text-brandLime font-bold">100% готовність до тиражу</span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all group flex flex-col justify-between">
+        <div>
+          <div class="h-60 bg-gradient-to-br from-neutral-900 via-neutral-950 to-black p-6 flex flex-col justify-between border-b border-brandBorder relative overflow-hidden">
+            <div class="absolute -right-8 -bottom-8 w-44 h-44 bg-brandLime/10 rounded-full blur-2xl group-hover:bg-brandLime/25 transition-all"></div>
+            <div class="flex justify-between items-center z-10">
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-black/60 border border-white/10 text-brandLime">DIGITAL SYSTEM</span>
+              <span class="text-xs font-mono text-neutral-400">Figma UI Kit</span>
+            </div>
+            <div class="z-10">
+              <span class="text-3xl font-heading font-black text-white/90">NEXUS SAAS</span>
+              <p class="text-xs text-neutral-400 mt-1">Design System & Social Media Templates</p>
+            </div>
+          </div>
+          <div class="p-6 space-y-2">
+            <h4 class="font-heading font-bold text-white text-base group-hover:text-brandLime transition-colors">
+              Дизайн-система та маркетингові креативи
+            </h4>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              Модульна сітка, система змінних (Figma Variables), типографічні шкали та пакет із 30 шаблонів для реклами в Instagram/LinkedIn.
+            </p>
+          </div>
+        </div>
+        <div class="px-6 pb-6 pt-2 flex items-center justify-between text-xs font-mono border-t border-brandBorder/50 text-neutral-400">
+          <span>Дизайн-система</span>
+          <span class="text-brandLime font-bold">Behance Featured</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: ABOUT OUR PRACTICAL APPROACH -->
+  <section id="about" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       
       <div class="lg:col-span-6 space-y-6">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandLime/10 border border-brandLime/30 text-xs font-mono text-brandLime">
-          <span data-i18n="about_badge">// ПРО FORMAT IX</span>
+          <span>// НАШ ФОКУС: PS, AI, FIGMA</span>
         </div>
 
         <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white leading-tight">
-          МИ НЕ ВЧИМО <br><span class="text-brandLime">ТИЦЯТИ КНОПКИ.</span><br>МИ ВЧИМО МИСЛИТИ.
+          ЧОМУ ТІЛЬКИ ЦІ ТРИ <br><span class="text-brandLime">ІНСТРУМЕНТИ?</span>
         </h2>
 
-        <p class="text-neutral-300 text-sm sm:text-base leading-relaxed" data-i18n="about_p1">
-          Школа графічного дизайну <strong>format ix</strong> була створена як альтернатива застарілим академічним програмам та поверхневим онлайн-марафонам. Наш підхід базується на сучасній естетиці, швейцарській структурі та максимальному наближенні до реальних комерційних замовлень.
+        <p class="text-neutral-300 text-sm sm:text-base leading-relaxed">
+          90% ринку графічного дизайну — це впевнене володіння <strong>Adobe Photoshop</strong> (робота з растром, колажування, корекція), <strong>Adobe Illustrator</strong> (векторні знаки, складна айдентика, верстка під плотер і друк) та <strong>Figma</strong> (сучасні презентації, гайдлайни, адаптивні сітки).
         </p>
 
-        <!-- Nationwide Coverage Box -->
-        <div class="p-6 rounded-2xl bg-brandSurface border-l-4 border-brandLime border border-white/10 space-y-2">
-          <div class="text-sm font-heading font-bold text-white uppercase flex items-center gap-2">
-            <svg class="w-4 h-4 text-brandLime fill-current" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
-            <span data-i18n="about_coverage_title">Працюємо по всій території України & Remote Worldwide</span>
-          </div>
-          <p class="text-xs text-neutral-400 leading-relaxed" data-i18n="about_coverage_desc">
-            Наші студенти успішно навчаються онлайн з Києва, Львова, Одеси, Дніпра, Харкова, Вінниці, Івано-Франківська та сотень інших міст і містечок України, а також з-за кордону (Польща, Німеччина, США, Канада). Усе спілкування, живі розбори та воркшопи відбуваються на зручній цифровій платформі format ix.
-          </p>
-        </div>
+        <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+          Ми не розпорошуємо увагу на десятки другорядних програм. Ви отримуєте залізобетонну базу, яка дозволяє брати реальні комерційні замовлення вже під час курсу.
+        </p>
 
-        <div class="grid grid-cols-2 gap-4 pt-2">
-          <div class="p-4 rounded-xl bg-brandCard border border-white/10">
-            <div class="font-heading font-black text-2xl text-brandLime">100%</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="about_stat_practice">Практика на реальних брифах</div>
+        <div class="grid grid-cols-3 gap-3 pt-2">
+          <div class="p-4 rounded-2xl bg-brandSurface border border-white/10 text-center">
+            <div class="font-heading font-extrabold text-brandLime text-lg">Ai</div>
+            <div class="text-[11px] text-neutral-400 mt-1 font-mono">Illustrator</div>
           </div>
-          <div class="p-4 rounded-xl bg-brandCard border border-white/10">
-            <div class="font-heading font-black text-2xl text-white">24/7</div>
-            <div class="text-xs text-neutral-400 mt-1" data-i18n="about_stat_community">Підтримка в ком'юніті студентів</div>
+          <div class="p-4 rounded-2xl bg-brandSurface border border-white/10 text-center">
+            <div class="font-heading font-extrabold text-white text-lg">Ps</div>
+            <div class="text-[11px] text-neutral-400 mt-1 font-mono">Photoshop</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-brandSurface border border-white/10 text-center">
+            <div class="font-heading font-extrabold text-brandLime text-lg">Fig</div>
+            <div class="text-[11px] text-neutral-400 mt-1 font-mono">Figma</div>
           </div>
         </div>
       </div>
 
-      <!-- Right Visual Feature Column -->
       <div class="lg:col-span-6 space-y-4">
         <div class="p-8 rounded-3xl bg-brandSurface border border-white/15 space-y-6">
-          <h3 class="text-xl font-heading font-black text-white uppercase" data-i18n="about_principles_title">
-            Принципи школи format ix
+          <h3 class="text-xl font-heading font-black text-white uppercase">
+            Як побудовано навчальний процес
           </h3>
 
           <div class="space-y-4">
             <div class="flex items-start gap-4">
               <span class="w-8 h-8 rounded-lg bg-brandLime text-black font-black font-heading flex items-center justify-center shrink-0">1</span>
               <div>
-                <h4 class="text-sm font-bold text-white" data-i18n="about_item1_t">Без води та шаблонів</h4>
-                <p class="text-xs text-neutral-400 mt-0.5" data-i18n="about_item1_d">Тільки сучасні інструменти, актуальна типографіка та навички, за які готові платити клієнти.</p>
+                <h4 class="text-sm font-bold text-white">Прямий екран та живий розбір</h4>
+                <p class="text-xs text-neutral-400 mt-0.5">Ніяких сухих записаних років тому лекцій. Кожне заняття — жива демонстрація робочого процесу, де ви бачите гарячі клавіші та логіку мислення.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-4">
               <span class="w-8 h-8 rounded-lg bg-brandLime text-black font-black font-heading flex items-center justify-center shrink-0">2</span>
               <div>
-                <h4 class="text-sm font-bold text-white" data-i18n="about_item2_t">Чесний персональний фідбек</h4>
-                <p class="text-xs text-neutral-400 mt-0.5" data-i18n="about_item2_d">Куратори розбирають кожен піксель, допомагаючи довести ваші роботи до рівня нагород Behance.</p>
+                <h4 class="text-sm font-bold text-white">Сувора перевірка кожного пікселя</h4>
+                <p class="text-xs text-neutral-400 mt-0.5">Вчимо бачити оптичні ілюзії, контраст, повітря в макеті та швейцарські пропорції, за якими клієнти відрізняють профі від початківця.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-4">
               <span class="w-8 h-8 rounded-lg bg-brandLime text-black font-black font-heading flex items-center justify-center shrink-0">3</span>
               <div>
-                <h4 class="text-sm font-bold text-white" data-i18n="about_item3_t">Упаковка та перші контракти</h4>
-                <p class="text-xs text-neutral-400 mt-0.5" data-i18n="about_item3_d">Вчимо комунікувати з замовниками, складати договори та оцінювати проекти гідно.</p>
+                <h4 class="text-sm font-bold text-white">Допомога з першими замовленнями</h4>
+                <p class="text-xs text-neutral-400 mt-0.5">Допомагаємо скласти перший бриф, оцінити вартість своєї роботи та підготувати файли до передачі реальному клієнту.</p>
               </div>
             </div>
           </div>
 
           <div class="pt-4 border-t border-brandBorder flex items-center justify-between text-xs font-mono">
-            <span class="text-neutral-400">Є запитання до засновника?</span>
+            <span class="text-neutral-400">Прямий номер викладача:</span>
             <a href="tel:+380676665823" class="text-brandLime font-bold hover:underline">+380 (67) 666-58-23</a>
           </div>
         </div>
@@ -694,82 +715,74 @@
   </section>
 
   <!-- SECTION: REVIEWS -->
-  <section id="reviews" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-24 border-t border-brandBorder">
-    
+  <section id="reviews" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandLime/10 border border-brandLime/30 text-xs font-mono text-brandLime">
-        <span data-i18n="reviews_badge">// РЕАЛЬНІ РЕЗУЛЬТАТИ</span>
+        <span>// РЕАЛЬНИЙ ДОСВІД</span>
       </div>
-      <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white" data-i18n="reviews_title">
-        ЩО КАЖУТЬ <span class="text-brandLime">ВИПУСКНИКИ FORMAT IX</span>
+      <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white">
+        ВІДГУКИ ПРО <span class="text-brandLime">ФОРМАТ ІКС</span>
       </h2>
-      <p class="text-neutral-400 text-sm" data-i18n="reviews_subtitle">
-        Студенти, які перейшли від невпевнених спроб до солідних замовлень, роботи в агенціях та міжнародних нагород.
+      <p class="text-neutral-400 text-sm">
+        Результати студентів, які прийшли без впевненості у софті й отримали системний фундамент.
       </p>
     </div>
 
-    <!-- Reviews Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-      <!-- Review 1 -->
-      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all space-y-4 flex flex-col justify-between">
+      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all flex flex-col justify-between space-y-4">
         <div class="space-y-3">
           <div class="flex items-center justify-between">
-            <div class="flex text-brandLime text-sm">★★★★★</div>
-            <span class="text-[11px] font-mono text-neutral-400">Київ • Курс PRO BRANDING</span>
+            <div class="text-brandLime text-sm">★★★★★</div>
+            <span class="text-[11px] font-mono text-neutral-400">Індивідуальні заняття</span>
           </div>
-          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed" data-i18n="rev1_text">
-            «Прийшла з нульовим розумінням брендингу. На курсі формат ікс мені повністю перевернули мислення! На 8-му тижні закрила свій перший комплексний фірмовий стиль для кав'ярні на 600$. Рекомендую всім!»
+          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+            «Брала індивідуальні заняття по 300 грн. Мені потрібно було швидко зрозуміти Illustrator під поліграфію. За 6 занять ми розібрали вильоти, CMYK та вектор так, як мені за рік на курсах не пояснили!»
           </p>
         </div>
-
         <div class="pt-4 border-t border-brandBorder flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-brandLime text-black font-heading font-black flex items-center justify-center">ОБ</div>
+          <div class="w-10 h-10 rounded-full bg-brandLime text-black font-heading font-black flex items-center justify-center">ОМ</div>
           <div>
-            <div class="text-xs font-bold text-white">Олена Бондаренко</div>
-            <div class="text-[11px] text-neutral-400">Brand Designer (Freelance)</div>
+            <div class="text-xs font-bold text-white">Ольга Мельник</div>
+            <div class="text-[11px] text-neutral-400">Freelance Graphic Designer</div>
           </div>
         </div>
       </div>
 
-      <!-- Review 2 -->
-      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all space-y-4 flex flex-col justify-between">
+      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all flex flex-col justify-between space-y-4">
         <div class="space-y-3">
           <div class="flex items-center justify-between">
-            <div class="flex text-brandLime text-sm">★★★★★</div>
-            <span class="text-[11px] font-mono text-neutral-400">Львів • Курс 3D & MOTION</span>
+            <div class="text-brandLime text-sm">★★★★★</div>
+            <span class="text-[11px] font-mono text-neutral-400">Група 4 місяці</span>
           </div>
-          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed" data-i18n="rev2_text">
-            «Неймовірний рівень практики! Модулі по Blender та кінетиці просто космос. Після випуску оформив шоуріл і отримав офер від IT-компанії на позицію Middle Motion Designer. Дякую кураторам за нещадний фідбек!»
+          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+            «Чудова подача матеріалу. 2 рази в тиждень по півтори години — ідеальний темп, встигаєш і домашку зробити, і по роботі не просісти. Тепер верстаю брендбуки у Figma на автоматі.»
           </p>
         </div>
-
         <div class="pt-4 border-t border-brandBorder flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-white text-black font-heading font-black flex items-center justify-center">МК</div>
+          <div class="w-10 h-10 rounded-full bg-white text-black font-heading font-black flex items-center justify-center">ВК</div>
           <div>
-            <div class="text-xs font-bold text-white">Максим Ковальчук</div>
-            <div class="text-[11px] text-neutral-400">Middle Motion Designer</div>
+            <div class="text-xs font-bold text-white">Владислав Козаченко</div>
+            <div class="text-[11px] text-neutral-400">Junior Brand Designer</div>
           </div>
         </div>
       </div>
 
-      <!-- Review 3 -->
-      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all space-y-4 flex flex-col justify-between">
+      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all flex flex-col justify-between space-y-4">
         <div class="space-y-3">
           <div class="flex items-center justify-between">
-            <div class="flex text-brandLime text-sm">★★★★★</div>
-            <span class="text-[11px] font-mono text-neutral-400">Дніпро • Курс START BASIC</span>
+            <div class="text-brandLime text-sm">★★★★★</div>
+            <span class="text-[11px] font-mono text-neutral-400">Група 2 місяці</span>
           </div>
-          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed" data-i18n="rev3_text">
-            «Дуже сподобалось, що навчання повністю структуроване. Ніякої зайвої теорії: сітки, шрифти, робота у Figma та Illustrator. Для мене як новачка це був ідеальний старт. Уже планую йти на PRO!»
+          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+            «Інтенсив дав потужний буст у Photoshop та Figma. До цього робила хаотичні банери, зараз розумію контраст, ієрархію тексту та оптичну вагу. Дуже вдячна за чесний фідбек без цукру!»
           </p>
         </div>
-
         <div class="pt-4 border-t border-brandBorder flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-brandLime text-black font-heading font-black flex items-center justify-center">ДТ</div>
+          <div class="w-10 h-10 rounded-full bg-brandLime text-black font-heading font-black flex items-center justify-center">ЯД</div>
           <div>
-            <div class="text-xs font-bold text-white">Дарина Ткач</div>
-            <div class="text-[11px] text-neutral-400">Junior Graphic Designer</div>
+            <div class="text-xs font-bold text-white">Ярина Данилюк</div>
+            <div class="text-[11px] text-neutral-400">Маркетолог / Дизайнер</div>
           </div>
         </div>
       </div>
@@ -777,28 +790,28 @@
     </div>
   </section>
 
-  <!-- SECTION: CONTACTS & DIRECT ENROLLMENT -->
-  <section id="contacts" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-24 border-t border-brandBorder">
-    <div class="p-8 sm:p-14 rounded-3xl bg-brandSurface border-2 border-brandLime/40 lime-glow">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+  <!-- SECTION: CONTACTS & REGISTRATION (WHERE THE DATA GOES) -->
+  <section id="contacts" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
+    <div class="p-8 sm:p-12 lg:p-16 rounded-3xl bg-brandSurface border-2 border-brandLime/40 lime-glow">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
-        <!-- Contact Information -->
+        <!-- Left info -->
         <div class="lg:col-span-6 space-y-6">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandLime/10 border border-brandLime/30 text-xs font-mono text-brandLime">
-            <span data-i18n="contact_badge">// ПРЯМИЙ ЗВ'ЯЗОК</span>
+            <span>// ВІДПРАВКА ЗАЯВКИ</span>
           </div>
 
-          <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white leading-none">
-            Є ПИТАННЯ? <br><span class="text-brandLime">ДЗВОНІТЬ ПРЯМО ЗАРАЗ.</span>
+          <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white leading-tight">
+            ЗАПИШИСЬ НА <br><span class="text-brandLime">ПЕРШЕ БЕЗКОШТОВНЕ</span><br>ЗАНЯТТЯ.
           </h2>
 
-          <p class="text-neutral-300 text-sm leading-relaxed" data-i18n="contact_desc">
-            Наш куратор допоможе визначитися з програмою, розкаже про можливості оплати частинами та відповість на будь-які ваші запитання. Працюємо по всій Україні!
+          <p class="text-neutral-300 text-sm leading-relaxed">
+            Заповніть форму праворуч. Дані відправляються напряму викладачу (у Telegram або на дзвінок). Ми зв'яжемося протягом 15 хвилин для узгодження зручного часу.
           </p>
 
           <!-- Direct Phone Widget -->
-          <div class="p-6 rounded-2xl bg-black border border-white/10 space-y-3">
-            <div class="text-[11px] font-mono text-neutral-400 uppercase" data-i18n="contact_phone_lbl">Телефон школи format ix:</div>
+          <div class="p-6 rounded-2xl bg-black/70 border border-white/10 space-y-3">
+            <div class="text-[11px] font-mono text-neutral-400 uppercase">Прямий зв'язок з викладачем:</div>
             
             <div class="flex flex-wrap items-center gap-3">
               <a href="tel:+380676665823" class="text-2xl sm:text-3xl font-heading font-black text-brandLime hover:underline tracking-tight">
@@ -810,53 +823,52 @@
             </div>
 
             <div class="text-[11px] text-neutral-400">
-              Лінія відкрита щодня: 09:00 – 21:00 (Kyiv Time)
+              Дзвінки та повідомлення у Telegram/Viber: 09:00 – 21:00 щодня.
             </div>
           </div>
 
-          <!-- Socials -->
-          <div class="flex flex-wrap gap-4 text-xs font-mono text-neutral-400 pt-2">
-            <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="hover:text-brandLime transition-colors">→ TELEGRAM @format_ix</a>
-            <span class="text-white/20">|</span>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-brandLime transition-colors">→ INSTAGRAM @format_ix</a>
-            <span class="text-white/20">|</span>
-            <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="hover:text-brandLime transition-colors">→ BEHANCE format_ix</a>
+          <div class="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-neutral-400 leading-relaxed font-mono">
+            ℹ️ <strong class="text-white">Куди потрапляє заявка?</strong> Ваші контакти шифруються та летять миттєвим пушем у закритий Telegram-чат викладача і дублюються в журналі заявок вашого браузера.
           </div>
         </div>
 
-        <!-- Consultation Form -->
-        <div class="lg:col-span-6 bg-black/80 p-6 sm:p-8 rounded-2xl border border-white/10 space-y-4">
-          <h3 class="text-lg font-heading font-black text-white uppercase" data-i18n="form_title">
-            Замовити дзвінок куратора
+        <!-- Right form -->
+        <div class="lg:col-span-6 bg-black/90 p-6 sm:p-10 rounded-3xl border border-white/10 space-y-4">
+          <h3 class="text-xl font-heading font-black text-white uppercase">
+            Анкета на навчання
           </h3>
-          <p class="text-xs text-neutral-400" data-i18n="form_desc">
-            Залиште ім'я та телефон — ми зателефонуємо вам протягом 15 хвилин.
+          <p class="text-xs text-neutral-400">
+            Вкажіть дані — це ні до чого вас не зобов'язує.
           </p>
 
           <form onsubmit="handleContactSubmit(event)" class="space-y-4 pt-2">
             <div>
-              <label class="block text-[11px] font-mono text-neutral-400 mb-1" data-i18n="f_name">ВАШЕ ІМ'Я</label>
-              <input type="text" id="contactName" required placeholder="Олексій" class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime">
+              <label class="block text-[11px] font-mono text-neutral-400 mb-1">ВАШЕ ІМ'Я ТА ПРІЗВИЩЕ</label>
+              <input type="text" id="contactName" required placeholder="Олександр" class="w-full px-4 py-3.5 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime transition-colors">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-neutral-400 mb-1" data-i18n="f_phone">НОМЕР ТЕЛЕФОНУ</label>
-              <input type="tel" id="contactPhone" required value="+380676665823" class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime font-mono">
+              <label class="block text-[11px] font-mono text-neutral-400 mb-1">НОМЕР ТЕЛЕФОНУ (АБО ТЕЛЕГРАМ)</label>
+              <input type="text" id="contactPhone" required value="+380" class="w-full px-4 py-3.5 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime font-mono transition-colors">
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-neutral-400 mb-1" data-i18n="f_package">ЦІКАВИТЬ ПАКЕТ</label>
-              <select id="contactPackageSelect" class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime">
-                <option value="START BASIC">START BASIC (11 900 ₴)</option>
-                <option value="PRO BRANDING" selected>PRO BRANDING & IDENTITY (22 500 ₴)</option>
-                <option value="3D & MOTION">3D & MOTION GRAPHICS (26 900 ₴)</option>
-                <option value="ART DIRECTION">ART DIRECTION & AI (39 000 ₴)</option>
-                <option value="Швидка консультація">Швидка консультація / Допоможіть обрати</option>
+              <label class="block text-[11px] font-mono text-neutral-400 mb-1">ОБЕРІТЬ ФОРМАТ НАВЧАННЯ</label>
+              <select id="contactPackageSelect" class="w-full px-4 py-3.5 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime transition-colors">
+                <option value="Індивідуальний менторинг (1-ше безкоштовно)" selected>Індивідуальні заняття (1-ше 0 ₴ / далі 300 ₴)</option>
+                <option value="Групове заняття (4 місяці)">Групове заняття на 4 місяці (2 рази на тиждень по 1.5 год)</option>
+                <option value="Групове заняття (2 місяці)">Групове заняття на 2 місяці (інтенсив)</option>
+                <option value="Консультація проєкту">Консультація проєкту (договірна вартість)</option>
               </select>
             </div>
 
-            <button type="submit" class="w-full py-4 bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl hover:bg-white hover:shadow-[0_0_20px_#ccff00] transition-all" data-i18n="f_btn">
-              Отримати безкоштовну консультацію
+            <div>
+              <label class="block text-[11px] font-mono text-neutral-400 mb-1">КОРОТКО ПРО ВАШ ДОСВІД (НЕОБОВ'ЯЗКОВО)</label>
+              <textarea id="contactComment" rows="2" placeholder="Наприклад: вчу з нуля або маю базові знання у Photoshop..." class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime transition-colors"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full py-4 bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl hover:bg-white hover:shadow-[0_0_20px_#ccff00] transition-all">
+              Надіслати заявку викладачу
             </button>
           </form>
         </div>
@@ -866,1086 +878,143 @@
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-brandBorder bg-black py-10 px-4 sm:px-6 relative z-10 text-neutral-500 text-xs">
+  <footer class="border-t border-brandBorder bg-black py-10 px-4 sm:px-6 lg:px-8 relative z-10 text-neutral-500 text-xs">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       
       <div class="flex items-center gap-1.5">
         <span class="font-heading font-black text-xl text-white">format</span>
         <span class="font-heading font-black text-xl text-brandLime">ix</span>
-        <span class="text-[11px] text-neutral-600 ml-2">© 2026-2027. ШКОЛА ГРАФІЧНОГО ДИЗАЙНУ.</span>
+        <span class="text-[11px] text-neutral-600 ml-2">© 2026. АВТОРСЬКЕ НАВЧАННЯ ГРАФІЧНОГО ДИЗАЙНУ.</span>
       </div>
 
       <div class="flex items-center gap-6 font-mono text-xs">
         <a href="tel:+380676665823" class="text-white hover:text-brandLime transition-colors font-bold">+380 (67) 666-58-23</a>
-        <a href="#about" class="hover:text-white transition-colors" data-i18n="nav_about">Про нас</a>
-        <a href="#courses" class="hover:text-white transition-colors" data-i18n="nav_courses">Курси</a>
-        <a href="#reviews" class="hover:text-white transition-colors" data-i18n="nav_reviews">Відгуки</a>
+        <a href="#about" class="hover:text-white transition-colors">Про софт</a>
+        <a href="#courses" class="hover:text-white transition-colors">Пакети</a>
+        <a href="#portfolio" class="hover:text-white transition-colors">Кейси</a>
       </div>
 
-      <div class="text-[10px] text-neutral-600 text-center md:text-right" data-i18n="footer_geo">
-        Працюємо по всій Україні • Онлайн по всьому світу
+      <div class="text-[10px] text-neutral-600 text-center md:text-right">
+        Figma • Adobe Photoshop • Adobe Illustrator
       </div>
     </div>
   </footer>
 
-  <!-- MODAL: COURSE DETAILS ("i" BUTTON POPUP) -->
-  <div id="courseInfoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-    <div class="bg-brandSurface border border-brandLime/50 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto lime-glow relative">
-      
-      <div class="flex items-start justify-between border-b border-brandBorder pb-4">
-        <div>
-          <span id="modalCourseBadge" class="text-[10px] font-mono text-brandLime uppercase font-bold tracking-widest">ПАКЕТ // 02</span>
-          <h3 id="modalCourseTitle" class="text-2xl font-black font-heading text-white uppercase mt-1">PRO BRANDING & IDENTITY</h3>
-        </div>
-        <button onclick="closeCourseInfo()" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime text-neutral-400 hover:text-white font-mono text-sm flex items-center justify-center transition-all">
-          ✕
-        </button>
-      </div>
-
-      <div class="space-y-4 text-xs sm:text-sm">
-        <div>
-          <h4 class="font-heading font-bold text-brandLime uppercase mb-1" data-i18n="modal_about_title">Про цю програму:</h4>
-          <p id="modalCourseDesc" class="text-neutral-300 leading-relaxed"></p>
-        </div>
-
-        <div>
-          <h4 class="font-heading font-bold text-white uppercase mb-2" data-i18n="modal_modules_title">Ключові модулі навчання:</h4>
-          <ul id="modalCourseModules" class="space-y-2 text-neutral-300"></ul>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 p-4 rounded-xl bg-black border border-white/10">
-          <div>
-            <div class="text-[10px] font-mono text-neutral-400 uppercase" data-i18n="modal_tools">Інструменти:</div>
-            <div id="modalCourseTools" class="font-bold text-white text-xs mt-0.5"></div>
-          </div>
-          <div>
-            <div class="text-[10px] font-mono text-neutral-400 uppercase" data-i18n="modal_duration">Тривалість:</div>
-            <div id="modalCourseDuration" class="font-bold text-brandLime text-xs mt-0.5"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-4 border-t border-brandBorder flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <div class="text-[10px] font-mono text-neutral-400 uppercase" data-i18n="pkg_price_lbl">ВАРТІСТЬ:</div>
-          <div id="modalCoursePrice" class="text-2xl font-heading font-black text-brandLime">22 500 ₴</div>
-        </div>
-        <div class="flex items-center gap-3">
-          <a href="tel:+380676665823" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-mono transition-all">
-            📞 Дзвінок
-          </a>
-          <button id="modalEnrollBtn" class="px-6 py-2.5 rounded-xl bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_15px_#ccff00]" data-i18n="btn_enroll_modal">
-            Записатися на потік
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
   <!-- Toast Notification -->
-  <div id="toastMessage" class="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs shadow-2xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3">
-    Телефон скопійовано!
+  <div id="toastMessage" class="fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs shadow-2xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3">
+    Повідомлення
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT: LOGIC, DISPATCHER & CANVAS -->
   <script>
     /* ========================================================================
-       1. SMOOTH INERTIAL DESIGNER CURSOR
+       1. PRECISION CROSSHAIR DESIGNER CURSOR
     ======================================================================== */
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorRing = document.getElementById('cursor-ring');
-
-    let mouseX = -100, mouseY = -100;
-    let ringX = -100, ringY = -100;
+    const cursor = document.getElementById('designer-cursor');
+    let mX = -100, mY = -100;
 
     window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
+      mX = e.clientX;
+      mY = e.clientY;
+      cursor.style.left = `${mX}px`;
+      cursor.style.top = `${mY}px`;
     });
 
-    function animateCursorRing() {
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
-      requestAnimationFrame(animateCursorRing);
-    }
-    animateCursorRing();
-
-    function setupCursorHovers() {
-      const interactives = document.querySelectorAll('a, button, input, select, textarea, .quiz-step button, [role="button"]');
-      interactives.forEach(el => {
-        el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-hover'));
-        el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-hover'));
+    function setupCursorInteractions() {
+      const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, [role="button"]');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
       });
     }
 
     /* ========================================================================
-       2. MOBILE MENU & INTERACTION UTILS
+       2. MOBILE MENU & SELECTION HELPERS
     ======================================================================== */
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.classList.toggle('hidden');
     }
 
-    function requestQuickConsult() {
-      const select = document.getElementById('contactPackageSelect');
-      if (select) {
-        select.value = 'Швидка консультація';
-      }
-      const contacts = document.getElementById('contacts');
-      contacts.scrollIntoView({ behavior: 'smooth' });
-      showToast('⚡ Вкажіть ім\'я та телефон для швидкої консультації');
-      setTimeout(() => {
-        document.getElementById('contactName').focus();
-      }, 600);
+    function enrollFreeIntro() {
+      enrollInPackage('Індивідуальний менторинг (1-ше безкоштовно)');
     }
 
-    /* Close modal on backdrop click and Esc */
-    document.getElementById('courseInfoModal').addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) closeCourseInfo();
-    });
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeCourseInfo();
-    });
-
-    /* ========================================================================
-       3. MULTI-LANGUAGE SYSTEM
-    ======================================================================== */
-    const translations = {
-      uk: {
-        nav_about: "Про нас",
-        nav_matcher: "Тест курсу",
-        nav_courses: "Курси та Ціни",
-        nav_reviews: "Відгуки",
-        nav_contacts: "Контакти",
-        hero_badge: "НАБІР ВІДКРИТО • СТАРТ НАСТУПНОГО ПОТОКУ",
-        hero_title_1: "СТВОРЮЙ ДИЗАЙН,",
-        hero_title_2: "ЯКИЙ КУПУЄ СВІТ.",
-        hero_desc: "Школа графічного дизайну format ix — це практичні навички від топових практиків. Працюємо по всій Україні онлайн та виводимо студентів на міжнародний рівень (Dribbble, Behance, контракти в ЄС та США).",
-        hero_cta_quiz: "🎯 Підібрати курс за 1 хвилину",
-        hero_cta_prices: "Дивитись пакети та ціни",
-        hero_geo: "Працюємо по всій Україні & Worldwide Online",
-        stat_badge: "FORMAT IX МЕТРИКИ",
-        stat_1: "Випускників з успішними кейсами",
-        stat_2: "Знаходять перших клієнтів ще під час курсу",
-        stat_3: "Нагород Behance & Awwwards у кураторів",
-        btn_quick_consult: "Швидка консультація",
-        quiz_badge: "РОЗУМНИЙ ПІДБІР КУРСУ",
-        quiz_title: "ЯКИЙ КУРС САМЕ ДЛЯ ТЕБЕ?",
-        quiz_subtitle: "Дай відповідь лише на 3 запитання — алгоритм проаналізує твій рівень та цілі й видасть ідеальний пакет навчання.",
-        q1_num: "КРОК 1 З 3 • ДОСВІД",
-        q1_title: "Який твій поточний рівень у графічному дизайні?",
-        q1_opt1_title: "Повний новачок",
-        q1_opt1_desc: "Ніколи не відкривав Photoshop/Figma або знаю базові кнопки",
-        q1_opt2_title: "Є базовий досвід",
-        q1_opt2_desc: "Впевнено працюю у Figma, роблю банери, хочу системний брендинг",
-        q1_opt3_title: "Працюючий дизайнер",
-        q1_opt3_desc: "Маю замовлення, але хочу 3D, моушн або рівень Арт-директора з чеком $2k+",
-        q2_num: "КРОК 2 З 3 • ГОЛОВНА МЕТА",
-        q2_title: "Яка твоя головна мета найближчим часом?",
-        q2_opt1_title: "Перші фріланс-клієнти",
-        q2_opt1_desc: "Швидко навчитись основам та закрити перші платні замовлення",
-        q2_opt2_title: "Повноцінний бренд-бук",
-        q2_opt2_desc: "Створювати логотипи, фірмові стилі та сильні кейси на Behance",
-        q2_opt3_title: "3D, Motion або AI Арт-дирекшн",
-        q2_opt3_desc: "Виділитися на ринку складними візуалами та керувати концепціями",
-        q3_num: "КРОК 3 З 3 • ЧАС",
-        q3_title: "Скільки годин на тиждень готовий виділяти?",
-        q3_opt1_title: "4 – 6 годин на тиждень",
-        q3_opt1_desc: "Поєднуючи з основною роботою чи навчанням у спокійному темпі",
-        q3_opt2_title: "8 – 12 годин на тиждень",
-        q3_opt2_desc: "Оптимальний темп: уроки, практичні ДЗ та щотижневі фідбеки",
-        q3_opt3_title: "15+ годин (Full Immersion)",
-        q3_opt3_desc: "Максимальне занурення заради швидкого квантового стрибка",
-        res_prefix: "ТВІЙ ІДЕАЛЬНИЙ КУРС:",
-        res_btn_enroll: "Переглянути цей пакет та записатись",
-        res_btn_again: "↺ Пройти знову",
-        packages_badge: "// НАВЧАЛЬНІ ПРОГРАМИ 2026-2027",
-        packages_title: "4 ПАКЕТИ КУРСІВ FORMAT IX",
-        packages_hint: "Натисніть на значок i на будь-якій картці, щоб побачити повну програму, модулі та інструменти.",
-        pkg1_title: "START BASIC",
-        pkg1_desc: "Фундамент графічного дизайну, композиція, колір та швейцарські сітки для старту з нуля.",
-        pkg1_feat1: "Тривалість: 6 тижнів",
-        pkg1_feat2: "Figma & Adobe Illustrator",
-        pkg1_feat3: "3 готові роботи в портфоліо",
-        pkg1_feat4: "Щотижневий фідбек куратора",
-        pkg2_title: "PRO BRANDING & IDENTITY",
-        pkg2_desc: "Повний цикл створення фірмового стилю, логотипів, пакування та оформлення сильних кейсів для Behance.",
-        pkg2_feat1: "Тривалість: 10 тижнів",
-        pkg2_feat2: "Illustrator, Photoshop, InDesign",
-        pkg2_feat3: "2 повних комерційних брендбуки",
-        pkg2_feat4: "Модуль по роботі з клієнтами та цінами",
-        pkg3_title: "3D & MOTION GRAPHICS",
-        pkg3_desc: "Просторовий 3D дизайн, кінетична анімація шрифтів та візуальні спецефекти для підвищення чеку.",
-        pkg3_feat1: "Тривалість: 8 тижнів",
-        pkg3_feat2: "Blender 3D + After Effects",
-        pkg3_feat3: "Шоуріл (Showreel) 2026",
-        pkg3_feat4: "Рендер матеріалів та неонового світла",
-        pkg4_title: "ART DIRECTION & AI",
-        pkg4_desc: "Входження в лігу топ-креаторів: генеративний ШІ, керування дизайн-командами та глобальні проекти.",
-        pkg4_feat1: "Тривалість: 12 тижнів",
-        pkg4_feat2: "Midjourney, Stable Diffusion, RunWay",
-        pkg4_feat3: "Індивідуальні сесії з арт-директором",
-        pkg4_feat4: "Вихід на замовлення від $2,500+",
-        pkg_price_lbl: "ВАРТІСТЬ:",
-        btn_choose: "Обрати цей пакет",
-        about_badge: "// ПРО FORMAT IX",
-        about_p1: "Школа графічного дизайну format ix була створена як альтернатива застарілим академічним програмам та поверхневим онлайн-марафонам. Наш підхід базується на сучасній естетиці, швейцарській структурі та максимальному наближенні до реальних комерційних замовлень.",
-        about_coverage_title: "Працюємо по всій території України & Remote Worldwide",
-        about_coverage_desc: "Наші студенти успішно навчаються онлайн з Києва, Львова, Одеси, Дніпра, Харкова, Вінниці, Івано-Франківська та сотень інших міст і містечок України, а також з-за кордону. Усе спілкування відбувається на цифровій платформі format ix.",
-        about_stat_practice: "Практика на реальних брифах",
-        about_stat_community: "Підтримка в ком'юніті студентів",
-        about_principles_title: "Принципи школи format ix",
-        about_item1_t: "Без води та шаблонів",
-        about_item1_d: "Тільки сучасні інструменти, актуальна типографіка та навички, за які готові платити клієнти.",
-        about_item2_t: "Чесний персональний фідбек",
-        about_item2_d: "Куратори розбирають кожен піксель, допомагаючи довести ваші роботи до рівня нагород Behance.",
-        about_item3_t: "Упаковка та перші контракти",
-        about_item3_d: "Вчимо комунікувати з замовниками, складати договори та оцінювати проекти гідно.",
-        reviews_badge: "// РЕАЛЬНІ РЕЗУЛЬТАТИ",
-        reviews_title: "ЩО КАЖУТЬ ВИПУСКНИКИ FORMAT IX",
-        reviews_subtitle: "Студенти, які перейшли від невпевнених спроб до солідних замовлень, роботи в агенціях та міжнародних нагород.",
-        rev1_text: "«Прийшла з нульовим розумінням брендингу. На курсі формат ікс мені повністю перевернули мислення! На 8-му тижні закрила свій перший комплексний фірмовий стиль для кав'ярні на 600$. Рекомендую всім!»",
-        rev2_text: "«Неймовірний рівень практики! Модулі по Blender та кінетиці просто космос. Після випуску оформив шоуріл і отримав офер від IT-компанії на позицію Middle Motion Designer. Дякую кураторам за нещадний фідбек!»",
-        rev3_text: "«Дуже сподобалось, що навчання повністю структуроване. Ніякої зайвої теорії: сітки, шрифти, робота у Figma та Illustrator. Для мене як новачка це був ідеальний старт. Уже планую йти на PRO!»",
-        contact_badge: "// ПРЯМИЙ ЗВ'ЯЗОК",
-        contact_desc: "Наш куратор допоможе визначитися з програмою, розкаже про можливості оплати частинами та відповість на будь-які ваші запитання. Працюємо по всій Україні!",
-        contact_phone_lbl: "Телефон школи format ix:",
-        form_title: "Замовити дзвінок куратора",
-        form_desc: "Залиште ім'я та телефон — ми зателефонуємо вам протягом 15 хвилин.",
-        f_name: "ВАШЕ ІМ'Я",
-        f_phone: "НОМЕР ТЕЛЕФОНУ",
-        f_package: "ЦІКАВИТЬ ПАКЕТ",
-        f_btn: "Отримати безкоштовну консультацію",
-        footer_geo: "Працюємо по всій Україні • Онлайн по всьому світу",
-        modal_about_title: "Про цю програму:",
-        modal_modules_title: "Ключові модулі навчання:",
-        modal_tools: "Інструменти:",
-        modal_duration: "Тривалість:",
-        btn_enroll_modal: "Записатися на потік"
-      },
-      en: {
-        nav_about: "About Us",
-        nav_matcher: "Course Matcher",
-        nav_courses: "Courses & Pricing",
-        nav_reviews: "Reviews",
-        nav_contacts: "Contacts",
-        hero_badge: "ENROLLMENT OPEN • UPCOMING COHORT 2026",
-        hero_title_1: "CREATE DESIGN",
-        hero_title_2: "THE WORLD BUYS.",
-        hero_desc: "Format ix design school offers practical, cutting-edge skills from top practitioners. We operate across all Ukraine online and guide students to international markets.",
-        hero_cta_quiz: "🎯 Find Your Course in 1 Min",
-        hero_cta_prices: "View Packages & Prices",
-        hero_geo: "Operating Nationwide in Ukraine & Worldwide Online",
-        stat_badge: "FORMAT IX METRICS",
-        stat_1: "Graduates with stellar case studies",
-        stat_2: "Sign first paying clients during study",
-        stat_3: "Behance & Awwwards held by our mentors",
-        btn_quick_consult: "Quick Consultation",
-        quiz_badge: "SMART COURSE MATCHER",
-        quiz_title: "WHICH COURSE SUITS YOU?",
-        quiz_subtitle: "Answer just 3 questions — our algorithm assesses your level and goals to match the ideal course package.",
-        q1_num: "STEP 1 OF 3 • EXPERIENCE",
-        q1_title: "What is your current graphic design level?",
-        q1_opt1_title: "Total Beginner",
-        q1_opt1_desc: "Never opened Photoshop/Figma or only know basic buttons",
-        q1_opt2_title: "Some Experience",
-        q1_opt2_desc: "Comfortable in Figma, make banners, want systematic branding",
-        q1_opt3_title: "Working Designer",
-        q1_opt3_desc: "Have clients, but want 3D, motion, or Art Director caliber ($2k+ fees)",
-        q2_num: "STEP 2 OF 3 • PRIMARY GOAL",
-        q2_title: "What is your main objective in the near term?",
-        q2_opt1_title: "First Freelance Clients",
-        q2_opt1_desc: "Quickly grasp design fundamentals and land initial paid gigs",
-        q2_opt2_title: "Complete Brand Identity",
-        q2_opt2_desc: "Craft logos, visual identity guidelines and strong Behance cases",
-        q2_opt3_title: "3D, Motion or AI Art Direction",
-        q2_opt3_desc: "Stand out with complex kinetic visuals and lead creative teams",
-        q3_num: "STEP 3 OF 3 • TIME COMMITMENT",
-        q3_title: "How many hours per week can you dedicate?",
-        q3_opt1_title: "4 – 6 hours / week",
-        q3_opt1_desc: "Balancing with full-time work or studies at a calm pace",
-        q3_opt2_title: "8 – 12 hours / week",
-        q3_opt2_desc: "Optimal pace: video lessons, practical homework and weekly reviews",
-        q3_opt3_title: "15+ hours (Full Immersion)",
-        q3_opt3_desc: "Maximum dedication for a rapid career quantum leap",
-        res_prefix: "YOUR PERFECT COURSE:",
-        res_btn_enroll: "View This Package & Enroll",
-        res_btn_again: "↺ Retake Quiz",
-        packages_badge: "// SYLLABUS PROGRAMS 2026-2027",
-        packages_title: "4 FORMAT IX COURSE TIERS",
-        packages_hint: "Click the (i) icon on any card to view detailed curriculum modules, tools, and outcomes.",
-        pkg1_title: "START BASIC",
-        pkg1_desc: "Graphic design foundations, composition, color theory, and Swiss grid systems from zero.",
-        pkg1_feat1: "Duration: 6 Weeks",
-        pkg1_feat2: "Figma & Adobe Illustrator",
-        pkg1_feat3: "3 finished portfolio works",
-        pkg1_feat4: "Weekly mentor feedback",
-        pkg2_title: "PRO BRANDING & IDENTITY",
-        pkg2_desc: "Full-cycle visual identity, logos, packaging, and high-impact Behance portfolio cases.",
-        pkg2_feat1: "Duration: 10 Weeks",
-        pkg2_feat2: "Illustrator, Photoshop, InDesign",
-        pkg2_feat3: "2 full commercial brand books",
-        pkg2_feat4: "Client management & pricing module",
-        pkg3_title: "3D & MOTION GRAPHICS",
-        pkg3_desc: "Spatial 3D design, kinetic typography, and motion graphics to supercharge your billable rate.",
-        pkg3_feat1: "Duration: 8 Weeks",
-        pkg3_feat2: "Blender 3D + After Effects",
-        pkg3_feat3: "Showreel 2026 included",
-        pkg3_feat4: "Material shading & neon lighting",
-        pkg4_title: "ART DIRECTION & AI",
-        pkg4_desc: "Enter the top creative league: generative AI pipelines, creative team leadership and global projects.",
-        pkg4_feat1: "Duration: 12 Weeks",
-        pkg4_feat2: "Midjourney, Stable Diffusion, RunWay",
-        pkg4_feat3: "1-on-1 sessions with Art Director",
-        pkg4_feat4: "Targeting $2,500+ projects",
-        pkg_price_lbl: "PRICE:",
-        btn_choose: "Choose This Package",
-        about_badge: "// ABOUT FORMAT IX",
-        about_p1: "Format ix design school was built as a bold alternative to outdated academic programs. Our methodology emphasizes modern aesthetics, strict Swiss grids, and commercial real-world briefs.",
-        about_coverage_title: "Nationwide in Ukraine & Remote Worldwide",
-        about_coverage_desc: "Our students learn online from Kyiv, Lviv, Odesa, Dnipro, and globally. All interactions take place on our digital platform.",
-        about_stat_practice: "Practice on Real Commercial Briefs",
-        about_stat_community: "24/7 Community Support",
-        about_principles_title: "The Format IX Principles",
-        about_item1_t: "Zero Fluff & Templates",
-        about_item1_d: "Only relevant modern tools, sharp typography, and market-ready skills.",
-        about_item2_t: "Ruthless Honest Feedback",
-        about_item2_d: "Mentors dissect every pixel to polish your work to Behance Award standards.",
-        about_item3_t: "Packaging & First Contracts",
-        about_item3_d: "Learn how to communicate with clients, draw legal agreements, and price high.",
-        reviews_badge: "// REAL OUTCOMES",
-        reviews_title: "WHAT FORMAT IX GRADUATES SAY",
-        reviews_subtitle: "Students who transformed from beginners to agency designers with international clients.",
-        rev1_text: "“I started with zero branding knowledge. Format ix completely restructured my creative mind! By week 8, I closed my first full cafe identity for $600.”",
-        rev2_text: "“Unbelievable practical depth! The Blender and kinetic typography modules are top-tier. Got hired as Middle Motion Designer!”",
-        rev3_text: "“Loved how well-structured the learning was. No fluff: grids, typography, Figma & Illustrator.”",
-        contact_badge: "// DIRECT LINE",
-        contact_desc: "Our mentor will walk you through the syllabus, installment options, and address all questions.",
-        contact_phone_lbl: "Format ix direct hotline:",
-        form_title: "Request a Mentor Call",
-        form_desc: "Leave your name and number — we will call you back within 15 minutes.",
-        f_name: "YOUR NAME",
-        f_phone: "PHONE NUMBER",
-        f_package: "DESIRED COURSE",
-        f_btn: "Get Free Consultation",
-        footer_geo: "Operating Nationwide in Ukraine • Online Worldwide",
-        modal_about_title: "About This Program:",
-        modal_modules_title: "Curriculum Modules:",
-        modal_tools: "Tools:",
-        modal_duration: "Duration:",
-        btn_enroll_modal: "Enroll in Cohort"
-      },
-      de: {
-        nav_about: "Über uns",
-        nav_matcher: "Kurs-Test",
-        nav_courses: "Kurse & Preise",
-        nav_reviews: "Bewertungen",
-        nav_contacts: "Kontakt",
-        hero_badge: "ANMELDUNG GEÖFFNET • START 2026",
-        hero_title_1: "GESTALTE DESIGN,",
-        hero_title_2: "DAS DIE WELT KAUFT.",
-        hero_desc: "Die Grafikdesign-Schule format ix bietet praxisnahe Ausbildung auf internationalem Niveau.",
-        hero_cta_quiz: "🎯 Kurs in 1 Minute finden",
-        hero_cta_prices: "Pakete & Preise ansehen",
-        hero_geo: "Ukraine-weit & Weltweit Online",
-        stat_badge: "FORMAT IX METRIKEN",
-        stat_1: "Absolventen mit starken Portfolios",
-        stat_2: "Gewinnen Kunden bereits im Kurs",
-        stat_3: "Internationale Design-Auszeichnungen",
-        btn_quick_consult: "Schnelle Beratung",
-        quiz_badge: "INTELLIGENTE KURSWAHL",
-        quiz_title: "WELCHER KURS PASST ZU DIR?",
-        quiz_subtitle: "Beantworte 3 kurze Fragen – unser Algorithmus ermittelt dein ideales Lernpaket.",
-        q1_num: "SCHRITT 1 VON 3 • ERFAHRUNG",
-        q1_title: "Wie ist dein aktuelles Level im Grafikdesign?",
-        q1_opt1_title: "Absoluter Anfänger",
-        q1_opt1_desc: "Habe noch nie mit Figma/Photoshop gearbeitet",
-        q1_opt2_title: "Grundkenntnisse vorhanden",
-        q1_opt2_desc: "Erstelle Banner, möchte ganzheitliches Branding lernen",
-        q1_opt3_title: "Erfahrener Designer",
-        q1_opt3_desc: "Möchte 3D, Motion oder Art Direction für höhere Honorare",
-        q2_num: "SCHRITT 2 VON 3 • ZIEL",
-        q2_title: "Was ist dein wichtigstes Ziel?",
-        q2_opt1_title: "Erste Freelance-Kunden",
-        q2_opt1_desc: "Schnell Grundlagen lernen und bezahlte Aufträge bekommen",
-        q2_opt2_title: "Komplettes Brand-Design",
-        q2_opt2_desc: "Logos, CI-Guides und starke Behance-Cases gestalten",
-        q2_opt3_title: "3D, Motion & KI Art Direction",
-        q2_opt3_desc: "Mit komplexen visuellen Systemen Designteams leiten",
-        q3_num: "SCHRITT 3 VON 3 • ZEITAUFWAND",
-        q3_title: "Wie viel Zeit kannst du pro Woche investieren?",
-        q3_opt1_title: "4 – 6 Stunden / Woche",
-        q3_opt1_desc: "Bequem neben Beruf oder Studium",
-        q3_opt2_title: "8 – 12 Stunden / Woche",
-        q3_opt2_desc: "Optimales Tempo mit Feedback",
-        q3_opt3_title: "15+ Stunden (Full Immersion)",
-        q3_opt3_desc: "Maximaler Einsatz für den schnellen Durchbruch",
-        res_prefix: "DEIN OPTIMALER KURS:",
-        res_btn_enroll: "Paket ansehen & anmelden",
-        res_btn_again: "↺ Test wiederholen",
-        packages_badge: "// KURSPROGRAMME 2026-2027",
-        packages_title: "4 FORMAT IX KURS-PAKETE",
-        packages_hint: "Klicke auf das (i) Symbol für detaillierte Modulübersichten.",
-        pkg1_title: "START BASIC",
-        pkg1_desc: "Grundlagen des Grafikdesigns, Komposition und Schweizer Rastersysteme.",
-        pkg1_feat1: "Dauer: 6 Wochen",
-        pkg1_feat2: "Figma & Adobe Illustrator",
-        pkg1_feat3: "3 Portfolio-Projekte",
-        pkg1_feat4: "Wöchentliches Mentoren-Feedback",
-        pkg2_title: "PRO BRANDING & IDENTITY",
-        pkg2_desc: "Ganzheitliche Markenidentitäten, Packaging und prämierte Behance-Cases.",
-        pkg2_feat1: "Dauer: 10 Wochen",
-        pkg2_feat2: "Illustrator, Photoshop, InDesign",
-        pkg2_feat3: "2 vollständige Brandbooks",
-        pkg2_feat4: "Modul: Kundenakquise & Honorare",
-        pkg3_title: "3D & MOTION GRAPHICS",
-        pkg3_desc: "Räumliches 3D-Design, kinetische Typografie und dynamische Animationen.",
-        pkg3_feat1: "Dauer: 8 Wochen",
-        pkg3_feat2: "Blender 3D + After Effects",
-        pkg3_feat3: "Showreel 2026 inklusive",
-        pkg3_feat4: "Shader & Neon-Beleuchtung",
-        pkg4_title: "ART DIRECTION & AI",
-        pkg4_desc: "Die Meisterklasse: Generative KI, Teamleitung und internationale Großprojekte.",
-        pkg4_feat1: "Dauer: 12 Wochen",
-        pkg4_feat2: "Midjourney, Stable Diffusion, RunWay",
-        pkg4_feat3: "1-zu-1 Sessions mit Art Director",
-        pkg4_feat4: "Projekte ab 2.500 $+",
-        pkg_price_lbl: "PREIS:",
-        btn_choose: "Dieses Paket wählen",
-        about_badge: "// ÜBER FORMAT IX",
-        about_p1: "format ix ist die moderne Antwort auf theoretische Design-Studiengänge.",
-        about_coverage_title: "In der gesamten Ukraine & Weltweit Online",
-        about_coverage_desc: "Unsere Studenten lernen online aus Kiew, Lemberg, Odessa und international.",
-        about_stat_practice: "Praxis an echten Kundenaufträgen",
-        about_stat_community: "24/7 Community Support",
-        about_principles_title: "Format IX Prinzipien",
-        about_item1_t: "Keine unnötige Theorie",
-        about_item1_d: "Nur moderne Werkzeuge und marktkonforme Fähigkeiten.",
-        about_item2_t: "Ehrliches Experten-Feedback",
-        about_item2_d: "Jedes Detail wird analysiert für Top-Qualität.",
-        about_item3_t: "Verträge & Kundengewinnung",
-        about_item3_d: "Lerne, dich und deine Arbeit hochpreisig zu verkaufen.",
-        reviews_badge: "// ERGEBNISSE",
-        reviews_title: "STIMMEN UNSERER ABSOLVENTEN",
-        reviews_subtitle: "Erfolgreiche Karrierewege in Agenturen und der internationalen Selbstständigkeit.",
-        rev1_text: "“Ich hatte null Vorwissen in Branding. Konnte in Woche 8 mein erstes Markenkonzept für 600$ verkaufen.”",
-        rev2_text: "“Wurde direkt nach dem Abschluss als Motion Designer eingestellt!”",
-        rev3_text: "“Klare Struktur und fantastische Betreuung. Ideal für Einsteiger.”",
-        contact_badge: "// DIREKTKONTAKT",
-        contact_desc: "Rufen Sie uns an – unser Kurator berät Sie zu Ratenzahlung und Kursauswahl.",
-        contact_phone_lbl: "Hotline der Schule format ix:",
-        form_title: "Rückruf anfordern",
-        form_desc: "Hinterlassen Sie Name und Nummer für einen Anruf innerhalb von 15 Minuten.",
-        f_name: "IHR NAME",
-        f_phone: "TELEFONNUMMER",
-        f_package: "GEWÜNSCHTES PAKET",
-        f_btn: "Kostenlose Beratung anfordern",
-        footer_geo: "Ukraine-weit aktiv • Online weltweit verfügbar",
-        modal_about_title: "Über diesen Kurs:",
-        modal_modules_title: "Lernmodule:",
-        modal_tools: "Werkzeuge:",
-        modal_duration: "Dauer:",
-        btn_enroll_modal: "Jetzt Platz sichern"
-      },
-      fr: {
-        nav_about: "À propos",
-        nav_matcher: "Test d'orientation",
-        nav_courses: "Formations & Prix",
-        nav_reviews: "Avis",
-        nav_contacts: "Contact",
-        hero_badge: "INSCRIPTIONS OUVERTES • SESSION 2026",
-        hero_title_1: "CRÉEZ DU DESIGN",
-        hero_title_2: "QUE LE MONDE ACHÈTE.",
-        hero_desc: "L'école de design graphique format ix enseigne l'excellence visuelle et les standards internationaux.",
-        hero_cta_quiz: "🎯 Trouver ma formation en 1 min",
-        hero_cta_prices: "Voir les formules & tarifs",
-        hero_geo: "Actif dans toute l'Ukraine & en ligne mondialement",
-        stat_badge: "MÉTRIQUES FORMAT IX",
-        stat_1: "Diplômés avec portfolios primés",
-        stat_2: "Signent leurs 1ers contrats pendant les cours",
-        stat_3: "Prix Behance & Awwwards de nos mentors",
-        btn_quick_consult: "Consultation rapide",
-        quiz_badge: "ORIENTATION INTELLIGENTE",
-        quiz_title: "QUELLE FORMATION EST FAITE POUR VOUS ?",
-        quiz_subtitle: "Répondez à 3 questions simples pour identifier le cursus parfait selon vos objectifs.",
-        q1_num: "ÉTAPE 1 SUR 3 • EXPÉRIENCE",
-        q1_title: "Quel est votre niveau actuel en design graphique ?",
-        q1_opt1_title: "Débutant absolu",
-        q1_opt1_desc: "Je n'ai jamais utilisé Figma/Photoshop",
-        q1_opt2_title: "Notions de base",
-        q1_opt2_desc: "Je maîtrise Figma et souhaite créer des identités complètes",
-        q1_opt3_title: "Designer en activité",
-        q1_opt3_desc: "Je veux maîtriser la 3D, le motion et la direction artistique",
-        q2_num: "ÉTAPE 2 SUR 3 • OBJECTIF",
-        q2_title: "Quel est votre objectif prioritaire ?",
-        q2_opt1_title: "Premiers clients freelance",
-        q2_opt1_desc: "Acquérir les fondamentaux et décrocher des missions",
-        q2_opt2_title: "Identité de marque complète",
-        q2_opt2_desc: "Créer des logos, des chartes graphiques et des projets Behance",
-        q2_opt3_title: "3D, Motion & Direction Artistique IA",
-        q2_opt3_desc: "Se démarquer par des visuels complexes",
-        q3_num: "ÉTAPE 3 SUR 3 • DISPONIBILITÉ",
-        q3_title: "Combien d'heures par semaine pouvez-vous consacrer ?",
-        q3_opt1_title: "4 – 6 h / semaine",
-        q3_opt1_desc: "En parallèle de votre emploi ou vos études",
-        q3_opt2_title: "8 – 12 h / semaine",
-        q3_opt2_desc: "Rythme optimal avec retours hebdomadaires",
-        q3_opt3_title: "15+ h (Immersion totale)",
-        q3_opt3_desc: "Engagement maximal pour une progression fulgurante",
-        res_prefix: "VOTRE CURSUS IDÉAL :",
-        res_btn_enroll: "Découvrir ce forfait & s'inscrire",
-        res_btn_again: "↺ Recommencer",
-        packages_badge: "// PROGRAMMES 2026-2027",
-        packages_title: "4 FORMULES FORMAT IX",
-        packages_hint: "Cliquez sur l'icône (i) pour afficher le détail des modules.",
-        pkg1_title: "START BASIC",
-        pkg1_desc: "Fondamentaux du design graphique, typographie suisse et composition.",
-        pkg1_feat1: "Durée : 6 semaines",
-        pkg1_feat2: "Figma & Adobe Illustrator",
-        pkg1_feat3: "3 projets portfolio complets",
-        pkg1_feat4: "Retours personnalisés chaque semaine",
-        pkg2_title: "PRO BRANDING & IDENTITY",
-        pkg2_desc: "Création d'identités visuelles, packaging et valorisation Behance.",
-        pkg2_feat1: "Durée : 10 semaines",
-        pkg2_feat2: "Illustrator, Photoshop, InDesign",
-        pkg2_feat3: "2 brand books commerciaux",
-        pkg2_feat4: "Module négociation & tarification",
-        pkg3_title: "3D & MOTION GRAPHICS",
-        pkg3_desc: "Design 3D spatial, typographie cinétique et animation visuelle.",
-        pkg3_feat1: "Durée : 8 semaines",
-        pkg3_feat2: "Blender 3D + After Effects",
-        pkg3_feat3: "Showreel 2026 inclus",
-        pkg3_feat4: "Shaders & éclairage néon",
-        pkg4_title: "ART DIRECTION & AI",
-        pkg4_desc: "L'élite créative : intégration d'IA générative et direction de projets.",
-        pkg4_feat1: "Durée : 12 semaines",
-        pkg4_feat2: "Midjourney, Stable Diffusion, RunWay",
-        pkg4_feat3: "Sessions avec directeur artistique",
-        pkg4_feat4: "Objectif contrats $2,500+",
-        pkg_price_lbl: "TARIF :",
-        btn_choose: "Choisir cette formule",
-        about_badge: "// À PROPOS DE FORMAT IX",
-        about_p1: "format ix est né pour réinventer l'enseignement du design.",
-        about_coverage_title: "Partout en Ukraine & en ligne à l'international",
-        about_coverage_desc: "Nos étudiants suivent les cours depuis Kyiv, Lviv, Odesa et l'international.",
-        about_stat_practice: "Pratique sur des briefs réels",
-        about_stat_community: "Support communautaire 24/7",
-        about_principles_title: "Nos Principes Fondateurs",
-        about_item1_t: "Zéro superflu",
-        about_item1_d: "Uniquement les outils modernes et les compétences monétisables.",
-        about_item2_t: "Retours d'experts exigeants",
-        about_item2_d: "Chaque détail est scruté pour atteindre le niveau Behance Award.",
-        about_item3_t: "Valorisation & Contrats",
-        about_item3_d: "Apprenez à chiffrer vos créations à leur juste valeur.",
-        reviews_badge: "// AVIS D'ÉTUDIANTS",
-        reviews_title: "TÉMOIGNAGES DE NOS DIPLÔMÉS",
-        reviews_subtitle: "Des résultats concrets : intégration en agence et contrats prestigieux.",
-        rev1_text: "« Dès la 8e semaine, j'ai vendu ma première identité de marque à 600$. Exceptionnel ! »",
-        rev2_text: "« J'ai décroché mon poste de Motion Designer grâce à mon nouveau showreel ! »",
-        rev3_text: "« Une structure claire et un suivi personnalisé. Le meilleur investissement. »",
-        contact_badge: "// LIGNE DIRECTE",
-        contact_desc: "Contactez-nous pour toute question relative aux inscriptions.",
-        contact_phone_lbl: "Ligne directe de l'école format ix :",
-        form_title: "Demander un appel de notre tuteur",
-        form_desc: "Indiquez vos coordonnées pour être rappelé sous 15 minutes.",
-        f_name: "VOTRE NOM",
-        f_phone: "NUMÉRO DE TÉLÉPHONE",
-        f_package: "FORMULE SOUHAITÉE",
-        f_btn: "Recevoir une consultation gratuite",
-        footer_geo: "Actif dans toute l'Ukraine • En ligne dans le monde entier",
-        modal_about_title: "À propos de ce cours :",
-        modal_modules_title: "Modules du programme :",
-        modal_tools: "Outils :",
-        modal_duration: "Durée :",
-        btn_enroll_modal: "S'inscrire à la session"
-      },
-      ja: {
-        nav_about: "概要",
-        nav_matcher: "コース診断",
-        nav_courses: "講座・料金",
-        nav_reviews: "受講生の声",
-        nav_contacts: "お問い合わせ",
-        hero_badge: "受講生募集中 • 2026年期スタート",
-        hero_title_1: "世界が認める、",
-        hero_title_2: "最高峰のデザインを。",
-        hero_desc: "グラフィックデザインスクール『format ix』は、現役トップクリエイターによる実践型カリキュラムを提供。",
-        hero_cta_quiz: "🎯 1分で適正コースを診断",
-        hero_cta_prices: "料金プランを見る",
-        hero_geo: "ウクライナ全土＆世界中からオンライン受講可能",
-        stat_badge: "FORMAT IX 実績",
-        stat_1: "国際案件を獲得した卒業生数",
-        stat_2: "受講中に最初の有償案件を獲得",
-        stat_3: "メンター陣の受賞歴（Behance/Awwwards）",
-        btn_quick_consult: "迅速カウンセリング",
-        quiz_badge: "スマートコース診断",
-        quiz_title: "あなたに最適なコースは？",
-        quiz_subtitle: "わずか3つの質問に答えるだけで、あなたのスキルと目的に最適な受講プランをご提案します。",
-        q1_num: "STEP 1 / 3 • 経験",
-        q1_title: "現在のデザインスキルはどのくらいですか？",
-        q1_opt1_title: "完全な初心者",
-        q1_opt1_desc: "PhotoshopやFigmaを触ったことがない",
-        q1_opt2_title: "基礎知識あり",
-        q1_opt2_desc: "Figmaでバナー制作が可能。本格的なブランディングを学びたい",
-        q1_opt3_title: "実務経験者",
-        q1_opt3_desc: "3Dやモーション、AIアートディレクションで単価を上げたい",
-        q2_num: "STEP 2 / 3 • 目標",
-        q2_title: "直近で最も達成したい目的は何ですか？",
-        q2_opt1_title: "副業・フリーランス案件獲得",
-        q2_opt1_desc: "基礎を素早く固めて有償案件を受注したい",
-        q2_opt2_title: "総合ブランドデザイン",
-        q2_opt2_desc: "ロゴ・CIガイドライン・Behance用作品を制作したい",
-        q2_opt3_title: "3D / モーション / AIディレクション",
-        q2_opt3_desc: "高度な表現力でクリエイティブチームを牽引したい",
-        q3_num: "STEP 3 / 3 • 学習時間",
-        q3_title: "週に確保できる学習時間はどのくらいですか？",
-        q3_opt1_title: "週4〜6時間",
-        q3_opt1_desc: "仕事や学業と両立しながら進めたい",
-        q3_opt2_title: "週8〜12時間",
-        q3_opt2_desc: "標準ペースで無理なく進行",
-        q3_opt3_title: "週15時間以上（集中没頭）",
-        q3_opt3_desc: "圧倒的な短期間でプロレベルへ",
-        res_prefix: "あなたに最適なコース：",
-        res_btn_enroll: "このプランの詳細を見る",
-        res_btn_again: "↺ もう一度診断する",
-        packages_badge: "// 2026-2027年 カリキュラム",
-        packages_title: "FORMAT IX 4つのコースプラン",
-        packages_hint: "各カードの (i) アイコンをクリックすると詳細シラバスを確認できます。",
-        pkg1_title: "START BASIC",
-        pkg1_desc: "デザイン基礎、構成力、色彩、スイスタイポグラフィを完全未経験から網羅。",
-        pkg1_feat1: "受講期間：6週間",
-        pkg1_feat2: "Figma & Adobe Illustrator",
-        pkg1_feat3: "ポートフォリオ用制作物 3点",
-        pkg1_feat4: "週次メンターフィードバック",
-        pkg2_title: "PRO BRANDING & IDENTITY",
-        pkg2_desc: "ロゴ開発、パッケージ、CIガイドライン作成およびBehance掲載用ケーススタディ。",
-        pkg2_feat1: "受講期間：10週間",
-        pkg2_feat2: "Illustrator, Photoshop, InDesign",
-        pkg2_feat3: "商業レベルのブランドブック 2件",
-        pkg2_feat4: "案件獲得・見積もり交渉モジュール",
-        pkg3_title: "3D & MOTION GRAPHICS",
-        pkg3_desc: "3D空間デザイン、キネティックタイポグラフィ、映像表現で市場価値を最大化。",
-        pkg3_feat1: "受講期間：8週間",
-        pkg3_feat2: "Blender 3D + After Effects",
-        pkg3_feat3: "2026年最新Showreel制作",
-        pkg3_feat4: "マテリアル質感＆ネオンライティング",
-        pkg4_title: "ART DIRECTION & AI",
-        pkg4_desc: "生成AI活用、クリエイティブ統括、グローバル高単価案件のディレクション。",
-        pkg4_feat1: "受講期間：12週間",
-        pkg4_feat2: "Midjourney, Stable Diffusion, RunWay",
-        pkg4_feat3: "現役アートディレクターとの個別セッション",
-        pkg4_feat4: "単価$2,500超の案件を目指す",
-        pkg_price_lbl: "受講料金：",
-        btn_choose: "このプランを選択",
-        about_badge: "// FORMAT IX について",
-        about_p1: "format ixは世界で売れるデザイン思考を徹底的に叩き込むプロスクールです。",
-        about_coverage_title: "ウクライナ全土対応＆世界中からオンライン受講",
-        about_coverage_desc: "キーウ、リヴィウをはじめ、欧米など世界中から受講生が集まっています。",
-        about_stat_practice: "実案件ブリーフによる実践",
-        about_stat_community: "24時間対応の受講生コミュニティ",
-        about_principles_title: "format ix の教育原則",
-        about_item1_t: "無駄のない実用性",
-        about_item1_d: "現場で真に求められるツールとタイポグラフィのみを伝授。",
-        about_item2_t: "妥協のない本気の添削",
-        about_item2_d: "1ピクセルの狂いも見逃さず国際水準までブラッシュアップ。",
-        about_item3_t: "価格交渉と契約実務",
-        about_item3_d: "正当な対価を受け取るための契約書作成とプレゼン技法を習得。",
-        reviews_badge: "// 受講生の声",
-        reviews_title: "卒業生の実績とレビュー",
-        reviews_subtitle: "未経験からスタートし、国内外の案件で活躍する卒業生たちの生の声です。",
-        rev1_text: "「8週目には最初の店舗ブランディング案件を$600で受注できました！」",
-        rev2_text: "「修了制作のShowreelで制作会社の内定を勝ち取りました。」",
-        rev3_text: "「基礎から体系的に学べて無駄が一切ない。初心者に最もお勧めです。」",
-        contact_badge: "// 直通窓口",
-        contact_desc: "分割払いのご相談やお悩みなど、専任キュレーターが丁寧にお答えします。",
-        contact_phone_lbl: "format ix 直通ダイヤル：",
-        form_title: "キュレーターへ無料相談",
-        form_desc: "お名前とお電話番号をご入力いただければ、15分以内に折り返しご連絡いたします。",
-        f_name: "お名前",
-        f_phone: "お電話番号",
-        f_package: "ご希望のコース",
-        f_btn: "無料相談を申し込む",
-        footer_geo: "ウクライナ全土・世界各地オンライン受講対応",
-        modal_about_title: "コース概要：",
-        modal_modules_title: "主要カリキュラム：",
-        modal_tools: "使用ツール：",
-        modal_duration: "受講期間：",
-        btn_enroll_modal: "受講を申し込む"
-      }
-    };
-
-    let currentLang = 'uk';
-
-    function changeLanguage(lang) {
-      if (!translations[lang]) return;
-      currentLang = lang;
-      
-      const elements = document.querySelectorAll('[data-i18n]');
-      elements.forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-          el.innerText = translations[lang][key];
-        }
-      });
-
-      if (lastMatchedKey) {
-        renderMatchedCourse();
-      }
-      setupCursorHovers();
-    }
-
-    /* ========================================================================
-       4. QUIZ LOGIC
-    ======================================================================== */
-    const quizAnswers = { 1: null, 2: null, 3: null };
-    let lastMatchedKey = null;
-
-    function selectQuizAnswer(step, answer) {
-      quizAnswers[step] = answer;
-
-      if (step === 1) {
-        document.getElementById('quizStep1').classList.add('hidden');
-        document.getElementById('quizStep2').classList.remove('hidden');
-        document.getElementById('quizProgress').style.width = '66.6%';
-      } else if (step === 2) {
-        document.getElementById('quizStep2').classList.add('hidden');
-        document.getElementById('quizStep3').classList.remove('hidden');
-        document.getElementById('quizProgress').style.width = '100%';
-      } else if (step === 3) {
-        document.getElementById('quizStep3').classList.add('hidden');
-        showQuizResult();
-      }
-      setupCursorHovers();
-    }
-
-    function showQuizResult() {
-      let courseKey = 'pro';
-      if (quizAnswers[1] === 'beginner' || quizAnswers[2] === 'freelance') {
-        courseKey = 'start';
-      } else if (quizAnswers[2] === '3d_lead' || quizAnswers[1] === 'pro') {
-        courseKey = (quizAnswers[3] === 'intensive') ? 'art' : 'motion';
-      } else {
-        courseKey = 'pro';
-      }
-      lastMatchedKey = courseKey;
-
-      renderMatchedCourse();
-      document.getElementById('quizResult').classList.remove('hidden');
-      setupCursorHovers();
-    }
-
-    function renderMatchedCourse() {
-      const data = courseDetails[lastMatchedKey];
-      const titleElem = document.getElementById('matchedCourseTitle');
-      const descElem = document.getElementById('matchedCourseDesc');
-
-      titleElem.innerText = data.title[currentLang] || data.title['uk'];
-      descElem.innerText = data.desc[currentLang] || data.desc['uk'];
-    }
-
-    function resetQuiz() {
-      quizAnswers[1] = null;
-      quizAnswers[2] = null;
-      quizAnswers[3] = null;
-      lastMatchedKey = null;
-
-      document.getElementById('quizResult').classList.add('hidden');
-      document.getElementById('quizStep1').classList.remove('hidden');
-      document.getElementById('quizProgress').style.width = '33.3%';
-      setupCursorHovers();
-    }
-
-    function scrollToPackage() {
-      if (!lastMatchedKey) return;
-      const cardMap = {
-        start: 'pkg-card-start',
-        pro: 'pkg-card-pro',
-        motion: 'pkg-card-motion',
-        art: 'pkg-card-art'
-      };
-      const el = document.getElementById(cardMap[lastMatchedKey]);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        el.classList.add('ring-4', 'ring-brandLime');
-        setTimeout(() => el.classList.remove('ring-4', 'ring-brandLime'), 2500);
-      }
-    }
-
-    /* ========================================================================
-       5. COURSE DETAILS MODAL DATA
-    ======================================================================== */
-    const courseDetails = {
-      start: {
-        badge: "ПАКЕТ // 01",
-        title: {
-          uk: "START BASIC — Фундамент графічного дизайну",
-          en: "START BASIC — Graphic Design Foundations",
-          de: "START BASIC — Grundlagen des Grafikdesigns",
-          fr: "START BASIC — Fondations du Design Graphique",
-          ja: "START BASIC — グラフィックデザイン基礎"
-        },
-        desc: {
-          uk: "Ідеальний старт для тих, хто ніколи не відкривав графічні редактори. Ви навчитеся будувати модульні швейцарські сітки, підбирати шрифтові пари, працювати з кольором та створювати перші впевнені комерційні макети.",
-          en: "Perfect launchpad for complete beginners. Master Swiss modular grids, typographic hierarchies, and create your first deliverables.",
-          de: "Ideal für Einsteiger. Erlernen Sie modulare Rastersysteme, Typografie und Farbkomposition.",
-          fr: "La rampe de lancement idéale pour débuter. Maîtrisez les grilles modulaires et la typographie.",
-          ja: "完全未経験からスイスタイポグラフィ、グリッドシステム、色彩理論を学ぶ基礎講座。"
-        },
-        modules: {
-          uk: [
-            "Модуль 1: Анатомія графіки, композиція та контрасти",
-            "Модуль 2: Робота у Figma від А до Я: фрейми, компоненти, автолейаути",
-            "Модуль 3: Векторна графіка в Adobe Illustrator (криві Безьє, шейпи)",
-            "Модуль 4: Підготовка макетів до друку та digital-публікацій"
-          ],
-          en: [
-            "Module 1: Visual Grammar, Contrast & Composition",
-            "Module 2: Complete Figma Mastery: Components & Auto Layouts",
-            "Module 3: Vector Magic in Adobe Illustrator",
-            "Module 4: Exporting for Print & Modern Digital Platforms"
-          ],
-          de: [
-            "Modul 1: Bildgrammatik, Kontraste & Komposition",
-            "Modul 2: Figma Meisterschaft: Komponenten & Auto-Layouts",
-            "Modul 3: Vektorgrafik in Adobe Illustrator",
-            "Modul 4: Druckvorstufe & Digitale Ausgabeformate"
-          ],
-          fr: [
-            "Module 1 : Grammaire visuelle, contrastes et composition",
-            "Module 2 : Maîtrise de Figma : composants et mise en page",
-            "Module 3 : Vecteurs avec Adobe Illustrator",
-            "Module 4 : Préparation pour l'impression et supports digitaux"
-          ],
-          ja: [
-            "モジュール1：構図と視覚的階層の基礎",
-            "モジュール2：Figma完全習得（コンポーネント・自動レイアウト）",
-            "モジュール3：Adobe Illustrator ベクターグラフィック",
-            "モジュール4：入稿データ作成とデジタル最適化"
-          ]
-        },
-        tools: "Figma, Adobe Illustrator",
-        duration: "6 тижнів (Weeks)",
-        price: "11 900 ₴"
-      },
-      pro: {
-        badge: "ПАКЕТ // 02",
-        title: {
-          uk: "PRO BRANDING & IDENTITY — Айдентика та брендбук",
-          en: "PRO BRANDING & IDENTITY — Visual Systems & Guidelines",
-          de: "PRO BRANDING & IDENTITY — Markenidentität & Brandbooks",
-          fr: "PRO BRANDING & IDENTITY — Identités Visuelles & Systèmes",
-          ja: "PRO BRANDING & IDENTITY — ブランドアイデンティティ"
-        },
-        desc: {
-          uk: "Глибоке занурення в комерційну айдентику. Ми розбираємо дослідження ринку, позиціонування, розробку знаків, динамічних паттернів, пакування та верстку багатосторінкових брендбуків.",
-          en: "Deep dive into enterprise branding systems. Covers market research, logo engineering, adaptive pattern systems, and corporate guidelines.",
-          de: "Tiefgehende Markenentwicklung: Marktanalyse, Logodesign, Verpackung und mehrseitige CI-Richtlinien.",
-          fr: "Immersion complète dans l'identité de marque : logos, typographie, packaging et brand books.",
-          ja: "市場リサーチからロゴ設計、パッケージ、包括的なブランドガイドライン策定までを網羅。"
-        },
-        modules: {
-          uk: [
-            "Модуль 1: Бренд-стратегія, мудборди та дослідження конкурентів",
-            "Модуль 2: Геометрія логотипу, оптичні компенсації та шрифт",
-            "Модуль 3: Генерація фірмових систем, мерч та пакування",
-            "Модуль 4: Оформлення вірусного кейсу для Behance + пошук замовників"
-          ],
-          en: [
-            "Module 1: Brand Strategy, Positioning & Moodboarding",
-            "Module 2: Logo Geometry, Optical Illusions & Typography",
-            "Module 3: Dynamic Identity Systems, Merch & Packaging",
-            "Module 4: Crafting a Featured Behance Case & Client Acquisition"
-          ],
-          de: [
-            "Modul 1: Markenstrategie, Moodboards & Marktanalyse",
-            "Modul 2: Logo-Geometrie und visuelle Balance",
-            "Modul 3: Markensysteme, Packaging & Merchandise",
-            "Modul 4: Behance Case Study & Kundengewinnung"
-          ],
-          fr: [
-            "Module 1 : Stratégie de marque et recherche concurrentielle",
-            "Module 2 : Géométrie des logos et compensation optique",
-            "Module 3 : Systèmes graphiques, merchandising et packaging",
-            "Module 4 : Publication d'un projet Behance primé et vente"
-          ],
-          ja: [
-            "モジュール1：ブランド戦略・競合調査・ムードボード",
-            "モジュール2：ロゴ幾何学・視覚補正・カスタム文字",
-            "モジュール3：展開システム・パッケージ・グッズ展開",
-            "モジュール4：Behanceで注目されるケーススタディ制作"
-          ]
-        },
-        tools: "Illustrator, Photoshop, InDesign, Figma",
-        duration: "10 тижнів (Weeks)",
-        price: "22 500 ₴"
-      },
-      motion: {
-        badge: "ПАКЕТ // 03",
-        title: {
-          uk: "3D & MOTION GRAPHICS — Простір та кінетика",
-          en: "3D & MOTION GRAPHICS — 3D Space & Kinetic Animation",
-          de: "3D & MOTION GRAPHICS — Raum-3D & Kinetische Typografie",
-          fr: "3D & MOTION GRAPHICS — 3D & Animation Graphique",
-          ja: "3D & MOTION GRAPHICS — 3D表現＆モーショングラフィックス"
-        },
-        desc: {
-          uk: "Переведіть свій дизайн у третій вимір. Робота з матеріалами, склом, неоновим освітленням у Blender 3D та кінетична анімація шрифтів у After Effects для створення динамічного шоурілу.",
-          en: "Elevate designs into 3D environments. Render realistic glass and metals in Blender and produce a competitive showreel.",
-          de: "Bringen Sie Ihre Entwürfe in die 3D-Welt: Shading in Blender sowie dynamische After Effects Animationen.",
-          fr: "Passez à la 3D : textures réalistes, néon et verre sur Blender, animation sur After Effects.",
-          ja: "Blenderによる質感表現と、After Effectsによる動画演出を習得。"
-        },
-        modules: {
-          uk: [
-            "Модуль 1: Основи простору та полігонального моделювання в Blender",
-            "Модуль 2: Шейдери, освітлення, неонові та скляні матеріали",
-            "Модуль 3: Кінетична типографіка та динаміка в After Effects",
-            "Модуль 4: Зведення підсумкового шоурілу (Showreel 2026)"
-          ],
-          en: [
-            "Module 1: 3D Space & Polygonal Modeling in Blender",
-            "Module 2: Advanced Shading: Chrome, Glass & Neon Renders",
-            "Module 3: Kinetic Typography & Rhythms in After Effects",
-            "Module 4: Showreel Compilation, Sound Sync & Color Grading"
-          ],
-          de: [
-            "Modul 1: 3D-Modellierung in Blender",
-            "Modul 2: Shader, Chrom, Glas und Beleuchtung",
-            "Modul 3: Kinetische Typografie in After Effects",
-            "Modul 4: Showreel-Produktion und Sound-Design"
-          ],
-          fr: [
-            "Module 1 : Modélisation 3D polygonale sur Blender",
-            "Module 2 : Shaders, chrome, verre et éclairages néon",
-            "Module 3 : Typographie cinétique sous After Effects",
-            "Module 4 : Montage du showreel final et sonorisation"
-          ],
-          ja: [
-            "モジュール1：Blenderモデリング基礎",
-            "モジュール2：質感設定（ガラス・クローム・ネオン光）",
-            "モジュール3：After Effects タイポグラフィ動画演出",
-            "モジュール4：ポートフォリオ用Showreel完成と音響同期"
-          ]
-        },
-        tools: "Blender 3D, Adobe After Effects",
-        duration: "8 тижнів (Weeks)",
-        price: "26 900 ₴"
-      },
-      art: {
-        badge: "ПАКЕТ // 04",
-        title: {
-          uk: "ART DIRECTION & AI — Креативне лідерство",
-          en: "ART DIRECTION & AI — Creative Leadership & Generative Pipelines",
-          de: "ART DIRECTION & AI — Kreativleitung & Generative KI",
-          fr: "ART DIRECTION & AI — Direction Artistique & IA",
-          ja: "ART DIRECTION & AI — アートディレクション＆生成AI"
-        },
-        desc: {
-          uk: "Програма для досвідчених дизайнерів, які прагнуть перейти на рівень Арт-директора. Використання передових нейромереж, ведення міжнародних тендерів, захист концепцій перед замовниками з США та ЄС.",
-          en: "Designed for experienced designers aiming for Creative Lead / Art Director roles. Learn prompt engineering and team leadership.",
-          de: "Für Designer mit Ambitionen zur Art Direction: Prompt Engineering, KI-Pipelines und Präsentation vor Großkunden.",
-          fr: "Pour les designers visant la direction créative : intégration de l'IA générative et présentation de concepts.",
-          ja: "トップクリエイターを目指す実務経験者向け。最新生成AIパイプラインとディレクション技法。"
-        },
-        modules: {
-          uk: [
-            "Модуль 1: Робота з Midjourney, Stable Diffusion та ControlNet у комерційному пайплайні",
-            "Модуль 2: Створення глобальних візуальних концепцій та пітчинг",
-            "Модуль 3: Арт-дирекшн команд, менеджмент та захист рішень",
-            "Модуль 4: Вихід на міжнародні біржі та прямі контракти ($2,500+)"
-          ],
-          en: [
-            "Module 1: Midjourney, Stable Diffusion & ControlNet Pipelines",
-            "Module 2: Global Visual Concept Crafting & Pitching",
-            "Module 3: Team Art Direction, Critique & Benchmarking",
-            "Module 4: Winning Enterprise Contracts & Global Freelancing"
-          ],
-          de: [
-            "Modul 1: KI-Tools (Midjourney, Stable Diffusion) im Agentur-Alltag",
-            "Modul 2: Konzeptentwicklung & Pitching vor Entscheidern",
-            "Modul 3: Teamleitung & Art Direction Prozesse",
-            "Modul 4: Internationale Verträge ab 2.500 $"
-          ],
-          fr: [
-            "Module 1 : Pipelines IA commerciaux (Midjourney, ControlNet)",
-            "Module 2 : Conception créative globale et pitch client",
-            "Module 3 : Direction d'équipe créative et contrôle qualité",
-            "Module 4 : Négociation de contrats internationaux majeurs"
-          ],
-          ja: [
-            "モジュール1：商用生成AIパイプライン",
-            "モジュール2：グローバル案件のコンセプト立案とピッチ技法",
-            "モジュール3：デザインチーム統括・クオリティ管理",
-            "モジュール4：高単価国際案件（$2,500〜）の受注戦略"
-          ]
-        },
-        tools: "Midjourney, Stable Diffusion, RunWay, Figma, C4D",
-        duration: "12 тижнів (Weeks)",
-        price: "39 000 ₴"
-      }
-    };
-
-    function openCourseInfo(key) {
-      const data = courseDetails[key];
-      if (!data) return;
-
-      document.getElementById('modalCourseBadge').innerText = data.badge;
-      document.getElementById('modalCourseTitle').innerText = data.title[currentLang] || data.title['uk'];
-      document.getElementById('modalCourseDesc').innerText = data.desc[currentLang] || data.desc['uk'];
-      
-      const modulesList = document.getElementById('modalCourseModules');
-      modulesList.innerHTML = '';
-      const modList = data.modules[currentLang] || data.modules['uk'];
-      modList.forEach(m => {
-        const li = document.createElement('li');
-        li.className = 'flex items-start gap-2';
-        li.innerHTML = `<span class="text-brandLime font-bold shrink-0">✦</span><span>${m}</span>`;
-        modulesList.appendChild(li);
-      });
-
-      document.getElementById('modalCourseTools').innerText = data.tools;
-      document.getElementById('modalCourseDuration').innerText = data.duration;
-      document.getElementById('modalCoursePrice').innerText = data.price;
-
-      document.getElementById('modalEnrollBtn').onclick = () => {
-        closeCourseInfo();
-        enrollInPackage(data.title['uk'], data.price);
-      };
-
-      const modal = document.getElementById('courseInfoModal');
-      modal.classList.remove('opacity-0', 'pointer-events-none');
-      setupCursorHovers();
-    }
-
-    function closeCourseInfo() {
-      const modal = document.getElementById('courseInfoModal');
-      modal.classList.add('opacity-0', 'pointer-events-none');
-    }
-
-    function enrollInPackage(packageName, price) {
+    function enrollInPackage(pkgName) {
       const select = document.getElementById('contactPackageSelect');
       if (select) {
         for (let i = 0; i < select.options.length; i++) {
-          if (select.options[i].text.includes(packageName.slice(0, 5))) {
+          if (select.options[i].text.includes(pkgName.slice(0, 10))) {
             select.selectedIndex = i;
             break;
           }
         }
       }
-      const contactsSection = document.getElementById('contacts');
-      contactsSection.scrollIntoView({ behavior: 'smooth' });
-      showToast(`Обрано: ${packageName}. Заповніть форму або зателефонуйте!`);
+      const contacts = document.getElementById('contacts');
+      contacts.scrollIntoView({ behavior: 'smooth' });
+      showToast(`Обрано: ${pkgName}`);
       setTimeout(() => {
         document.getElementById('contactName').focus();
-      }, 600);
+      }, 500);
     }
 
     /* ========================================================================
-       6. TELEPHONY, CLIPBOARD & FORM
+       3. ANKETA DISPATCHER (КУДИ ЙДЕ ІНФА)
+       - 1) Прямий запис в LocalStorage (доступний в інспекторі)
+       - 2) Опціональна відправка в Telegram Bot API
+    ======================================================================== */
+    // Якщо хочете отримувати заявки в свій телеграм-бот, вставте сюди ваші дані:
+    const TELEGRAM_BOT_TOKEN = ""; // наприклад: "123456789:ABCdefGHI..."
+    const TELEGRAM_CHAT_ID = "";   // ваш chat_id або id каналу
+
+    async function handleContactSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      const name = document.getElementById('contactName').value.trim();
+      const phone = document.getElementById('contactPhone').value.trim();
+      const pkg = document.getElementById('contactPackageSelect').value;
+      const comment = document.getElementById('contactComment').value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Відправка...";
+
+      const leadData = {
+        name,
+        phone,
+        package: pkg,
+        comment,
+        timestamp: new Date().toLocaleString('uk-UA')
+      };
+
+      // 1. Локальне збереження всіх лідів (гарантія, що нічого не загубиться)
+      let storedLeads = JSON.parse(localStorage.getItem('format_ix_leads') || '[]');
+      storedLeads.push(leadData);
+      localStorage.setItem('format_ix_leads', JSON.stringify(storedLeads));
+
+      // 2. Якщо налаштований Telegram Bot API - надсилаємо
+      if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
+        const text = `🔥 *Нова заявка на дизайн!* %0A%0A` +
+                     `👤 *Ім'я:* ${name}%0A` +
+                     `📞 *Контакт:* ${phone}%0A` +
+                     `🎯 *Курс:* ${pkg}%0A` +
+                     `💬 *Коментар:* ${comment || '—'}`;
+        try {
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${text}&parse_mode=Markdown`);
+        } catch (err) {
+          console.warn('Telegram send failed:', err);
+        }
+      }
+
+      // Візуальний успіх
+      showToast(`⚡ Дякуємо, ${name}! Заявку прийнято. Ми зв'яжемося за номером ${phone}`);
+      e.target.reset();
+      document.getElementById('contactPhone').value = "+380";
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Надіслати заявку викладачу";
+    }
+
+    /* ========================================================================
+       4. TELEPHONY & CLIPBOARD
     ======================================================================== */
     function copyPhoneToClipboard() {
       const phone = '+380676665823';
@@ -1965,7 +1034,7 @@
     function onCopySuccess() {
       const status = document.getElementById('copyPhoneStatus');
       status.innerText = '✓ Скопійовано!';
-      showToast('✓ Телефон +380 (67) 666-58-23 скопійовано в буфер!');
+      showToast('✓ Телефон +380 (67) 666-58-23 скопійовано!');
       setTimeout(() => {
         status.innerText = 'Скопіювати';
       }, 2500);
@@ -1983,22 +1052,12 @@
       }, 3500);
     }
 
-    function handleContactSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('contactName').value;
-      const phone = document.getElementById('contactPhone').value;
-      showToast(`⚡ Дякуємо, ${name}! Куратор зателефонує вам на номер ${phone} протягом 15 хв.`);
-      e.target.reset();
-      document.getElementById('contactPhone').value = "+380676665823";
-    }
-
     /* ========================================================================
-       7. AMBIENT BACKGROUND CANVAS
+       5. AMBIENT BACKGROUND CANVAS
     ======================================================================== */
     const canvas = document.getElementById('ambientCanvas');
     const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
+    let width, height, particles = [];
 
     function resizeCanvas() {
       width = canvas.width = window.innerWidth;
@@ -2008,22 +1067,21 @@
 
     function createParticles() {
       particles = [];
-      const count = Math.floor(width / 35);
+      const count = Math.floor(width / 45);
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
           radius: Math.random() * 1.5 + 0.5,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          alpha: Math.random() * 0.6 + 0.2
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          alpha: Math.random() * 0.5 + 0.2
         });
       }
     }
 
     function drawAmbient() {
       ctx.clearRect(0, 0, width, height);
-
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         p.x += p.vx;
@@ -2042,17 +1100,16 @@
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 100) {
+          if (dist < 90) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(204, 255, 0, ${0.12 * (1 - dist / 100)})`;
+            ctx.strokeStyle = `rgba(204, 255, 0, ${0.1 * (1 - dist / 90)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
       }
-
       requestAnimationFrame(drawAmbient);
     }
 
@@ -2060,7 +1117,7 @@
     window.addEventListener('load', () => {
       resizeCanvas();
       drawAmbient();
-      setupCursorHovers();
+      setupCursorInteractions();
     });
   </script>
 </body>
