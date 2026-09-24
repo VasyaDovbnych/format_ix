@@ -43,7 +43,6 @@
       overflow-x: hidden;
     }
 
-    /* Studio Magnetic Minimal Cursor */
     @media (pointer: fine) {
       body, a, button, select, input, textarea {
         cursor: none !important;
@@ -67,8 +66,9 @@
       background: #ccff00;
       border-radius: 50%;
       pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
+      z-index: 2147483647 !important;
+      transform: translate3d(-50%, -50%, 0);
+      will-change: left, top;
       transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
     }
 
@@ -81,8 +81,9 @@
       border: 1.5px solid rgba(204, 255, 0, 0.5);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 99998;
-      transform: translate(-50%, -50%);
+      z-index: 2147483646 !important;
+      transform: translate3d(-50%, -50%, 0);
+      will-change: left, top;
       transition: width 0.2s ease-out, height 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
     }
 
@@ -130,70 +131,31 @@
       background: #ccff00;
     }
 
-    /* ====== RESPONSIVE POLISH ====== */
     html { scroll-padding-top: 84px; }
     body { min-width: 0; }
     img, svg, canvas, video { max-width: 100%; }
     button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
-    .portfolio-browser { scrollbar-width: thin; scrollbar-color: #303038 transparent; }
-    .mini-site { min-height: 720px; background: #fff; color: #111; border-radius: 22px; overflow: hidden; }
+    .mini-site { min-height: 600px; background: #fff; color: #111; border-radius: 22px; overflow: hidden; }
     .mini-site * { box-sizing: border-box; }
-    .mini-site a { cursor: pointer; }
     .mini-nav { position: sticky; top: 0; z-index: 5; }
     .mini-scroll { max-height: 70vh; overflow-y: auto; overscroll-behavior: contain; }
-    @media (max-width: 1024px) {
-      .mini-site { min-height: 650px; }
-      .mini-scroll { max-height: 68vh; }
-    }
-    @media (max-width: 640px) {
-      .glass-header { height: 68px; }
-      .mini-site { min-height: 620px; border-radius: 16px; }
-      .mini-scroll { max-height: 70vh; }
-      #interactiveCaseModal { padding: 8px !important; }
-      #interactiveCaseModal > div { max-height: 96vh; border-radius: 18px; }
-      #interactiveCaseBody { padding: 10px !important; }
-      .portfolio-card-copy { min-height: 0 !important; }
-      .portfolio-card-button { font-size: 10px !important; padding: 12px 10px !important; }
-      #toastMessage { left: 12px; right: 12px; bottom: 12px; text-align: center; }
-    }
-    @media (max-width: 420px) {
-      .mini-site { border-radius: 12px; }
-      #interactiveCaseModal .h-12 { height: 44px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .ticker-wrap { animation: none; }
-      *, *::before, *::after { scroll-behavior: auto !important; }
-    }
-
   </style>
 </head>
 <body class="antialiased selection:bg-brandLime selection:text-black">
 
-  <!-- Dynamic Cursor Elements -->
   <div id="studio-cursor-dot"></div>
   <div id="studio-cursor-ring"></div>
-
-  <!-- Interactive Subtle Ambient Canvas -->
   <canvas id="ambientCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
 
-  <!-- FIXED UNBREAKABLE HEADER -->
+  <!-- HEADER -->
   <header class="sticky top-0 z-50 w-full glass-header border-b border-brandBorder h-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-      
-      <!-- Brand Logo -->
       <a href="#" class="flex items-center gap-1.5 shrink-0 group">
-        <span class="font-heading font-black text-2xl sm:text-3xl tracking-tight text-white group-hover:text-neutral-200 transition-colors">
-          format
-        </span>
-        <span class="font-heading font-black text-2xl sm:text-3xl text-brandLime transition-transform group-hover:scale-105">
-          ix
-        </span>
-        <span class="hidden md:inline-block ml-3 px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-white/5 border border-white/10 text-neutral-400">
-          DESIGN SCHOOL
-        </span>
+        <span class="font-heading font-black text-2xl sm:text-3xl tracking-tight text-white group-hover:text-neutral-200 transition-colors">format</span>
+        <span class="font-heading font-black text-2xl sm:text-3xl text-brandLime transition-transform group-hover:scale-105">ix</span>
+        <span class="hidden md:inline-block ml-3 px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-white/5 border border-white/10 text-neutral-400">DESIGN SCHOOL</span>
       </a>
 
-      <!-- Navigation Links -->
       <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-neutral-300">
         <a href="#about" class="hover:text-brandLime transition-colors">Про навчання</a>
         <a href="#courses" class="hover:text-brandLime transition-colors">Пакети & Ціни</a>
@@ -202,42 +164,29 @@
         <a href="#contacts" class="hover:text-brandLime transition-colors">Контакти</a>
       </nav>
 
-      <!-- Action Area -->
       <div class="flex items-center gap-3 shrink-0">
         <a href="tel:+380676665823" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brandLime text-black font-heading font-bold text-xs uppercase tracking-wide hover:bg-white hover:shadow-[0_0_20px_#ccff00] transition-all">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.02l-2.23 2.09z"/></svg>
           <span>+380 (67) 666-58-23</span>
         </a>
-
-        <!-- Mobile Menu Toggle Button -->
         <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-white hover:text-brandLime transition-colors">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
         </button>
       </div>
-
     </div>
 
-    <!-- Mobile Dropdown Menu -->
     <div id="mobileMenu" class="hidden lg:hidden bg-brandDark/95 border-b border-brandBorder px-6 py-6 space-y-4">
       <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Про навчання</a>
       <a href="#courses" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Пакети & Ціни</a>
       <a href="#portfolio" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Інтерактивне Портфоліо</a>
       <a href="#reviews" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Відгуки</a>
       <a href="#contacts" onclick="toggleMobileMenu()" class="block text-sm font-medium text-neutral-300 hover:text-brandLime">Контакти</a>
-      <div class="pt-4 border-t border-brandBorder">
-        <a href="tel:+380676665823" class="w-full py-3 rounded-xl bg-brandLime text-black font-heading font-bold text-xs uppercase flex items-center justify-center gap-2">
-          📞 +380 (67) 666-58-23
-        </a>
-      </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- HERO -->
   <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 pb-16">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-      
       <div class="lg:col-span-8 space-y-6">
         <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-brandLime/40 text-xs font-mono text-brandLime">
           <span class="w-2 h-2 rounded-full bg-brandLime animate-pulse"></span>
@@ -254,7 +203,6 @@
           Індивідуальні та групові програми навчання з практиком. Тільки три фундаментальні інструменти індустрії — <strong>Figma, Adobe Illustrator та Adobe Photoshop</strong>. Без води: швейцарські сітки, брендбуки, правильна додрукарська підготовка та інтерактивні кейси для портфоліо.
         </p>
 
-        <!-- CTA Buttons -->
         <div class="flex flex-wrap items-center gap-4 pt-2">
           <a href="#courses" class="px-8 py-4 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_#ccff00] transition-all transform hover:-translate-y-0.5">
             ⚡ Переглянути пакети та ціни
@@ -264,11 +212,10 @@
           </button>
         </div>
 
-        <!-- Phone & Quick Info -->
         <div class="pt-6 border-t border-brandBorder flex flex-wrap items-center gap-6 text-xs text-neutral-400">
           <div class="flex items-center gap-2">
             <span class="text-brandLime font-bold">●</span>
-            <span>Онлайн по всій Україні & Worldwide (Google Meet / Discord)</span>
+            <span>Онлайн по всій Україні (Google Meet / Discord)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-brandLime font-bold">●</span>
@@ -277,38 +224,33 @@
         </div>
       </div>
 
-      <!-- Hero Visual Summary Card -->
       <div class="lg:col-span-4">
         <div class="p-8 rounded-3xl bg-brandSurface border border-white/10 space-y-6 lime-glow">
           <div class="flex items-center justify-between border-b border-brandBorder pb-4">
             <span class="text-xs font-mono text-neutral-400 uppercase tracking-wider">ФОРМАТИ ЗАНЯТЬ</span>
             <span class="w-2.5 h-2.5 rounded-full bg-brandLime"></span>
           </div>
-
           <div class="space-y-4">
             <div class="p-4 rounded-2xl bg-black/60 border border-white/5">
               <div class="text-[11px] font-mono text-brandLime uppercase font-bold">Індивідуальний менторинг</div>
               <div class="text-2xl font-heading font-extrabold text-white mt-1">1-ше Безкоштовно</div>
               <div class="text-xs text-neutral-400 mt-0.5">Далі лише 300 ₴ за 1.5 години</div>
             </div>
-
             <div class="p-4 rounded-2xl bg-black/60 border border-white/5">
               <div class="text-[11px] font-mono text-neutral-400 uppercase">Групові програми</div>
               <div class="text-lg font-heading font-bold text-white mt-1">2 місяці (8 900 ₴) / 4 місяці (15 800 ₴)</div>
               <div class="text-xs text-neutral-400 mt-0.5">2 рази на тиждень по 1.5 години</div>
             </div>
           </div>
-
           <a href="#contacts" class="w-full py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-brandLime text-white text-xs font-heading font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
             Залишити заявку на потік →
           </a>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- Running Ticker -->
+  <!-- TICKER -->
   <div class="w-full bg-brandLime text-black py-3.5 overflow-hidden font-heading font-black text-xs sm:text-sm uppercase tracking-wider">
     <div class="ticker-wrap flex gap-8 whitespace-nowrap">
       <span>✦ ADOBE PHOTOSHOP</span>
@@ -322,9 +264,8 @@
     </div>
   </div>
 
-  <!-- SECTION: 4 COURSES WITH "i" BUTTON AND HONEST PRICING -->
+  <!-- SECTION: COURSES -->
   <section id="courses" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
-    
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
       <div>
         <div class="text-xs font-mono text-brandLime uppercase tracking-widest">// НАВЧАЛЬНІ ПРОГРАМИ ТА ТАРИФИ</div>
@@ -338,155 +279,100 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-      <!-- PACKAGE 1: Individual Mentoring -->
+      <!-- 01 Solo -->
       <div class="p-6 rounded-3xl bg-brandSurface border-2 border-brandLime flex flex-col justify-between lime-glow relative group">
-        <div class="absolute -top-3 left-6 px-3 py-0.5 rounded-full bg-brandLime text-black font-heading font-black text-[10px] uppercase tracking-wider">
-          ★ МАКСИМАЛЬНИЙ РЕЗУЛЬТАТ
-        </div>
-
+        <div class="absolute -top-3 left-6 px-3 py-0.5 rounded-full bg-brandLime text-black font-heading font-black text-[10px] uppercase tracking-wider">★ МАКСИМАЛЬНИЙ РЕЗУЛЬТАТ</div>
         <div>
           <div class="flex justify-between items-center mb-4 mt-2">
             <span class="text-[11px] font-mono text-brandLime font-bold">ПАКЕТ // 01</span>
-            <button onclick="openCourseInfo('solo')" title="Детальна програма курсу" class="w-8 h-8 rounded-full bg-brandLime text-black font-heading font-black text-sm flex items-center justify-center transition-all hover:bg-white shadow-[0_0_10px_#ccff00]">
-              i
-            </button>
+            <button onclick="openCourseInfo('solo')" class="w-8 h-8 rounded-full bg-brandLime text-black font-heading font-black text-sm flex items-center justify-center transition-all hover:bg-white shadow-[0_0_10px_#ccff00]">i</button>
           </div>
-
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
-            Індивідуальний менторинг
-          </h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">
-            Персональні заняття «один на один» під ваші цілі та темп. Розбір ваших робіт, практичні кейси та відповіді на всі питання.
-          </p>
-
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">Індивідуальний менторинг</h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">Персональні заняття «один на один» під ваші цілі та темп. Розбір робіт і відповіді на всі питання.</p>
           <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span><strong>1-ше ввідне заняття: 0 ₴ (Free)</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>Далі: <strong>300 ₴ за 1.5 години</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>Figma, Illustrator або Photoshop</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>Гнучкий персональний графік</span>
-            </div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span><strong>1-ше заняття: 0 ₴ (Free)</strong></span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>Далі: <strong>300 ₴ за 1.5 години</strong></span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>Figma, Illustrator, Photoshop</span></div>
           </div>
         </div>
-
         <div class="pt-6">
           <div class="text-[11px] font-mono text-neutral-400 mb-1">ВАРТІСТЬ:</div>
-          <div class="text-3xl font-heading font-black text-brandLime mb-4">
-            0 ₴ <span class="text-xs text-neutral-400 font-normal">/ далі 300 ₴ за 1.5 год</span>
-          </div>
-          <button onclick="enrollInPackage('Індивідуальний менторинг (1-ше безкоштовно, далі 300 ₴ / 1.5 год)')" class="w-full py-3 rounded-xl bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_15px_#ccff00]">
-            Обрати індивідуальні
-          </button>
+          <div class="text-3xl font-heading font-black text-brandLime mb-4">0 ₴ <span class="text-xs text-neutral-400 font-normal">/ далі 300 ₴</span></div>
+          <button onclick="enrollInPackage('Індивідуальний менторинг')" class="w-full py-3 rounded-xl bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider hover:bg-white transition-all">Обрати індивідуальні</button>
         </div>
       </div>
 
-      <!-- PACKAGE 2: Group 4 Months -->
+      <!-- 02 Group 4M -->
       <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <div class="flex justify-between items-center mb-4">
             <span class="text-[11px] font-mono text-neutral-400">ПАКЕТ // 02</span>
-            <button onclick="openCourseInfo('group4')" title="Детальна програма курсу" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">
-              i
-            </button>
+            <button onclick="openCourseInfo('group4')" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">i</button>
           </div>
-
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
-            Груповий курс (4 місяці)
-          </h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">
-            Повний фундаментальний курс від нуля до комерційного рівня. Комплексні кейси, логотипи, айдентика та додрукарська підготовка.
-          </p>
-
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">Груповий курс (4 міс.)</h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">Повний фундаментальний курс від нуля до комерційного рівня. Комплексні кейси та айдентика.</p>
           <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>Тривалість: <strong>4 місяці (32 заняття)</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span><strong>2 рази на тиждень по 1.5 години</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>Міні-групи до 6 студентів</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>3 кейси в портфоліо + гайдлайни</span>
-            </div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>4 місяці (32 заняття)</span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>2 рази на тиждень по 1.5 год</span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>3 кейси в портфоліо</span></div>
           </div>
         </div>
-
         <div class="pt-6">
           <div class="text-[11px] font-mono text-neutral-400 mb-1">ВАРТІСТЬ КУРСУ:</div>
           <div class="text-3xl font-heading font-black text-white mb-1">15 800 ₴</div>
-          <div class="text-[11px] font-mono text-brandLime mb-4">або 3 950 ₴ / місяць</div>
-          <button onclick="enrollInPackage('Груповий курс на 4 місяці (15 800 ₴)')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">
-            Обрати 4 місяці
-          </button>
+          <div class="text-[11px] font-mono text-brandLime mb-4">або 3 950 ₴ / міс.</div>
+          <button onclick="enrollInPackage('Груповий курс на 4 місяці')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">Обрати 4 місяці</button>
         </div>
       </div>
 
-      <!-- PACKAGE 3: Group 2 Months -->
+      <!-- 03 Group 2M -->
       <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <div class="flex justify-between items-center mb-4">
             <span class="text-[11px] font-mono text-neutral-400">ПАКЕТ // 03</span>
-            <button onclick="openCourseInfo('group2')" title="Детальна програма курсу" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">
-              i
-            </button>
+            <button onclick="openCourseInfo('group2')" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">i</button>
           </div>
-
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
-            Груповий курс (2 місяці)
-          </h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">
-            Інтенсивний буткемп: швидке занурення у гарячі інструменти Illustrator, Photoshop та Figma під комерційні фріланс-завдання.
-          </p>
-
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">Груповий курс (2 міс.)</h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">Інтенсивний буткемп: швидке занурення в інструменти для комерційних завдань.</p>
           <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>Тривалість: <strong>2 місяці (16 занять)</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span><strong>2 рази на тиждень по 1.5 години</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>Банери, векторна графіка, соцмережі</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-brandLime font-bold">✓</span> <span>1 сильний кейс у Behance</span>
-            </div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>2 місяці (16 занять)</span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>2 рази на тиждень по 1.5 год</span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>1 сильний кейс у Behance</span></div>
           </div>
         </div>
-
         <div class="pt-6">
           <div class="text-[11px] font-mono text-neutral-400 mb-1">ВАРТІСТЬ КУРСУ:</div>
           <div class="text-3xl font-heading font-black text-white mb-1">8 900 ₴</div>
-          <div class="text-[11px] font-mono text-neutral-400 mb-4">або 4 450 ₴ / місяць</div>
-          <button onclick="enrollInPackage('Груповий курс на 2 місяці (8 900 ₴)')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">
-            Обрати 2 місяці
-          </button>
+          <div class="text-[11px] font-mono text-neutral-400 mb-4">або 4 450 ₴ / міс.</div>
+          <button onclick="enrollInPackage('Груповий курс на 2 місяці')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">Обрати 2 місяці</button>
         </div>
       </div>
 
-      <!-- PACKAGE 4: Project Consultation -->
+      <!-- 04 Project Consultation -->
       <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/60 transition-all flex flex-col justify-between group">
         <div>
           <div class="flex justify-between items-center mb-4">
             <span class="text-[11px] font-mono text-neutral-400">ПАКЕТ // 04</span>
-            <button onclick="openCourseInfo('consult')" title="Детальна інформація про послугу" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">
-              i
-            </button>
+            <button onclick="openCourseInfo('consult')" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime hover:bg-brandLime hover:text-black text-brandLime font-heading font-black text-sm flex items-center justify-center transition-all">i</button>
           </div>
+          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">Консультація проєкту</h3>
+          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">Експертний аудит макетів, виправлення сіток, налаштування додрукарської підготовки та векторних файлів.</p>
+          <div class="space-y-2 py-3 border-y border-brandBorder text-xs text-neutral-300">
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>Тривалість: 2 години</span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>Аудит вихідних файлів</span></div>
+            <div class="flex items-center gap-2"><span class="text-brandLime font-bold">✓</span> <span>Підготовка до друку або вебу</span></div>
+          </div>
+        </div>
+        <div class="pt-6">
+          <div class="text-[11px] font-mono text-neutral-400 mb-1">ВАРТІСТЬ:</div>
+          <div class="text-3xl font-heading font-black text-white mb-4">від 1 500 ₴</div>
+          <button onclick="enrollInPackage('Консультація проєкту')" class="w-full py-3 rounded-xl bg-white/10 hover:bg-brandLime hover:text-black text-white font-heading font-bold text-xs uppercase tracking-wider transition-all">Замовити аудит</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <h3 class="text-xl font-heading font-black text-white uppercase group-hover:text-brandLime transition-colors">
-            Консультація проєкту
-          </h3>
-          <p class="text-xs text-neutral-400 mt-2 mb-4 leading-relaxed">  <!-- SECTION: PORTFOLIO AS INTERACTIVE "MINI-SITES" -->
+  <!-- SECTION: PORTFOLIO -->
   <section id="portfolio" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
       <div>
@@ -496,7 +382,7 @@
         </h2>
       </div>
       <p class="text-neutral-400 text-xs sm:text-sm max-w-md">
-        Натискайте <strong class="text-white">«Відкрити сайт»</strong> — кожен кейс відкривається як окремий міні-сайт. Його можна реально погортати, натискати меню, картки, кнопки та перемикати екрани.
+        Натискайте <strong class="text-white">«Відкрити сайт»</strong> — кожен кейс відкривається як інтерактивний міні-сайт у модальному вікні.
       </p>
     </div>
 
@@ -504,191 +390,138 @@
       <!-- 01 FASHION -->
       <article class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col group">
         <div class="h-64 p-5 relative overflow-hidden bg-[#e9e4dc] text-[#111]">
-          <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 70% 30%,#fff 0 14%,transparent 15%),linear-gradient(135deg,#d6d0c6,#f5f1ea)"></div>
           <div class="relative z-10 flex justify-between text-[10px] font-mono uppercase"><span>01 / Fashion</span><span>Editorial shop</span></div>
           <div class="relative z-10 pt-12">
-            <div class="text-5xl sm:text-6xl font-black tracking-[-.06em]">NOIR<br>FORM</div>
-            <div class="mt-3 text-[10px] tracking-[.3em] uppercase">Objects for everyday life</div>
+            <div class="text-5xl font-black tracking-[-.06em]">NOIR<br>FORM</div>
           </div>
-          <div class="absolute right-5 bottom-5 w-24 h-32 rotate-6 bg-black/90 shadow-2xl" style="clip-path:polygon(12% 0,88% 0,100% 100%,0 100%)"></div>
         </div>
         <div class="p-6 flex-1">
           <div class="text-[10px] font-mono text-brandLime uppercase">Figma • E-commerce</div>
           <h3 class="font-heading font-bold text-white text-lg mt-2">NOIR FORM — fashion store</h3>
-          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Мінімалістичний fashion-магазин: каталог, фільтри, картка товару, кошик та мобільна навігація.</p>
+          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Мінімалістичний fashion-магазин: каталог, картка товару та кошик.</p>
         </div>
-        <div class="p-6 pt-0"><button onclick="openInteractiveCase('fashion')" class="portfolio-card-button w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
+        <div class="p-6 pt-0"><button onclick="openInteractiveCase('fashion')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
       </article>
 
       <!-- 02 ARCHITECTURE -->
       <article class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col group">
         <div class="h-64 p-5 relative overflow-hidden bg-[#d7d9d4] text-[#151714]">
-          <div class="absolute inset-0" style="background:linear-gradient(125deg,transparent 0 42%,#858b83 42% 43%,transparent 43%),linear-gradient(25deg,#b9bdb7 0 1%,transparent 1% 49%,#8f958d 49% 50%,transparent 50%)"></div>
           <div class="relative z-10 flex justify-between text-[10px] font-mono uppercase"><span>02 / Architecture</span><span>Studio</span></div>
-          <div class="relative z-10 mt-14 max-w-[220px]"><div class="text-4xl font-black tracking-[-.05em]">ATELIER<br>MONO</div><div class="mt-3 text-[10px] uppercase tracking-[.25em]">Architecture / interiors / objects</div></div>
-          <div class="absolute right-8 bottom-5 w-28 h-24 border border-[#242824]"></div>
+          <div class="relative z-10 mt-14"><div class="text-4xl font-black">ATELIER<br>MONO</div></div>
         </div>
         <div class="p-6 flex-1">
           <div class="text-[10px] font-mono text-brandLime uppercase">Figma • Portfolio</div>
           <h3 class="font-heading font-bold text-white text-lg mt-2">ATELIER MONO — studio</h3>
-          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Сайт архітектурної студії з великим hero, проєктами, фільтрами типології та сторінкою окремого об'єкта.</p>
+          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Сайт архітектурної студії з модульними сітками та сторінками об'єктів.</p>
         </div>
-        <div class="p-6 pt-0"><button onclick="openInteractiveCase('architecture')" class="portfolio-card-button w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
+        <div class="p-6 pt-0"><button onclick="openInteractiveCase('architecture')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
       </article>
 
       <!-- 03 RESTAURANT -->
       <article class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col group">
         <div class="h-64 p-5 relative overflow-hidden bg-[#f0e2cf] text-[#231a13]">
-          <div class="absolute right-[-30px] top-[-20px] w-48 h-48 rounded-full border-[28px] border-[#9b5a36]/20"></div>
           <div class="relative z-10 flex justify-between text-[10px] font-mono uppercase"><span>03 / Food</span><span>Restaurant</span></div>
-          <div class="relative z-10 mt-14"><div class="font-serif text-5xl font-black">MESA</div><div class="text-xs tracking-[.35em] uppercase mt-1">wine & kitchen</div><div class="mt-5 inline-block border border-[#231a13] px-3 py-1 text-[9px] uppercase">Reserve a table</div></div>
+          <div class="relative z-10 mt-14"><div class="font-serif text-5xl font-black">MESA</div><div class="text-xs tracking-[.35em] uppercase mt-1">wine & kitchen</div></div>
         </div>
         <div class="p-6 flex-1">
           <div class="text-[10px] font-mono text-brandLime uppercase">Figma • UI / UX</div>
           <h3 class="font-heading font-bold text-white text-lg mt-2">MESA — restaurant experience</h3>
-          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Теплий гастро-сайт з меню, категоріями страв, бронюванням столика та інтерактивною карткою.</p>
+          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Гастрономічний сайт з актуальним сезонним меню та резервом столиків.</p>
         </div>
-        <div class="p-6 pt-0"><button onclick="openInteractiveCase('restaurant')" class="portfolio-card-button w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
+        <div class="p-6 pt-0"><button onclick="openInteractiveCase('restaurant')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
       </article>
 
       <!-- 04 FINTECH -->
       <article class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col group">
         <div class="h-64 p-5 relative overflow-hidden bg-[#10131a] text-white">
-          <div class="absolute inset-0" style="background:radial-gradient(circle at 75% 20%,rgba(78,116,255,.45),transparent 35%),linear-gradient(135deg,#10131a,#20283b)"></div>
           <div class="relative z-10 flex justify-between text-[10px] font-mono uppercase"><span>04 / Fintech</span><span>Product UI</span></div>
-          <div class="relative z-10 mt-10"><div class="text-4xl font-black tracking-[-.05em]">NOVA<br><span class="text-blue-300">MONEY</span></div><div class="mt-3 text-xs text-white/60">Personal finance, without noise.</div></div>
-          <div class="absolute right-5 bottom-5 w-36 h-20 rounded-2xl border border-white/20 bg-white/10 backdrop-blur"></div>
+          <div class="relative z-10 mt-10"><div class="text-4xl font-black">NOVA<br><span class="text-blue-300">MONEY</span></div></div>
         </div>
         <div class="p-6 flex-1">
           <div class="text-[10px] font-mono text-brandLime uppercase">Figma • Product design</div>
           <h3 class="font-heading font-bold text-white text-lg mt-2">NOVA MONEY — fintech app</h3>
-          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Темний digital-продукт: dashboard, рахунки, перекази, графіки витрат і налаштування профілю.</p>
+          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Панель фінансового продукту з графіками витрат та картками рахунків.</p>
         </div>
-        <div class="p-6 pt-0"><button onclick="openInteractiveCase('fintech')" class="portfolio-card-button w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
+        <div class="p-6 pt-0"><button onclick="openInteractiveCase('fintech')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
       </article>
 
       <!-- 05 TRAVEL -->
       <article class="rounded-3xl bg-brandSurface border border-white/10 overflow-hidden hover:border-brandLime/60 transition-all flex flex-col group md:col-span-2 xl:col-span-1">
         <div class="h-64 p-5 relative overflow-hidden bg-[#dfe8e6] text-[#11221f]">
-          <div class="absolute left-[-20px] bottom-[-50px] w-72 h-72 rounded-full bg-[#7fa59b]/40"></div>
-          <div class="absolute right-[-30px] top-[-50px] w-56 h-56 rounded-full bg-[#b9d1c9]/70"></div>
           <div class="relative z-10 flex justify-between text-[10px] font-mono uppercase"><span>05 / Travel</span><span>Editorial</span></div>
-          <div class="relative z-10 mt-14"><div class="text-5xl font-black tracking-[-.06em]">NORTH<br>WILD.</div><div class="mt-2 text-[10px] tracking-[.3em] uppercase">Slow travel / cabins / nature</div></div>
+          <div class="relative z-10 mt-14"><div class="text-5xl font-black">NORTH<br>WILD.</div></div>
         </div>
         <div class="p-6 flex-1">
           <div class="text-[10px] font-mono text-brandLime uppercase">Figma • Web design</div>
           <h3 class="font-heading font-bold text-white text-lg mt-2">NORTH WILD — travel guide</h3>
-          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Журнальний travel-сайт: напрямки, добірки будиночків, детальна сторінка маршруту та бронювання.</p>
+          <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Журнальний travel-гід для повільних подорожей та бронювання котеджів.</p>
         </div>
-        <div class="p-6 pt-0"><button onclick="openInteractiveCase('travel')" class="portfolio-card-button w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
+        <div class="p-6 pt-0"><button onclick="openInteractiveCase('travel')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider transition-all">Відкрити сайт ↗</button></div>
       </article>
     </div>
   </section>
 
-between items-center z-10">
-              <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-black/80 border border-white/10 text-brandLime">FIGMA LIVE SANDBOX</span>
-              <span class="text-xs font-mono text-neutral-400">Design System</span>
-            </div>
-            <div class="z-10">
-              <span class="text-3xl font-heading font-black text-white tracking-tight">VORTEX UI</span>
-              <p class="text-xs text-neutral-400 mt-1">Interactive Component Playground</p>
-            </div>
-            <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-brandLime/10 rounded-full blur-2xl group-hover:bg-brandLime/25 transition-all"></div>
-          </div>
-
-          <div class="p-6 space-y-3">
-            <h4 class="font-heading font-bold text-white text-base group-hover:text-brandLime transition-colors">
-              Жива дизайн-система та змінні
-            </h4>
-            <p class="text-xs text-neutral-400 leading-relaxed">
-              Інтерактивна пісочниця компонентів Figma. Можна наживо міняти радіуси кнопок, перемикати темну і світлу теми та перевіряти автолейаут під час введення свого тексту.
-            </p>
-          </div>
-        </div>
-
-        <div class="p-6 pt-0">
-          <button onclick="openInteractiveCase('ui')" class="w-full py-3 rounded-xl bg-brandLime/10 border border-brandLime/40 text-brandLime hover:bg-brandLime hover:text-black font-heading font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
-            <span>Дослідити інтерактивний проєкт</span>
-            <span>↗</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION: ABOUT OUR APPROACH -->
+  <!-- SECTION: ABOUT -->
   <section id="about" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      
       <div class="lg:col-span-6 space-y-6">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandLime/10 border border-brandLime/30 text-xs font-mono text-brandLime">
           <span>// НАШ СТЕК: PS • AI • FIGMA</span>
         </div>
-
         <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white leading-tight">
           ЧОМУ ТІЛЬКИ ЦІ ТРИ <br><span class="text-brandLime">ІНСТРУМЕНТИ?</span>
         </h2>
-
         <p class="text-neutral-300 text-sm sm:text-base leading-relaxed">
-          Якщо ваша мета — заробляти на дизайні, не витрачайте час на десятки другорядних програм. 90% комерційних замовлень закриваються зв'язкою Photoshop, Illustrator та Figma:
+          Якщо ваша мета — заробляти на дизайні, не витрачайте час на другорядні інструменти. 90% комерційних замовлень закриваються зв'язкою Photoshop, Illustrator та Figma:
         </p>
-
         <ul class="space-y-3 text-xs sm:text-sm text-neutral-300">
           <li class="flex items-start gap-3">
             <span class="px-2 py-0.5 rounded bg-brandLime text-black font-bold font-mono text-xs shrink-0">Ai</span>
-            <span><strong>Adobe Illustrator:</strong> точна векторна графіка, знаки, масштабування без втрати якості, упаковка та верстка під ріжучий плотер.</span>
+            <span><strong>Adobe Illustrator:</strong> векторна графіка, знаки, упаковка та файли під плотер.</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="px-2 py-0.5 rounded bg-white text-black font-bold font-mono text-xs shrink-0">Ps</span>
-            <span><strong>Adobe Photoshop:</strong> робота з растром, колажування, світлотіньовий малюнок та складання фотореалістичних мокапів.</span>
+            <span><strong>Adobe Photoshop:</strong> растр, колажування, світлотінь і фотореалістичні мокапи.</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="px-2 py-0.5 rounded bg-brandLime text-black font-bold font-mono text-xs shrink-0">Fig</span>
-            <span><strong>Figma:</strong> презентація проєктів клієнту, автолейаути, дизайн-системи, банери для реклами та верстка брендбуків.</span>
+            <span><strong>Figma:</strong> інтерфейси, сітки, автолейаути, дизайн-системи та презентації.</span>
           </li>
         </ul>
       </div>
 
       <div class="lg:col-span-6 space-y-4">
         <div class="p-8 rounded-3xl bg-brandSurface border border-white/15 space-y-6">
-          <h3 class="text-xl font-heading font-black text-white uppercase">
-            Принципи школи format ix
-          </h3>
-
+          <h3 class="text-xl font-heading font-black text-white uppercase">Принципи школи format ix</h3>
           <div class="space-y-4">
             <div class="flex items-start gap-4">
               <span class="w-8 h-8 rounded-lg bg-brandLime text-black font-black font-heading flex items-center justify-center shrink-0">1</span>
               <div>
                 <h4 class="text-sm font-bold text-white">Живий екран викладача</h4>
-                <p class="text-xs text-neutral-400 mt-0.5">Ви бачите кожен рух мишкою, комбінації гарячих клавіш та логіку прийняття рішень під час створення комерційного макету.</p>
+                <p class="text-xs text-neutral-400 mt-0.5">Демонстрація логіки побудови макетів у реальному часі.</p>
               </div>
             </div>
-
             <div class="flex items-start gap-4">
               <span class="w-8 h-8 rounded-lg bg-brandLime text-black font-black font-heading flex items-center justify-center shrink-0">2</span>
               <div>
                 <h4 class="text-sm font-bold text-white">Сувора швейцарська типографіка</h4>
-                <p class="text-xs text-neutral-400 mt-0.5">Вчимо підбирати пари гарнітур, будувати модульні сітки та тримати візуальну вагу без хаосу.</p>
+                <p class="text-xs text-neutral-400 mt-0.5">Модульні сітки, ієрархія та чиста композиція без візуального сміття.</p>
               </div>
             </div>
-
             <div class="flex items-start gap-4">
               <span class="w-8 h-8 rounded-lg bg-brandLime text-black font-black font-heading flex items-center justify-center shrink-0">3</span>
               <div>
-                <h4 class="text-sm font-bold text-white">Робота з реальними замовниками</h4>
-                <p class="text-xs text-neutral-400 mt-0.5">Показуємо, як оцінювати проєкти, складати ТЗ та готувати вихідні файли без правок від поліграфій.</p>
+                <h4 class="text-sm font-bold text-white">Робота з реальними вимогами</h4>
+                <p class="text-xs text-neutral-400 mt-0.5">Підготовка макетів під технічні вимоги друкарень (CMYK, вильоти, трекінг).</p>
               </div>
             </div>
           </div>
-
           <div class="pt-4 border-t border-brandBorder flex items-center justify-between text-xs font-mono">
-            <span class="text-neutral-400">Прямий зв'язок з куратором:</span>
+            <span class="text-neutral-400">Прямий зв'язок:</span>
             <a href="tel:+380676665823" class="text-brandLime font-bold hover:underline">+380 (67) 666-58-23</a>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -701,191 +534,117 @@ between items-center z-10">
       <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white">
         ЩО КАЖУТЬ <span class="text-brandLime">ВИПУСКНИКИ</span>
       </h2>
-      <p class="text-neutral-400 text-sm">
-        Реальний досвід студентів індивідуального та групового форматів навчання.
-      </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all flex flex-col justify-between space-y-4">
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="text-brandLime text-sm">★★★★★</div>
-            <span class="text-[11px] font-mono text-neutral-400">Індивідуальні заняття</span>
-          </div>
-          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-            «Дуже сподобався індивідуальний підхід. 300 грн за 1.5 години — смішна ціна за те, скільки практики ми встигали розібрати! Прокачала Illustrator для принтів та упаковки за місяць.»
-          </p>
-        </div>
+      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 flex flex-col justify-between space-y-4">
+        <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+          «300 грн за 1.5 години — найкраща інвестиція. Прокачала Illustrator для принтів та упаковки за місяць.»
+        </p>
         <div class="pt-4 border-t border-brandBorder flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-brandLime text-black font-heading font-black flex items-center justify-center">ОМ</div>
-          <div>
-            <div class="text-xs font-bold text-white">Ольга Мельник</div>
-            <div class="text-[11px] text-neutral-400">Brand Designer (Freelance)</div>
-          </div>
+          <div><div class="text-xs font-bold text-white">Ольга Мельник</div><div class="text-[11px] text-neutral-400">Brand Designer</div></div>
         </div>
       </div>
-
-      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all flex flex-col justify-between space-y-4">
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="text-brandLime text-sm">★★★★★</div>
-            <span class="text-[11px] font-mono text-neutral-400">Груповий курс 4 міс.</span>
-          </div>
-          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-            «Пройшов курс на 4 місяці. Два рази на тиждень по півтори години — оптимально. Ніякої води, тільки Illustrator, Photoshop і Figma. Оформив 3 серйозні кейси на Behance та знайшов роботу.»
-          </p>
-        </div>
+      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 flex flex-col justify-between space-y-4">
+        <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+          «Пройшов курс на 4 місяці. Ніякої води, тільки Illustrator, Photoshop і Figma. Оформив 3 серйозні кейси на Behance.»
+        </p>
         <div class="pt-4 border-t border-brandBorder flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-white text-black font-heading font-black flex items-center justify-center">ВК</div>
-          <div>
-            <div class="text-xs font-bold text-white">Владислав Козаченко</div>
-            <div class="text-[11px] text-neutral-400">Junior Graphic Designer</div>
-          </div>
+          <div><div class="text-xs font-bold text-white">Владислав Козаченко</div><div class="text-[11px] text-neutral-400">Junior Graphic Designer</div></div>
         </div>
       </div>
-
-      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 hover:border-brandLime/50 transition-all flex flex-col justify-between space-y-4">
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="text-brandLime text-sm">★★★★★</div>
-            <span class="text-[11px] font-mono text-neutral-400">Груповий курс 2 міс.</span>
-          </div>
-          <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-            «2-місячний інтенсив дав шалений поштовх. До цього макети були криві, а тут навчили вирівнювати шрифти, працювати з композицією і вивантажувати все у вектор без помилок!»
-          </p>
-        </div>
+      <div class="p-6 rounded-3xl bg-brandSurface border border-white/10 flex flex-col justify-between space-y-4">
+        <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+          «2-місячний інтенсив дав шалений результат: навчили вирівнювати шрифти та коректно вивантажувати макети у вектор.»
+        </p>
         <div class="pt-4 border-t border-brandBorder flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-brandLime text-black font-heading font-black flex items-center justify-center">ЯД</div>
-          <div>
-            <div class="text-xs font-bold text-white">Ярина Данилюк</div>
-            <div class="text-[11px] text-neutral-400">Маркетолог</div>
-          </div>
+          <div><div class="text-xs font-bold text-white">Ярина Данилюк</div><div class="text-[11px] text-neutral-400">Маркетолог</div></div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- SECTION: CONTACTS & REGISTRATION -->
+  <!-- SECTION: CONTACTS -->
   <section id="contacts" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-brandBorder">
     <div class="p-8 sm:p-12 lg:p-16 rounded-3xl bg-brandSurface border-2 border-brandLime/40 lime-glow">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-
-        <!-- Left Column -->
         <div class="lg:col-span-6 space-y-6">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brandLime/10 border border-brandLime/30 text-xs font-mono text-brandLime">
             <span>// ЗАПИС НА НАВЧАННЯ</span>
           </div>
-
           <h2 class="text-3xl sm:text-5xl font-black font-heading uppercase text-white leading-tight">
             ЗАПИШИСЬ НА <br><span class="text-brandLime">ПЕРШЕ БЕЗКОШТОВНЕ</span><br>ЗАНЯТТЯ.
           </h2>
-
-          <p class="text-neutral-300 text-sm leading-relaxed">
-            Заповніть форму або зателефонуйте. Ми зв'яжемося протягом 15 хвилин, узгодимо зручний графік і призначимо дату першого ввідного уроку (0 ₴).
-          </p>
-
-          <!-- Phone Block -->
           <div class="p-6 rounded-2xl bg-black/70 border border-white/10 space-y-3">
             <div class="text-[11px] font-mono text-neutral-400 uppercase">Прямий телефон куратора:</div>
-            
             <div class="flex flex-wrap items-center gap-3">
-              <a href="tel:+380676665823" class="text-2xl sm:text-3xl font-heading font-black text-brandLime hover:underline tracking-tight">
-                +380 (67) 666-58-23
-              </a>
-              <button onclick="copyPhoneToClipboard()" class="p-2.5 rounded-lg bg-white/5 border border-white/15 hover:border-brandLime text-white text-xs font-mono transition-all" title="Скопіювати телефон">
+              <a href="tel:+380676665823" class="text-2xl sm:text-3xl font-heading font-black text-brandLime hover:underline">+380 (67) 666-58-23</a>
+              <button onclick="copyPhoneToClipboard()" class="p-2.5 rounded-lg bg-white/5 border border-white/15 hover:border-brandLime text-white text-xs font-mono transition-all">
                 📋 <span id="copyPhoneStatus">Скопіювати</span>
               </button>
-            </div>
-
-            <div class="text-[11px] text-neutral-400">
-              Лінія відкрита щодня: 09:00 – 21:00 (Telegram / Viber / Дзвінки)
             </div>
           </div>
         </div>
 
-        <!-- Form Column -->
         <div class="lg:col-span-6 bg-black/90 p-6 sm:p-10 rounded-3xl border border-white/10 space-y-4">
-          <h3 class="text-xl font-heading font-black text-white uppercase">
-            Анкета на навчання
-          </h3>
-          <p class="text-xs text-neutral-400">
-            Залиште ім'я та контакти — куратор зв'яжеться з вами.
-          </p>
-
+          <h3 class="text-xl font-heading font-black text-white uppercase">Анкета на навчання</h3>
           <form onsubmit="handleContactSubmit(event)" class="space-y-4 pt-2">
             <div>
               <label class="block text-[11px] font-mono text-neutral-400 mb-1">ВАШЕ ІМ'Я</label>
-              <input type="text" id="contactName" required placeholder="Олександр" class="w-full px-4 py-3.5 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime transition-colors">
+              <input type="text" id="contactName" required placeholder="Олександр" class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime">
             </div>
-
             <div>
               <label class="block text-[11px] font-mono text-neutral-400 mb-1">НОМЕР ТЕЛЕФОНУ (АБО TELEGRAM)</label>
-              <input type="text" id="contactPhone" required value="+380" class="w-full px-4 py-3.5 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime font-mono transition-colors">
+              <input type="text" id="contactPhone" required value="+380" class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime font-mono">
             </div>
-
             <div>
               <label class="block text-[11px] font-mono text-neutral-400 mb-1">ОБЕРІТЬ ПАКЕТ</label>
-              <select id="contactPackageSelect" class="w-full px-4 py-3.5 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime transition-colors">
-                <option value="Індивідуальний менторинг (1-ше безкоштовно)" selected>Індивідуальний менторинг (1-ше 0 ₴ / далі 300 ₴ за 1.5 год)</option>
-                <option value="Груповий курс (4 місяці - 15 800 ₴)">Груповий курс на 4 місяці (15 800 ₴, 2 рази в тиждень)</option>
-                <option value="Груповий курс (2 місяці - 8 900 ₴)">Груповий курс на 2 місяці (8 900 ₴, інтенсив)</option>
-                <option value="Консультація проєкту (від 1 500 ₴)">Консультація проєкту (від 1 500 ₴, договірна)</option>
+              <select id="contactPackageSelect" class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime">
+                <option value="Індивідуальний менторинг (1-ше безкоштовно)">Індивідуальний менторинг (1-ше 0 ₴ / далі 300 ₴ за 1.5 год)</option>
+                <option value="Груповий курс (4 місяці)">Груповий курс на 4 місяці (15 800 ₴)</option>
+                <option value="Груповий курс (2 місяці)">Груповий курс на 2 місяці (8 900 ₴)</option>
+                <option value="Консультація проєкту">Консультація проєкту (від 1 500 ₴)</option>
               </select>
             </div>
-
             <div>
-              <label class="block text-[11px] font-mono text-neutral-400 mb-1">КОМЕНТАР АБО РІВЕНЬ ЗНАНЬ (НЕОБОВ'ЯЗКОВО)</label>
-              <textarea id="contactComment" rows="2" placeholder="Наприклад: вчу з нуля або маю питання по Illustrator..." class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime transition-colors"></textarea>
+              <label class="block text-[11px] font-mono text-neutral-400 mb-1">КОМЕНТАР (НЕОБОВ'ЯЗКОВО)</label>
+              <textarea id="contactComment" rows="2" class="w-full px-4 py-3 bg-brandSurface border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-brandLime"></textarea>
             </div>
-
-            <button type="submit" id="submitBtn" class="w-full py-4 bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl hover:bg-white hover:shadow-[0_0_20px_#ccff00] transition-all">
+            <button type="submit" id="submitBtn" class="w-full py-4 bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl hover:bg-white transition-all">
               Записатися на потік
             </button>
           </form>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="border-t border-brandBorder bg-black py-10 px-4 sm:px-6 lg:px-8 relative z-10 text-neutral-500 text-xs">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      
       <div class="flex items-center gap-1.5">
         <span class="font-heading font-black text-xl text-white">format</span>
         <span class="font-heading font-black text-xl text-brandLime">ix</span>
         <span class="text-[11px] text-neutral-600 ml-2">© 2026. НАВЧАННЯ ГРАФІЧНОГО ДИЗАЙНУ.</span>
       </div>
-
       <div class="flex items-center gap-6 font-mono text-xs">
-        <a href="tel:+380676665823" class="text-white hover:text-brandLime transition-colors font-bold">+380 (67) 666-58-23</a>
-        <a href="#about" class="hover:text-white transition-colors">Про стек</a>
-        <a href="#courses" class="hover:text-white transition-colors">Пакети</a>
-        <a href="#portfolio" class="hover:text-white transition-colors">Кейси</a>
-      </div>
-
-      <div class="text-[10px] text-neutral-600 text-center md:text-right">
-        Photoshop • Illustrator • Figma • Онлайн по всій Україні
+        <a href="tel:+380676665823" class="text-white hover:text-brandLime font-bold">+380 (67) 666-58-23</a>
       </div>
     </div>
   </footer>
 
-  <!-- MODAL: COURSE DETAILS ("i" BUTTON POPUP) -->
+  <!-- MODAL: COURSE DETAILS -->
   <div id="courseInfoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
     <div class="bg-brandSurface border border-brandLime/50 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto lime-glow relative">
-      
       <div class="flex items-start justify-between border-b border-brandBorder pb-4">
         <div>
-          <span id="modalCourseBadge" class="text-[10px] font-mono text-brandLime uppercase font-bold tracking-widest">ПАКЕТ // 01</span>
-          <h3 id="modalCourseTitle" class="text-2xl font-black font-heading text-white uppercase mt-1">Індивідуальний менторинг</h3>
+          <span id="modalCourseBadge" class="text-[10px] font-mono text-brandLime uppercase font-bold tracking-widest">ПАКЕТ</span>
+          <h3 id="modalCourseTitle" class="text-2xl font-black font-heading text-white uppercase mt-1">Курс</h3>
         </div>
-        <button onclick="closeCourseInfo()" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime text-neutral-400 hover:text-white font-mono text-sm flex items-center justify-center transition-all">
-          ✕
-        </button>
+        <button onclick="closeCourseInfo()" class="w-8 h-8 rounded-full bg-white/5 border border-white/20 hover:border-brandLime text-neutral-400 hover:text-white font-mono text-sm flex items-center justify-center">✕</button>
       </div>
 
       <div class="space-y-4 text-xs sm:text-sm">
@@ -893,19 +652,17 @@ between items-center z-10">
           <h4 class="font-heading font-bold text-brandLime uppercase mb-1">Про програму:</h4>
           <p id="modalCourseDesc" class="text-neutral-300 leading-relaxed"></p>
         </div>
-
         <div>
-          <h4 class="font-heading font-bold text-white uppercase mb-2">Навчальні модулі та практика:</h4>
+          <h4 class="font-heading font-bold text-white uppercase mb-2">Навчальні модулі:</h4>
           <ul id="modalCourseModules" class="space-y-2 text-neutral-300"></ul>
         </div>
-
         <div class="grid grid-cols-2 gap-4 p-4 rounded-xl bg-black border border-white/10">
           <div>
             <div class="text-[10px] font-mono text-neutral-400 uppercase">Софт:</div>
             <div id="modalCourseTools" class="font-bold text-white text-xs mt-0.5"></div>
           </div>
           <div>
-            <div class="text-[10px] font-mono text-neutral-400 uppercase">Формат і час:</div>
+            <div class="text-[10px] font-mono text-neutral-400 uppercase">Формат:</div>
             <div id="modalCourseDuration" class="font-bold text-brandLime text-xs mt-0.5"></div>
           </div>
         </div>
@@ -914,67 +671,47 @@ between items-center z-10">
       <div class="pt-4 border-t border-brandBorder flex flex-wrap items-center justify-between gap-4">
         <div>
           <div class="text-[10px] font-mono text-neutral-400 uppercase">ВАРТІСТЬ:</div>
-          <div id="modalCoursePrice" class="text-2xl font-heading font-black text-brandLime">0 ₴ / 300 ₴</div>
+          <div id="modalCoursePrice" class="text-2xl font-heading font-black text-brandLime"></div>
         </div>
-        <div class="flex items-center gap-3">
-          <a href="tel:+380676665823" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-mono transition-all">
-            📞 Зателефонувати
-          </a>
-          <button id="modalEnrollBtn" class="px-6 py-2.5 rounded-xl bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_15px_#ccff00]">
-            Записатися на цей пакет
-          </button>
-        </div>
+        <button id="modalEnrollBtn" class="px-6 py-2.5 rounded-xl bg-brandLime text-black font-heading font-black text-xs uppercase tracking-wider hover:bg-white transition-all">
+          Записатися на цей пакет
+        </button>
       </div>
-
     </div>
   </div>
 
-  <!-- MODAL: INTERACTIVE "MINI-SITE IN SITE" BROWSER WINDOW -->
+  <!-- MODAL: INTERACTIVE CASES -->
   <div id="interactiveCaseModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300">
     <div class="bg-brandDark border border-brandLime/60 rounded-2xl sm:rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl lime-glow">
-      
-      <!-- OS/Browser Topbar -->
       <div class="h-12 bg-brandSurface border-b border-brandBorder px-4 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer" onclick="closeInteractiveCase()"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
           <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
         </div>
-
         <div class="px-4 py-1 rounded-lg bg-black/60 border border-white/10 text-[11px] font-mono text-neutral-400 flex items-center gap-2">
           <span class="text-brandLime font-bold">🔒 https://</span>
-          <span id="caseBrowserUrl" class="text-white">kairo-coffee.format-ix.local</span>
+          <span id="caseBrowserUrl" class="text-white">case.format-ix.local</span>
         </div>
-
-        <button onclick="closeInteractiveCase()" class="text-neutral-400 hover:text-white text-sm font-mono px-2 py-1">
-          ✕ Закрити
-        </button>
+        <button onclick="closeInteractiveCase()" class="text-neutral-400 hover:text-white text-sm font-mono px-2 py-1">✕ Закрити</button>
       </div>
-
-      <!-- Interactive Dynamic Content Workspace -->
-      <div id="interactiveCaseBody" class="p-6 sm:p-8 overflow-y-auto flex-1 bg-[#0b0b0e]">
-        <!-- Populated dynamically by openInteractiveCase() -->
-      </div>
-
+      <div id="interactiveCaseBody" class="p-4 sm:p-8 overflow-y-auto flex-1 bg-[#0b0b0e]"></div>
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- TOAST -->
   <div id="toastMessage" class="fixed bottom-6 right-6 z-50 px-5 py-3.5 rounded-2xl bg-brandLime text-black font-heading font-bold text-xs shadow-2xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3">
     Повідомлення
   </div>
 
-  <!-- SCRIPT -->
   <script>
-    /* ========================================================================
-       1. PRECISION STUDIO DOT & RING CURSOR
-    ======================================================================== */
     const cursorDot = document.getElementById('studio-cursor-dot');
     const cursorRing = document.getElementById('studio-cursor-ring');
     let mouseX = -100, mouseY = -100;
     let ringX = -100, ringY = -100;
 
-    window.addEventListener('mousemove', (e) => {
+    window.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
       mouseX = e.clientX;
       mouseY = e.clientY;
       cursorDot.style.left = `${mouseX}px`;
@@ -991,23 +728,19 @@ between items-center z-10">
     animateRing();
 
     function setupCursorInteractions() {
-      const clickables = document.querySelectorAll('a, button, input, select, textarea, [role="button"]');
+      const clickables = document.querySelectorAll('a, button, input, select, textarea');
       clickables.forEach(el => {
         el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-active'));
         el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-active'));
       });
     }
 
-    /* ========================================================================
-       2. MOBILE MENU & HELPERS
-    ======================================================================== */
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
+      document.getElementById('mobileMenu').classList.toggle('hidden');
     }
 
     function enrollFreeIntro() {
-      enrollInPackage('Індивідуальний менторинг (1-ше безкоштовно)');
+      enrollInPackage('Індивідуальний менторинг');
     }
 
     function enrollInPackage(pkgName) {
@@ -1020,15 +753,11 @@ between items-center z-10">
           }
         }
       }
-      const contacts = document.getElementById('contacts');
-      contacts.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
       showToast(`Обрано: ${pkgName}`);
-      setTimeout(() => {
-        document.getElementById('contactName').focus();
-      }, 500);
+      setTimeout(() => document.getElementById('contactName').focus(), 500);
     }
 
-    /* Close modal on ESC */
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeCourseInfo();
@@ -1036,119 +765,121 @@ between items-center z-10">
       }
     });
 
-    /* ========================================================================
-       3. COURSE DETAILS POPUP ("i" BUTTON)
-    ======================================================================== */
     const courseDetails = {
       solo: {
         badge: "ПАКЕТ // 01",
-        title: "Індивідуальний менторинг (1-on-1)",
-        desc: "Персональні онлайн-заняття з куратором у Google Meet з демонстрацією екрана. Програма будується суто під ваші цілі: швидкий старт з нуля, розбір складних питань у Photoshop чи підготовка айдентики в Illustrator.",
+        title: "Індивідуальний менторинг",
+        desc: "Персональні онлайн-заняття з куратором у Google Meet з демонстрацією екрана під ваші практичні завдання.",
         modules: [
-          "Ввідне заняття (Безкоштовно, 1.5 год): знайомство, аудит поточних знань, налаштування софту",
-          "Illustrator Pro: побудова векторних знаків, робота з пером, швейцарські пропорції",
-          "Photoshop: колажування, світлотінь, створення реалістичних мокапів під кейси",
-          "Figma: робота з автолейаутами, стилями, компонентами та збірка брендбуку",
-          "Розбір ваших реальних проєктів та перевірка файлів до друку (CMYK, вильоти)"
+          "Ввідне заняття (0 ₴): аудит знань, вибір напрямку",
+          "Illustrator Pro: векторні логотипи, знаки, сітки",
+          "Photoshop: корекція, колажування, створення презентаційних мокапів",
+          "Figma: автолейаути, компоненти, підготовка брендбуку"
         ],
         tools: "Photoshop, Illustrator, Figma",
         duration: "1.5 години кожне заняття (гнучкий розклад)",
-        price: "1-ше: 0 ₴ • Далі: 300 ₴ / 1.5 год"
+        price: "0 ₴ (ввідне) / 300 ₴ далі"
       },
       group4: {
         badge: "ПАКЕТ // 02",
-        title: "Груповий курс (4 місяці) — Фундамент дизайну",
-        desc: "Повноцінна комплексна програма підготовки комерційного графічного дизайнера. Робота в міні-групах до 6 осіб. Від побудови модульних сіток до здачі повноцінного брендбуку клієнту.",
+        title: "Груповий курс (4 місяці)",
+        desc: "Комплексна підготовка графічного дизайнера від побудови композицій до комерційного брендбуку.",
         modules: [
-          "Модуль 1 (4 тижні): Основи компо    /* ========================================================================
-       4. INTERACTIVE PORTFOLIO — FIVE REAL MINI-SITES
-    ======================================================================== */
-    function openInteractiveCase(type) {
-      const modal = document.getElementById('interactiveCaseModal');
-      const body = document.getElementById('interactiveCaseBody');
-      const urlBar = document.getElementById('caseBrowserUrl');
+          "Модуль 1: Основи композиції, типографіка та модульні сітки",
+          "Модуль 2: Adobe Illustrator — розробка комерційних знаків та упаковок",
+          "Модуль 3: Adobe Photoshop — ретуш, колажі та презентаційні матеріали",
+          "Модуль 4: Збірка портфоліо у Behance та комунікація з клієнтами"
+        ],
+        tools: "Figma, Illustrator, Photoshop",
+        duration: "32 заняття (2 рази на тиждень по 1.5 год)",
+        price: "15 800 ₴"
+      },
+      group2: {
+        badge: "ПАКЕТ // 03",
+        title: "Груповий курс (2 місяці)",
+        desc: "Інтенсивна практична програма: векторні макети, графіка для реклами та робота у Figma.",
+        modules: [
+          "Модуль 1: Швидкий старт у векторі (Illustrator)",
+          "Модуль 2: Рекламні креативи та адаптація для соцмереж",
+          "Модуль 3: Підготовка презентаційного кейса"
+        ],
+        tools: "Illustrator, Figma, Photoshop",
+        duration: "16 занять (2 рази на тиждень по 1.5 год)",
+        price: "8 900 ₴"
+      },
+      consult: {
+        badge: "ПАКЕТ // 04",
+        title: "Консультація проєкту",
+        desc: "Індивідуальний аудит макетів, виправлення технічних помилок перед друком або запуском.",
+        modules: [
+          "Аналіз вихідних файлів (.ai, .psd, .fig)",
+          "Виправлення колірних профілів (CMYK / RGB)",
+          "Оптимізація та підготовка до виробництва"
+        ],
+        tools: "Будь-який софт зі стеку",
+        duration: "2 години інтенсивної роботи",
+        price: "від 1 500 ₴"
+      }
+    };
 
-      const sites = {
-        fashion: {
-          url: 'noirform.store',
-          html: `
-            <div class="mini-site bg-[#f4f1eb]">
-              <div class="mini-scroll">
-                <header class="mini-nav bg-[#f4f1eb]/95 backdrop-blur border-b border-black/10 px-5 sm:px-8 py-4 flex items-center justify-between">
-                  <div class="font-black tracking-[-.06em] text-xl">NOIR FORM</div>
-                  <nav class="hidden sm:flex gap-5 text-[10px] uppercase tracking-widest"><a href="#nf-new">New</a><a href="#nf-shop">Shop</a><a href="#nf-story">Story</a></nav>
-                  <button onclick="showToast('Кошик: 2 товари')" class="text-[10px] uppercase border border-black/20 rounded-full px-3 py-2">Bag (2)</button>
-                </header>
-                <section class="px-5 sm:px-10 pt-10 pb-14 grid lg:grid-cols-2 gap-8 items-end">
-                  <div><div class="text-[10px] uppercase tracking-[.3em] mb-5">Collection 06 / 26</div><h1 class="text-6xl sm:text-8xl font-black tracking-[-.08em] leading-[.8]">FORM<br>FOLLOWS<br>FUNCTION.</h1><p class="max-w-md mt-8 text-sm leading-6 text-black/60">Quiet objects, strong silhouettes and everyday pieces designed to stay relevant.</p><button onclick="showToast('Перегляд нової колекції')" class="mt-7 bg-black text-white rounded-full px-6 py-3 text-xs uppercase tracking-widest">Explore collection →</button></div>
-                  <div class="h-[420px] bg-[#c8c0b4] relative overflow-hidden"><div class="absolute left-1/2 top-8 -translate-x-1/2 w-52 h-80 bg-black" style="clip-path:polygon(15% 0,85% 0,100% 100%,0 100%)"></div><div class="absolute bottom-5 left-5 text-[9px] uppercase tracking-widest">No. 014 / Outerwear</div></div>
-                </section>
-                <section id="nf-new" class="px-5 sm:px-10 py-12 border-t border-black/10"><div class="flex justify-between items-end mb-6"><h2 class="text-3xl font-black">New arrivals</h2><button onclick="showToast('Фільтр: All')" class="text-xs underline">View all</button></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">${['01','02','03','04'].map((n,i)=>`<button onclick="showToast('Товар NOIR ${n}')" class="text-left group"><div class="aspect-[4/5] bg-[${['#c7beb1','#ddd8d0','#aaa9a4','#cfc6bb'][i]}] flex items-end p-3"><span class="bg-white/80 px-2 py-1 text-[9px]">NOIR ${n}</span></div><div class="pt-3 text-xs font-bold">Object ${n}</div><div class="text-[10px] text-black/50 mt-1">${[180,220,145,260][i]} €</div></button>`).join('')}</div></section>
-                <section id="nf-shop" class="px-5 sm:px-10 py-14 bg-black text-white"><div class="max-w-xl"><div class="text-[10px] uppercase tracking-[.3em] text-white/50">Materials</div><h2 class="text-4xl font-black mt-2">Nothing extra.</h2><p class="text-sm text-white/60 leading-6 mt-4">A student project focused on art direction, typography, responsive e-commerce and product hierarchy.</p></div></section>
-                <section id="nf-story" class="px-5 sm:px-10 py-16"><h2 class="text-5xl font-black tracking-tight">Built to be<br>used every day.</h2><div class="grid sm:grid-cols-3 gap-4 mt-10 text-xs"><div class="border-t border-black pt-3">01 — Design system</div><div class="border-t border-black pt-3">02 — Mobile UX</div><div class="border-t border-black pt-3">03 — Product cards</div></div></section>
-              </div>
-            </div>`
-        },
-        architecture: {
-          url: 'ateliermono.studio',
-          html: `
-            <div class="mini-site bg-[#e7e9e5]">
-              <div class="mini-scroll">
-                <header class="mini-nav px-5 sm:px-8 py-4 bg-[#e7e9e5]/95 backdrop-blur flex items-center justify-between border-b border-black/10">
-                  <div class="font-black text-lg">ATELIER MONO<span class="text-black/30"> / 26</span></div>
-                  <button onclick="showToast('Меню відкрито')" class="border border-black/20 px-3 py-2 text-[9px] uppercase">Menu +</button>
-                </header>
-                <section class="px-5 sm:px-10 py-10"><div class="text-[9px] uppercase tracking-[.3em]">Architecture / Interior / Object</div><div class="grid lg:grid-cols-12 gap-6 mt-8"><div class="lg:col-span-8"><h1 class="text-6xl sm:text-8xl font-black leading-[.82] tracking-[-.08em]">SPACE<br>WITHOUT<br>NOISE.</h1></div><div class="lg:col-span-4 flex items-end"><p class="text-sm leading-6 max-w-xs">Independent architecture studio working between structure, material and everyday life.</p></div></div></section>
-                <section class="px-5 sm:px-10"><div class="aspect-[16/8] bg-[#a9aea7] relative overflow-hidden"><div class="absolute left-[15%] top-[15%] w-[70%] h-[65%] border-[18px] border-[#2b302c]/70"></div><div class="absolute right-[12%] bottom-[8%] w-24 h-24 bg-[#d8dbd5]"></div><div class="absolute left-5 bottom-4 text-[9px] uppercase">House 014 / Kyiv region</div></div></section>
-                <section class="px-5 sm:px-10 py-14"><div class="flex justify-between items-end mb-7"><h2 class="text-4xl font-black">Selected work</h2><div class="text-[10px]">04 projects</div></div><div class="space-y-2">${['House 014','Courtyard 02','Object 07','Apartment 19'].map((x,i)=>`<button onclick="showToast('${x} — case opened')" class="w-full text-left py-5 border-t border-black/20 flex items-center justify-between hover:pl-3 transition-all"><span class="text-xl sm:text-3xl font-bold">${x}</span><span class="text-[10px] uppercase">${String(i+1).padStart(2,'0')} ↗</span></button>`).join('')}</div></section>
-                <section class="px-5 sm:px-10 py-16 bg-[#181b18] text-white"><div class="text-[9px] uppercase tracking-[.3em] text-white/40">About the studio</div><h2 class="text-4xl sm:text-6xl font-black mt-4 max-w-3xl">We design calm places for loud lives.</h2><button onclick="showToast('Контактна форма')" class="mt-8 border border-white/30 rounded-full px-5 py-3 text-[10px] uppercase">Start a project →</button></section>
-              </div>
-            </div>`
-        },
-        restaurant: {
-          url: 'mesa.wine',
-          html: `
-            <div class="mini-site bg-[#f4e7d5]">
-              <div class="mini-scroll">
-                <header class="mini-nav px-5 sm:px-8 py-4 bg-[#f4e7d5]/95 backdrop-blur flex justify-between items-center"><div class="font-serif font-black text-2xl">MESA</div><div class="hidden sm:flex gap-5 text-[10px] uppercase"><a href="#mesa-menu">Menu</a><a href="#mesa-place">Place</a><a href="#mesa-about">About</a></div><button onclick="showToast('Table booking')" class="bg-[#2a2019] text-white px-4 py-2 rounded-full text-[9px] uppercase">Book</button></header>
-                <section class="px-5 sm:px-10 py-12 text-center"><div class="text-[9px] uppercase tracking-[.4em]">Wine · Kitchen · Slow evenings</div><h1 class="font-serif text-7xl sm:text-[9rem] leading-[.75] font-black mt-8">GOOD<br>FOOD.</h1><p class="max-w-md mx-auto mt-8 text-sm leading-6 text-black/60">A neighbourhood restaurant where seasonal plates meet natural wine and long conversations.</p><button onclick="document.getElementById('mesa-menu').scrollIntoView({behavior:'smooth'})" class="mt-7 bg-[#2a2019] text-white rounded-full px-6 py-3 text-xs uppercase">See tonight's menu ↓</button></section>
-                <section id="mesa-menu" class="px-5 sm:px-10 py-12 bg-[#2a2019] text-[#f4e7d5]"><div class="flex justify-between"><h2 class="font-serif text-4xl font-black">Tonight</h2><span class="text-[9px] uppercase">18:00 — 23:30</span></div><div class="mt-8 grid md:grid-cols-2 gap-x-10">${[['Charred leek','hazelnut / brown butter','14'],['Beef tartare','mustard / sourdough','19'],['Roasted peach','stracciatella / basil','12'],['Sea bream','fennel / citrus','24'],['Mushroom ravioli','sage / parmesan','18'],['Chocolate tart','sea salt / olive oil','11']].map(x=>`<button onclick="showToast('${x[0]} — ${x[2]} €')" class="text-left border-t border-white/15 py-5"><div class="flex justify-between gap-4"><span class="font-bold">${x[0]}</span><span>${x[2]} €</span></div><div class="text-[10px] text-white/50 mt-1">${x[1]}</div></button>`).join('')}</div></section>
-                <section id="mesa-place" class="px-5 sm:px-10 py-12"><div class="grid md:grid-cols-2 gap-8"><div class="aspect-square bg-[#b8784e]/50 rounded-full"></div><div class="flex flex-col justify-center"><div class="text-[9px] uppercase tracking-[.3em]">The place</div><h2 class="font-serif text-5xl font-black mt-3">A room made<br>for staying.</h2><p class="text-sm leading-6 text-black/60 mt-5">Soft light, open kitchen, 32 seats and a bar that never rushes you.</p></div></div></section>
-                <section id="mesa-about" class="px-5 sm:px-10 py-14 border-t border-black/10 text-center"><div class="text-[9px] uppercase tracking-[.3em]">MESA / 2026</div><h2 class="font-serif text-5xl font-black mt-4">See you at the table.</h2><button onclick="showToast('Бронювання: +380 67 000 00 00')" class="mt-7 underline text-xs uppercase">Reserve a table →</button></section>
-              </div>
-            </div>`
-        },
-        fintech: {
-          url: 'nova.money',
-          html: `
-            <div class="mini-site bg-[#0b0e14] text-white">
-              <div class="mini-scroll">
-                <header class="mini-nav px-5 sm:px-8 py-4 bg-[#0b0e14]/90 backdrop-blur flex items-center justify-between border-b border-white/10"><div class="font-black text-xl tracking-[-.05em]">NOVA<span class="text-blue-300">.</span></div><nav class="hidden sm:flex gap-5 text-[10px] text-white/60"><a href="#nova-home">Overview</a><a href="#nova-activity">Activity</a><a href="#nova-cards">Cards</a></nav><button onclick="showToast('Profile opened')" class="w-8 h-8 rounded-full bg-white/10 text-[9px]">AM</button></header>
-                <section id="nova-home" class="px-5 sm:px-10 py-10"><div class="flex flex-wrap gap-2 text-[9px] uppercase text-white/40"><span>Personal finance</span><span>•</span><span>September 2026</span></div><div class="mt-8 grid lg:grid-cols-2 gap-8"><div><h1 class="text-6xl sm:text-8xl font-black tracking-[-.08em] leading-[.8]">YOUR<br>MONEY,<br>VISIBLE.</h1><p class="mt-7 max-w-sm text-sm text-white/50 leading-6">A focused finance dashboard for people who want less noise and better decisions.</p><button onclick="document.getElementById('nova-activity').scrollIntoView({behavior:'smooth'})" class="mt-7 rounded-full bg-blue-300 text-black px-6 py-3 text-xs font-bold">Open dashboard →</button></div><div class="rounded-3xl bg-gradient-to-br from-[#202a42] to-[#121722] border border-white/10 p-6 min-h-[280px]"><div class="text-[9px] uppercase text-white/40">Total balance</div><div class="text-5xl font-black mt-3">$24,840.20</div><div class="mt-10 flex items-end gap-2 h-24">${[30,45,35,70,55,80,65,95,75,100].map(v=>`<div class="flex-1 bg-blue-300/70 rounded-t" style="height:${v}%"></div>`).join('')}</div></div></div></section>
-                <section id="nova-activity" class="px-5 sm:px-10 py-12 border-t border-white/10"><div class="flex justify-between items-end mb-6"><h2 class="text-3xl font-black">Recent activity</h2><button onclick="showToast('All transactions')" class="text-[10px] text-blue-300">View all</button></div><div class="space-y-2">${[['Whole Foods','− $84.20','Today'],['Salary','+ $3,400.00','Sep 22'],['Spotify','− $11.99','Sep 21'],['Airbnb','− $420.00','Sep 19']].map(x=>`<button onclick="showToast('${x[0]}: ${x[1]}')" class="w-full flex items-center justify-between p-4 rounded-2xl bg-white/5 hover:bg-white/10 text-left"><span><b class="text-sm">${x[0]}</b><small class="block text-[9px] text-white/40 mt-1">${x[2]}</small></span><span class="font-mono text-sm">${x[1]}</span></button>`).join('')}</div></section>
-                <section id="nova-cards" class="px-5 sm:px-10 py-14"><div class="grid md:grid-cols-2 gap-5"><div class="rounded-3xl p-6 min-h-52 bg-blue-300 text-black"><div class="font-black text-xl">NOVA / BLACK</div><div class="mt-20 text-sm">••••  4832</div></div><div class="rounded-3xl p-6 min-h-52 bg-white/5 border border-white/10"><div class="text-[9px] uppercase text-white/40">Spending insights</div><div class="text-4xl font-black mt-3">$1,284</div><div class="text-xs text-white/40 mt-1">this month</div></div></div></section>
-              </div>
-            </div>`
-        },
-        travel: {
-          url: 'northwild.travel',
-          html: `
-            <div class="mini-site bg-[#edf2ef] text-[#13221f]">
-              <div class="mini-scroll">
-                <header class="mini-nav px-5 sm:px-8 py-4 bg-[#edf2ef]/95 backdrop-blur flex items-center justify-between border-b border-black/10"><div class="font-black tracking-[-.06em]">NORTH WILD.</div><nav class="hidden sm:flex gap-5 text-[10px] uppercase"><a href="#wild-guides">Guides</a><a href="#wild-stays">Stays</a><a href="#wild-about">About</a></nav><button onclick="showToast('Saved places: 6')" class="text-[10px] uppercase">Saved (6)</button></header>
-                <section class="px-5 sm:px-10 py-10"><div class="grid lg:grid-cols-12 gap-7 items-end"><div class="lg:col-span-8"><div class="text-[9px] uppercase tracking-[.35em]">Slow travel / 2026</div><h1 class="text-7xl sm:text-[9rem] font-black tracking-[-.09em] leading-[.72] mt-6">GO<br>NORTH.</h1></div><div class="lg:col-span-4"><p class="text-sm leading-6">Cabins, trails and quiet places for a weekend away from the feed.</p><button onclick="document.getElementById('wild-guides').scrollIntoView({behavior:'smooth'})" class="mt-6 border border-black rounded-full px-5 py-3 text-[10px] uppercase">Explore guides ↓</button></div></div><div class="mt-10 aspect-[16/8] bg-[#8ea69c] relative overflow-hidden"><div class="absolute bottom-[-15%] left-[10%] w-[45%] h-[75%] bg-[#d9dfd9]" style="clip-path:polygon(50% 0,100% 45%,85% 100%,15% 100%,0 45%)"></div><div class="absolute bottom-4 left-5 text-[9px] uppercase">Carpathian cabin / 49.0° N</div></div></section>
-                <section id="wild-guides" class="px-5 sm:px-10 py-12 border-t border-black/10"><div class="flex justify-between mb-7"><h2 class="text-4xl font-black">Field notes</h2><span class="text-[9px] uppercase">12 guides</span></div><div class="grid md:grid-cols-3 gap-4">${[['01','Carpathians in October','3 days'],['02','Lake route','5 days'],['03','Cabins with a view','Weekend']].map(x=>`<button onclick="showToast('${x[1]} opened')" class="text-left group"><div class="aspect-[4/5] bg-[#b4c5bd] relative p-4"><span class="text-[9px] uppercase">${x[0]}</span><span class="absolute bottom-4 left-4 text-xs font-bold">${x[2]}</span></div><div class="mt-3 font-bold text-sm">${x[1]}</div><div class="text-[10px] text-black/50 mt-1">Read field note →</div></button>`).join('')}</div></section>
-                <section id="wild-stays" class="px-5 sm:px-10 py-14 bg-[#19312b] text-white"><div class="text-[9px] uppercase tracking-[.3em] text-white/40">Places to stay</div><div class="grid md:grid-cols-2 gap-8 mt-5"><div><h2 class="text-5xl font-black">Wake up<br>somewhere<br>else.</h2></div><div class="flex items-end"><p class="text-sm leading-6 text-white/60">Hand-picked cabins, small hotels and houses surrounded by landscape. No giant resorts.</p></div></div></section>
-                <section id="wild-about" class="px-5 sm:px-10 py-14 text-center"><div class="text-[9px] uppercase tracking-[.3em]">North Wild / Independent guide</div><h2 class="text-4xl sm:text-6xl font-black mt-4">Travel slower.<br>Notice more.</h2><button onclick="showToast('Newsletter subscription')" class="mt-7 underline text-xs uppercase">Get the monthly guide →</button></section>
-              </div>
-            </div>`
-        }
+    function openCourseInfo(type) {
+      const data = courseDetails[type];
+      if (!data) return;
+      document.getElementById('modalCourseBadge').innerText = data.badge;
+      document.getElementById('modalCourseTitle').innerText = data.title;
+      document.getElementById('modalCourseDesc').innerText = data.desc;
+      document.getElementById('modalCourseTools').innerText = data.tools;
+      document.getElementById('modalCourseDuration').innerText = data.duration;
+      document.getElementById('modalCoursePrice').innerText = data.price;
+
+      const list = document.getElementById('modalCourseModules');
+      list.innerHTML = data.modules.map(m => `<li class="flex items-start gap-2"><span class="text-brandLime font-bold">✦</span><span>${m}</span></li>`).join('');
+
+      document.getElementById('modalEnrollBtn').onclick = () => {
+        closeCourseInfo();
+        enrollInPackage(data.title);
       };
 
+      const modal = document.getElementById('courseInfoModal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCourseInfo() {
+      const modal = document.getElementById('courseInfoModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = '';
+    }
+
+    const sites = {
+      fashion: {
+        url: 'noirform.store',
+        html: `<div class="mini-site bg-[#f4f1eb]"><div class="mini-scroll"><header class="mini-nav bg-[#f4f1eb]/95 backdrop-blur border-b border-black/10 px-6 py-4 flex justify-between"><div class="font-black text-xl">NOIR FORM</div><button onclick="showToast('Кошик відкрито')" class="text-xs uppercase border border-black/20 rounded-full px-3 py-1">Bag (0)</button></header><div class="p-8"><h1 class="text-5xl font-black mb-4">FORM FOLLOWS FUNCTION.</h1><p class="text-sm text-black/60 max-w-md mb-6">Каталог мінімалістичного одягу. Досліджуйте реальні компоненти та адаптивні картки.</p><button onclick="showToast('Додано в кошик')" class="bg-black text-white px-6 py-3 rounded-full text-xs uppercase">Додати до кошика</button></div></div></div>`
+      },
+      architecture: {
+        url: 'ateliermono.studio',
+        html: `<div class="mini-site bg-[#e7e9e5]"><div class="mini-scroll"><header class="mini-nav px-6 py-4 bg-[#e7e9e5]/95 border-b border-black/10 flex justify-between"><div class="font-black text-lg">ATELIER MONO</div><button onclick="showToast('Меню')" class="text-xs uppercase">Menu</button></header><div class="p-8"><h1 class="text-5xl font-black mb-4">SPACE WITHOUT NOISE.</h1><p class="text-sm text-black/60 mb-6">Архітектурні проєкти, чітка типографіка та сітки.</p><button onclick="showToast('Проєкт House 014 відкрито')" class="border border-black px-6 py-3 rounded-full text-xs uppercase">Переглянути проєкти →</button></div></div></div>`
+      },
+      restaurant: {
+        url: 'mesa.wine',
+        html: `<div class="mini-site bg-[#f4e7d5]"><div class="mini-scroll"><header class="mini-nav px-6 py-4 border-b border-black/10 flex justify-between"><div class="font-serif font-black text-2xl">MESA</div><button onclick="showToast('Стіл заброньовано')" class="bg-[#2a2019] text-white px-4 py-2 rounded-full text-xs">Book Table</button></header><div class="p-8 text-center"><h1 class="font-serif text-6xl font-black mb-4">GOOD FOOD.</h1><p class="text-sm text-black/60 max-w-md mx-auto mb-6">Теплий гастрономічний інтерфейс із бронюванням столів.</p></div></div></div>`
+      },
+      fintech: {
+        url: 'nova.money',
+        html: `<div class="mini-site bg-[#0b0e14] text-white"><div class="mini-scroll"><header class="mini-nav px-6 py-4 border-b border-white/10 flex justify-between"><div class="font-black text-xl">NOVA.</div><div class="text-xs text-blue-300">Live Balance: $24,840.20</div></header><div class="p-8"><h1 class="text-5xl font-black mb-4">YOUR MONEY, VISIBLE.</h1><p class="text-sm text-white/50 mb-6">Темна тема, картки транзакцій та графіки активності.</p><button onclick="showToast('Транзакція надіслана')" class="bg-blue-300 text-black px-6 py-3 rounded-full text-xs font-bold">Відправити переказ</button></div></div></div>`
+      },
+      travel: {
+        url: 'northwild.travel',
+        html: `<div class="mini-site bg-[#edf2ef] text-[#13221f]"><div class="mini-scroll"><header class="mini-nav px-6 py-4 border-b border-black/10 flex justify-between"><div class="font-black">NORTH WILD.</div><button onclick="showToast('Гіди збережено')" class="text-xs uppercase">Saved (6)</button></header><div class="p-8"><h1 class="text-6xl font-black mb-4">GO NORTH.</h1><p class="text-sm text-black/60 mb-6">Журнальна сітка, картки маршрутів та детальні описи локацій.</p><button onclick="showToast('Маршрут збережено')" class="border border-black px-6 py-3 rounded-full text-xs uppercase">Зберегти маршрут</button></div></div></div>`
+      }
+    };
+
+    function openInteractiveCase(type) {
       const site = sites[type];
       if (!site) return;
-      urlBar.innerText = site.url;
-      body.innerHTML = site.html;
+      document.getElementById('caseBrowserUrl').innerText = site.url;
+      document.getElementById('interactiveCaseBody').innerHTML = site.html;
+      const modal = document.getElementById('interactiveCaseModal');
       modal.classList.remove('opacity-0', 'pointer-events-none');
       document.body.style.overflow = 'hidden';
       setupCursorInteractions();
@@ -1159,80 +890,16 @@ between items-center z-10">
       modal.classList.add('opacity-0', 'pointer-events-none');
       document.body.style.overflow = '';
     }
-              <h4 class="text-sm font-mono text-neutral-300 uppercase">Змініть стан компонента наживо:</h4>
-                <div class="space-y-3">
-                  <div>
-                    <label class="block text-[11px] font-mono text-neutral-400 mb-1">ТЕКСТ КНОПКИ:</label>
-                    <input type="text" id="btnTextInput" oninput="document.getElementById('figmaButton').innerText = this.value" value="Купити підписку" class="w-full px-3 py-2 bg-brandSurface border border-white/10 rounded-lg text-xs text-white font-mono focus:outline-none focus:border-brandLime">
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-mono text-neutral-400 mb-1">ЗАКРУГЛЕННЯ РАДІУСУ (BORDER RADIUS):</label>
-                    <div class="flex gap-2">
-                      <button onclick="document.getElementById('figmaButton').style.borderRadius = '0px'" class="px-3 py-1.5 rounded bg-white/5 border border-white/10 text-xs font-mono text-white">0px (Sharp)</button>
-                      <button onclick="document.getElementById('figmaButton').style.borderRadius = '12px'" class="px-3 py-1.5 rounded bg-white/5 border border-white/10 text-xs font-mono text-white">12px (Standard)</button>
-                      <button onclick="document.getElementById('figmaButton').style.borderRadius = '9999px'" class="px-3 py-1.5 rounded bg-white/5 border border-white/10 text-xs font-mono text-white">Pill (9999px)</button>
-                    </div>
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-mono text-neutral-400 mb-1">КОЛІРНИЙ СТИЛЬ (VARIABLES):</label>
-                    <div class="flex gap-2">
-                      <button onclick="setFigmaBtnColor('#ccff00', '#000000')" class="px-3 py-1.5 rounded bg-brandLime text-black text-xs font-mono font-bold">Lime Accent</button>
-                      <button onclick="setFigmaBtnColor('#ffffff', '#000000')" class="px-3 py-1.5 rounded bg-white text-black text-xs font-mono font-bold">Pure White</button>
-                      <button onclick="setFigmaBtnColor('#18181f', '#ffffff')" class="px-3 py-1.5 rounded bg-brandCard border border-white/20 text-white text-xs font-mono">Dark Outline</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
 
-      modal.classList.remove('opacity-0', 'pointer-events-none');
-      setupCursorInteractions();
+    function copyPhoneToClipboard() {
+      const phone = '+380676665823';
+      navigator.clipboard.writeText(phone).then(() => {
+        const status = document.getElementById('copyPhoneStatus');
+        status.innerText = '✓ Скопійовано!';
+        showToast('✓ Телефон скопійовано у буфер!');
+        setTimeout(() => status.innerText = 'Скопіювати', 2500);
+      });
     }
-
-    function closeInteractiveCase() {
-      const modal = document.getElementById('interactiveCaseModal');
-      modal.classList.add('opacity-0', 'pointer-events-none');
-    }
-
-    /* Helper functions for mini-sites */
-    function setCupColor(bg, text) {
-      const cup = document.getElementById('cupWrapper');
-      if (cup) {
-        cup.style.backgroundColor = bg;
-        cup.style.color = text;
-      }
-    }
-    function updateCoffeeBean(name, origin) {
-      const sub = document.getElementById('cupSubtitle');
-      if (sub) sub.innerText = `ORIGIN: ${origin}`;
-      showToast(`Обрано зерно: ${name}`);
-    }
-    function setPackagingFinish(title, bg, text) {
-      const tube = document.getElementById('cosmeticsTube');
-      const badge = document.getElementById('finishBadge');
-      if (tube && badge) {
-        tube.style.backgroundColor = bg;
-        tube.style.color = text;
-        badge.innerText = title.toUpperCase();
-      }
-      showToast(`Оздоблення: ${title}`);
-    }
-    function setFigmaBtnColor(bg, text) {
-      const btn = document.getElementById('figmaButton');
-      if (btn) {
-        btn.style.backgroundColor = bg;
-        btn.style.color = text;
-      }
-    }
-
-    /* ========================================================================
-       5. ANKETA & TELEGRAM DISPATCHER
-    ======================================================================== */
-    const TELEGRAM_BOT_TOKEN = ""; // Токен вашого бота
-    const TELEGRAM_CHAT_ID = "";   // Ваш chat_id
 
     async function handleContactSubmit(e) {
       e.preventDefault();
@@ -1240,68 +907,15 @@ between items-center z-10">
       const name = document.getElementById('contactName').value.trim();
       const phone = document.getElementById('contactPhone').value.trim();
       const pkg = document.getElementById('contactPackageSelect').value;
-      const comment = document.getElementById('contactComment').value.trim();
 
       submitBtn.disabled = true;
       submitBtn.innerText = "Відправка...";
 
-      const leadData = {
-        name,
-        phone,
-        package: pkg,
-        comment,
-        timestamp: new Date().toLocaleString('uk-UA')
-      };
-
-      let storedLeads = JSON.parse(localStorage.getItem('format_ix_leads') || '[]');
-      storedLeads.push(leadData);
-      localStorage.setItem('format_ix_leads', JSON.stringify(storedLeads));
-
-      if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-        const text = `⚡ *Нова заявка на курс Format IX!*%0A%0A` +
-                     `👤 *Ім'я:* ${name}%0A` +
-                     `📞 *Телефон/ТГ:* ${phone}%0A` +
-                     `🎯 *Пакет:* ${pkg}%0A` +
-                     `💬 *Коментар:* ${comment || '—'}`;
-        try {
-          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${text}&parse_mode=Markdown`);
-        } catch (err) {
-          console.warn('Telegram send failed:', err);
-        }
-      }
-
-      showToast(`⚡ Дякуємо, ${name}! Заявку прийнято. Ми зв'яжемося за номером ${phone}`);
+      showToast(`⚡ Дякуємо, ${name}! Заявку прийнято.`);
       e.target.reset();
       document.getElementById('contactPhone').value = "+380";
       submitBtn.disabled = false;
       submitBtn.innerText = "Записатися на потік";
-    }
-
-    /* ========================================================================
-       6. TELEPHONY & CLIPBOARD
-    ======================================================================== */
-    function copyPhoneToClipboard() {
-      const phone = '+380676665823';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(phone).then(onCopySuccess);
-      } else {
-        const el = document.createElement('textarea');
-        el.value = phone;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        onCopySuccess();
-      }
-    }
-
-    function onCopySuccess() {
-      const status = document.getElementById('copyPhoneStatus');
-      status.innerText = '✓ Скопійовано!';
-      showToast('✓ Телефон +380 (67) 666-58-23 скопійовано в буфер!');
-      setTimeout(() => {
-        status.innerText = 'Скопіювати';
-      }, 2500);
     }
 
     function showToast(msg) {
@@ -1309,16 +923,13 @@ between items-center z-10">
       toast.innerText = msg;
       toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
       toast.classList.add('opacity-100', 'translate-y-0');
-
       setTimeout(() => {
         toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
         toast.classList.remove('opacity-100', 'translate-y-0');
-      }, 3500);
+      }, 3000);
     }
 
-    /* ========================================================================
-       7. AMBIENT BACKGROUND CANVAS
-    ======================================================================== */
+    /* Ambient Canvas */
     const canvas = document.getElementById('ambientCanvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
@@ -1326,20 +937,16 @@ between items-center z-10">
     function resizeCanvas() {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      createParticles();
-    }
-
-    function createParticles() {
       particles = [];
-      const count = Math.floor(width / 45);
+      const count = Math.floor(width / 50);
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
           radius: Math.random() * 1.5 + 0.5,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-          alpha: Math.random() * 0.5 + 0.2
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          alpha: Math.random() * 0.4 + 0.1
         });
       }
     }
@@ -1350,7 +957,6 @@ between items-center z-10">
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
@@ -1360,19 +966,6 @@ between items-center z-10">
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(204, 255, 0, ${p.alpha})`;
         ctx.fill();
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 90) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(204, 255, 0, ${0.08 * (1 - dist / 90)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
       }
       requestAnimationFrame(drawAmbient);
     }
